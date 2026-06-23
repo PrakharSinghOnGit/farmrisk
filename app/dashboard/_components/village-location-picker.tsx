@@ -350,7 +350,7 @@ export function VillageLocationPicker() {
   };
 
   return (
-    <section className="lg:col-span-12 rounded-lg border border-emerald-950/10 bg-white shadow-sm shadow-emerald-950/5">
+    <section className="min-w-0 lg:col-span-12 rounded-lg border border-emerald-950/10 bg-white shadow-sm shadow-emerald-950/5">
       <div className="flex items-center justify-between gap-4 border-b border-slate-100 px-5 py-4">
         <div className="flex min-w-0 items-center gap-3">
           <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-emerald-50 text-emerald-700">
@@ -365,8 +365,8 @@ export function VillageLocationPicker() {
         </span>
       </div>
 
-      <div className="grid gap-5 p-5 xl:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
-        <div className="space-y-4">
+      <div className="grid gap-5 p-5 xl:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] w-full min-w-0">
+        <div className="space-y-4 min-w-0 w-full">
           <div className="space-y-2">
             <label className="text-xs font-medium uppercase tracking-[0.16em] text-slate-500">
               Search village
@@ -444,26 +444,28 @@ export function VillageLocationPicker() {
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
-            <Button
-              variant="outline"
-              className="h-11 rounded-md border-emerald-200 bg-white px-4 text-emerald-800 hover:bg-emerald-50"
-              onClick={() => mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })}
-              type="button"
-            >
-              <MapPinned className="size-4" />
-              Select from map
-            </Button>
-            <Button
-              className="h-11 rounded-md bg-emerald-700 px-4 text-white hover:bg-emerald-800"
-              onClick={handleUseLocation}
-              disabled={isLocating}
-              type="button"
-            >
-              <LocateFixed className="size-4" />
-              {isLocating ? "Locating..." : "Use my location"}
-            </Button>
-            <div className="ml-auto flex items-center gap-2">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-3 sm:flex-row w-full sm:w-auto">
+              <Button
+                variant="outline"
+                className="w-full sm:w-auto h-11 rounded-md border-emerald-200 bg-white px-4 text-emerald-800 hover:bg-emerald-50"
+                onClick={() => mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })}
+                type="button"
+              >
+                <MapPinned className="size-4" />
+                Select from map
+              </Button>
+              <Button
+                className="w-full sm:w-auto h-11 rounded-md bg-emerald-700 px-4 text-white hover:bg-emerald-800"
+                onClick={handleUseLocation}
+                disabled={isLocating}
+                type="button"
+              >
+                <LocateFixed className="size-4" />
+                {isLocating ? "Locating..." : "Use my location"}
+              </Button>
+            </div>
+            <div className="flex items-center justify-end gap-2 w-full sm:w-auto">
               <Button
                 type="button"
                 variant="outline"
@@ -546,7 +548,7 @@ export function VillageLocationPicker() {
           </div>
         </div>
 
-        <aside className="space-y-4">
+        <aside className="min-w-0 w-full flex flex-col gap-4">
           <div className="rounded-lg border border-emerald-100 bg-emerald-50/70 p-4">
             <p className="text-xs font-medium uppercase tracking-[0.16em] text-emerald-700">
               Selected location
@@ -579,7 +581,7 @@ export function VillageLocationPicker() {
             </div>
           </div>
 
-          <div className="rounded-lg border border-slate-100 bg-white p-4 shadow-sm">
+          <div className="rounded-lg border border-slate-100 bg-white p-4 shadow-sm flex-1">
             <div className="flex items-center justify-between gap-3">
               <p className="text-sm font-semibold text-slate-950">
                 Location notes
