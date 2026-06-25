@@ -1,4 +1,5 @@
-// components/app-sidebar.tsx
+"use client";
+
 import Link from "next/link";
 import {
   LayoutDashboard,
@@ -11,7 +12,6 @@ import {
 import {
   SIDEBAR_NAV_ITEMS,
   SIDEBAR_FOOTER_ITEMS,
-  content,
 } from "@/constants/content";
 import {
   Sidebar,
@@ -24,9 +24,8 @@ import {
   SidebarGroup,
 } from "@/components/ui/sidebar";
 import { SidebarLogoutButton } from "@/components/auth/logout-button";
+import { useLanguage } from "@/hooks/use-language";
 
-// ─── ICON LOOKUP MAP ───
-// Maps your JSON icon strings to real Lucide React components
 const iconMap: Record<string, LucideIcon> = {
   layout: LayoutDashboard,
   map: Map,
@@ -35,12 +34,30 @@ const iconMap: Record<string, LucideIcon> = {
   help: HelpCircle,
 };
 
+const titleKeys: Record<string, string> = {
+  "Overview": "overview",
+  "Farm Map": "farmMap",
+  "Weather Stats": "weatherStats",
+  "Profile": "profile",
+  "Settings": "settings",
+};
+
 export function AppSidebar() {
+  const { t } = useLanguage();
+
+  const getTranslatedTitle = (originalTitle: string) => {
+    const key = titleKeys[originalTitle];
+    if (key && t.sidebar && (t.sidebar as any)[key]) {
+      return (t.sidebar as any)[key];
+    }
+    return originalTitle;
+  };
+
   return (
     <Sidebar className="border-r border-slate-200 bg-white">
       <SidebarHeader className="border-b border-slate-100 p-4">
         <span className="text-lg font-bold tracking-wide text-emerald-700">
-          {content.title}
+          {t.title}
         </span>
       </SidebarHeader>
 
@@ -55,7 +72,7 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <Link href={item.link}>
                       <IconComponent />
-                      <span>{item.title}</span>
+                      <span>{getTranslatedTitle(item.title)}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -75,7 +92,7 @@ export function AppSidebar() {
                 <SidebarMenuButton asChild>
                   <Link href={item.link}>
                     <IconComponent />
-                    <span className="truncate">{item.title}</span>
+                    <span className="truncate">{getTranslatedTitle(item.title)}</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -89,3 +106,4 @@ export function AppSidebar() {
     </Sidebar>
   );
 }
+export default AppSidebar;

@@ -1,46 +1,31 @@
+"use client";
+
+import React from "react";
 import {
   Brain,
   CalendarDays,
   CloudSun,
   Sparkles,
   Sprout,
-  CheckCircle2,
-  Clock,
-  AlertCircle,
 } from "lucide-react";
 import type { ComponentType, ReactNode } from "react";
 
-import { content } from "@/constants/content";
 import {
-  aiOverview,
   forecast16Day,
   hourlyWeather,
+  aiOverview,
+  FARM_TASKS,
 } from "../_data/dashboard-data";
 import { VillageLocationPicker } from "./village-location-picker";
+import { useLanguage } from "@/hooks/use-language";
 
-const FARM_TASKS = [
-  {
-    label: "Irrigation schedule",
-    desc: "Zone B (Cotton) - 08:30 AM Today",
-    status: "Pending",
-    color: "text-amber-600 bg-amber-50 border-amber-200",
-    icon: Clock,
-  },
-  {
-    label: "Field health table",
-    desc: "Satellite analysis updated 1h ago",
-    status: "Completed",
-    color: "text-emerald-600 bg-emerald-50 border-emerald-200",
-    icon: CheckCircle2,
-  },
-  {
-    label: "Sensor alerts",
-    desc: "Low moisture in Soil Probe #4",
-    status: "Action Needed",
-    color: "text-rose-600 bg-rose-50 border-rose-200",
-    icon: AlertCircle,
-  },
-];
+const dateTranslations: Record<string, string> = {
+  en: "Tuesday, 23 June 2026",
+  hi: "मंगलवार, 23 जून 2026",
+  mr: "मंगळवार, 23 जून 2026",
+  ta: "செவ்வாய்கிழமை, 23 ஜூன் 2026",
+  gu: "મંગળવાર, 23 જૂન 2026",
+};
 
 function SectionCard({
   children,
@@ -85,13 +70,16 @@ function SectionHeader({
 }
 
 function HourlyWeatherBlock() {
+  const { language, t } = useLanguage();
+
   return (
     <SectionCard className="lg:col-span-8 transition-all duration-300 hover:shadow-md hover:border-emerald-950/20">
-      <SectionHeader icon={CloudSun} title="Hourly Weather" action="Today" />
+      <SectionHeader icon={CloudSun} title={t.dashboard.hourlyWeather} action={t.dashboard.today} />
       <div className="overflow-x-auto p-5">
         <div className="grid min-w-[720px] grid-cols-6 gap-3">
           {hourlyWeather.map((hour) => {
             const Icon = hour.icon;
+            const conditionStr = hour.condition[language] || hour.condition.en;
 
             return (
               <div
@@ -108,7 +96,7 @@ function HourlyWeatherBlock() {
                   {hour.temp}°C
                 </p>
                 <p className="mt-1 min-h-9 text-xs font-medium leading-5 text-slate-600">
-                  {hour.condition}
+                  {conditionStr}
                 </p>
                 <div className="mt-4 flex items-center justify-between text-[11px] text-slate-500">
                   <span className="flex items-center gap-1">
@@ -127,19 +115,25 @@ function HourlyWeatherBlock() {
 }
 
 function AiOverviewBlock() {
+  const { language, t } = useLanguage();
+  
+  const riskLevelStr = aiOverview.riskLevel[language] || aiOverview.riskLevel.en;
+  const summaryStr = aiOverview.summary[language] || aiOverview.summary.en;
+  const recommendationsList = aiOverview.recommendations[language] || aiOverview.recommendations.en;
+
   return (
     <SectionCard className="lg:col-span-4 transition-all duration-300 hover:shadow-md hover:border-emerald-950/20">
-      <SectionHeader icon={Brain} title="AI Overview" action="Intelligence" />
+      <SectionHeader icon={Brain} title={t.dashboard.aiOverview} action={t.dashboard.intelligence} />
       <div className="space-y-5 p-5">
         <div className="relative overflow-hidden rounded-xl border border-emerald-100 bg-gradient-to-br from-emerald-50/90 to-teal-50/40 p-5 shadow-xs">
           <div className="absolute right-0 top-0 translate-x-4 -translate-y-4 size-24 rounded-full bg-emerald-500/5 blur-xl pointer-events-none" />
           <div className="flex items-center justify-between gap-4">
             <div>
               <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-800">
-                Risk assessment
+                {t.dashboard.riskAssessment}
               </p>
               <p className="mt-1 text-2xl font-bold tracking-tight text-emerald-950">
-                {aiOverview.riskLevel}
+                {riskLevelStr}
               </p>
             </div>
             <div className="relative flex size-16 items-center justify-center rounded-full border-[5px] border-emerald-200/80 bg-white text-lg font-bold text-emerald-800 shadow-sm shadow-emerald-950/5">
@@ -148,16 +142,11 @@ function AiOverviewBlock() {
           </div>
         </div>
 
-        <p className="text-xs leading-5 text-slate-600 font-medium">
-          {aiOverview.summary}
-        </p>
+        <p className="text-xs leading-5 text-slate-600 font-medium">{summaryStr}</p>
 
         <div className="space-y-3 pt-2">
-          {aiOverview.recommendations.map((item) => (
-            <div
-              key={item}
-              className="flex gap-3 text-xs text-slate-700 leading-relaxed"
-            >
+          {recommendationsList.map((item) => (
+            <div key={item} className="flex gap-3 text-xs text-slate-700 leading-relaxed">
               <Sparkles className="mt-0.5 size-4 shrink-0 text-emerald-600" />
               <span>{item}</span>
             </div>
@@ -169,31 +158,33 @@ function AiOverviewBlock() {
 }
 
 function ForecastBlock() {
+  const { language, t } = useLanguage();
+
   return (
     <SectionCard className="lg:col-span-8 transition-all duration-300 hover:shadow-md hover:border-emerald-950/20">
       <SectionHeader
         icon={CalendarDays}
-        title="16 Day Forecast"
-        action="Planning window"
+        title={t.dashboard.forecast16Day}
+        action={t.dashboard.planningWindow}
       />
       <div className="max-h-[460px] overflow-y-auto p-5">
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {forecast16Day.map((day) => {
             const Icon = day.icon;
+            const dayStr = day.day[language] || day.day.en;
+            const conditionStr = day.condition[language] || day.condition.en;
 
             return (
               <div
-                key={`${day.day}-${day.date}`}
+                key={`${day.day.en}-${day.date}`}
                 className="group rounded-lg border border-slate-100 bg-white p-4 shadow-xs transition-all duration-300 hover:border-emerald-500/10 hover:shadow-xs"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <p className="text-sm font-semibold text-slate-950">
-                      {day.day}
+                      {dayStr}
                     </p>
-                    <p className="text-[10px] font-medium text-slate-400">
-                      {day.date}
-                    </p>
+                    <p className="text-[10px] font-medium text-slate-400">{day.date}</p>
                   </div>
                   <Icon className="size-5 text-amber-500 transition-transform group-hover:scale-110" />
                 </div>
@@ -206,7 +197,7 @@ function ForecastBlock() {
                   </span>
                 </div>
                 <p className="mt-2 text-xs font-medium text-slate-600 leading-normal">
-                  {day.condition}
+                  {conditionStr}
                 </p>
                 <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-slate-100">
                   <div
@@ -215,7 +206,7 @@ function ForecastBlock() {
                   />
                 </div>
                 <p className="mt-2 text-[10px] font-semibold text-slate-400">
-                  {day.rainChance}% rain chance
+                  {day.rainChance}% {t.dashboard.rainChance}
                 </p>
               </div>
             );
@@ -227,34 +218,36 @@ function ForecastBlock() {
 }
 
 function FarmTasksBlock() {
+  const { language, t } = useLanguage();
+
   return (
     <SectionCard className="lg:col-span-4 transition-all duration-300 hover:shadow-md hover:border-emerald-950/20">
-      <SectionHeader icon={Sprout} title="Farm Tasks" action="Coming next" />
+      <SectionHeader icon={Sprout} title={t.dashboard.farmTasks} action={t.dashboard.comingNext} />
       <div className="space-y-4 p-5">
         {FARM_TASKS.map((task) => {
           const Icon = task.icon;
+          const labelStr = task.label[language] || task.label.en;
+          const descStr = task.desc[language] || task.desc.en;
+          const statusStr = task.status[language] || task.status.en;
+
           return (
             <div
-              key={task.label}
+              key={task.label.en}
               className="flex items-start gap-4 rounded-lg border border-slate-100 bg-white p-4 shadow-xs transition-all hover:bg-slate-50/50"
             >
-              <div
-                className={`flex size-10 shrink-0 items-center justify-center rounded-lg border ${task.color}`}
-              >
+              <div className={`flex size-10 shrink-0 items-center justify-center rounded-lg border ${task.color}`}>
                 <Icon className="size-5" />
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-sm font-semibold text-slate-900 truncate">
-                    {task.label}
+                    {labelStr}
                   </p>
                   <span className="text-[10px] font-semibold uppercase tracking-wider">
-                    {task.status}
+                    {statusStr}
                   </span>
                 </div>
-                <p className="mt-1 text-xs text-slate-500 truncate">
-                  {task.desc}
-                </p>
+                <p className="mt-1 text-xs text-slate-500 truncate">{descStr}</p>
               </div>
             </div>
           );
@@ -265,25 +258,28 @@ function FarmTasksBlock() {
 }
 
 export function DashboardOverview() {
+  const { language, t } = useLanguage();
+  const dateStr = dateTranslations[language] || dateTranslations.en;
+
   return (
     <div className="mx-auto flex w-full max-w-7xl flex-col gap-5 px-4 py-5 sm:px-6 lg:px-8">
       <header className="flex flex-col justify-between gap-4 rounded-lg border border-emerald-950/10 bg-white p-5 shadow-sm shadow-emerald-950/5 md:flex-row md:items-center transition-all duration-300 hover:shadow-md">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">
-            {content.title} dashboard
+            FarmRisk {t.dashboard.livePreview}
           </p>
           <h1 className="mt-2 text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
-            Good morning, Rakesh.
+            {t.dashboard.title}
           </h1>
           <p className="mt-1 max-w-2xl text-sm font-medium text-slate-600">
-            Village-level weather and field risk signals for today.
+            {t.dashboard.subtitle}
           </p>
         </div>
         <div className="rounded-lg bg-emerald-50 px-4 py-3 text-right">
           <p className="text-sm font-bold text-emerald-950">
-            Tuesday, 23 June 2026
+            {dateStr}
           </p>
-          <p className="text-xs text-emerald-700">06:30 AM local snapshot</p>
+          <p className="text-xs text-emerald-700">06:30 AM {t.dashboard.snapshot}</p>
         </div>
       </header>
 

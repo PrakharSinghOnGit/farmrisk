@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { selectedVillage, villages } from "../_data/dashboard-data";
+import { useLanguage } from "@/hooks/use-language";
 
 type SearchResult = {
   id: string;
@@ -36,6 +37,129 @@ type Viewport = {
 
 const TILE_SIZE = 256;
 const INITIAL_ZOOM = 11;
+
+const locationTranslations: Record<string, Record<string, string>> = {
+  en: {
+    headerTitle: "Village & Location",
+    headerSubtitle: "India village search",
+    searchLabel: "Search village",
+    searchPlaceholder: "Search village, taluka, district...",
+    noMatches: "No matches yet. Try a district, taluka, or nearby village.",
+    selectMapBtn: "Select from map",
+    useLocationBtn: "Use my location",
+    locatingState: "Finding your location...",
+    selectedLocLabel: "Selected location",
+    latitudeLabel: "Latitude",
+    longitudeLabel: "Longitude",
+    sourceLabel: "Source",
+    notesTitle: "Location notes",
+    notesBadge: "Clean handoff",
+    note1: "Search uses India-bounded village suggestions from OpenStreetMap.",
+    note2: "Map clicks reverse-geocode into the nearest place name when available.",
+    note3: "Coordinates are kept as the stable source of truth for future API work.",
+    gpsStatus: "Live location captured",
+    mapStatus: "Map point selected",
+    villageStatus: "Village selected",
+    checkingStatus: "Checking map point...",
+    gpsFail: "Location permission denied",
+  },
+  hi: {
+    headerTitle: "गाँव और स्थान",
+    headerSubtitle: "भारत ग्राम खोज",
+    searchLabel: "गाँव खोजें",
+    searchPlaceholder: "गाँव, तालुका, जिला खोजें...",
+    noMatches: "अभी तक कोई मेल नहीं मिला। कोई जिला, तालुका या पास का गाँव आज़माएँ।",
+    selectMapBtn: "मानचित्र से चुनें",
+    useLocationBtn: "मेरी वर्तमान स्थिति",
+    locatingState: "आपकी स्थिति खोजी जा रही है...",
+    selectedLocLabel: "चयनित स्थान",
+    latitudeLabel: "अक्षांश (Latitude)",
+    longitudeLabel: "देशांतर (Longitude)",
+    sourceLabel: "स्रोत",
+    notesTitle: "स्थान संबंधी टिप्पणियाँ",
+    notesBadge: "सटीक हैंडऑफ",
+    note1: "खोज ओपनस्ट्रीटमैप से भारत-बाधित गाँव के सुझावों का उपयोग करती है।",
+    note2: "मानचित्र क्लिक उपलब्ध होने पर निकटतम स्थान नाम में परिवर्तित हो जाते हैं।",
+    note3: "भविष्य के एपीआई काम के लिए निर्देशांकों को स्थिर स्रोत के रूप में रखा गया है।",
+    gpsStatus: "लाइव स्थान प्राप्त किया गया",
+    mapStatus: "मानचित्र बिंदु चयनित",
+    villageStatus: "गाँव चयनित",
+    checkingStatus: "मानचित्र बिंदु की जाँच हो रही है...",
+    gpsFail: "स्थान अनुमति अस्वीकार कर दी गई",
+  },
+  mr: {
+    headerTitle: "गाव आणि स्थान",
+    headerSubtitle: "भारत गाव शोध",
+    searchLabel: "गाव शोधा",
+    searchPlaceholder: "गाव, तालुका, जिल्हा शोधा...",
+    noMatches: "अद्याप कोणतेही सामने आढळले नाहीत. जिल्हा, तालुका किंवा जवळील गाव वापरून पहा.",
+    selectMapBtn: "नकाशावरून निवडा",
+    useLocationBtn: "माझे वर्तमान स्थान वापरा",
+    locatingState: "तुमचे स्थान शोधत आहे...",
+    selectedLocLabel: "निवडलेले स्थान",
+    latitudeLabel: "अक्षांश",
+    longitudeLabel: "रेखांश",
+    sourceLabel: "स्रोत",
+    notesTitle: "स्थान नोट्स",
+    notesBadge: "सुरळीत जोडणी",
+    note1: "शोध ओपनस्ट्रीटमॅपवरून भारताशी मर्यादित गावच्या सूचना वापरतो.",
+    note2: "नकाशा क्लिक उपलब्ध असताना जवळच्या ठिकाणाच्या नावात बदलतात.",
+    note3: "भविष्यातील API कामासाठी निर्देशांक स्थिर स्रोत म्हणून ठेवले जातात.",
+    gpsStatus: "थेट स्थान मिळवले",
+    mapStatus: "नकाशा बिंदू निवडला",
+    villageStatus: "गाव निवडले",
+    checkingStatus: "नकाशा बिंदू तपासत आहे...",
+    gpsFail: "स्थान परवानगी नाकारली",
+  },
+  ta: {
+    headerTitle: "கிராமம் & இருப்பிடம்",
+    headerSubtitle: "இந்திய கிராம தேடல்",
+    searchLabel: "கிராமத்தைத் தேடுங்கள்",
+    searchPlaceholder: "கிராமம், தாலுகா, மாவட்டத்தைத் தேடுங்கள்...",
+    noMatches: "இன்னும் பொருத்தங்கள் இல்லை. மாவட்டம், தாலுகா அல்லது அருகிலுள்ள கிராமத்தை முயற்சிக்கவும்.",
+    selectMapBtn: "வரைபடத்தில் இருந்து தேர்ந்தெடுக்கவும்",
+    useLocationBtn: "எனது இருப்பிடத்தைப் பயன்படுத்தவும்",
+    locatingState: "உங்கள் இருப்பிடத்தைக் கண்டறிகிறது...",
+    selectedLocLabel: "தேர்ந்தெடுக்கப்பட்ட இருப்பிடம்",
+    latitudeLabel: "அட்சரேகை",
+    longitudeLabel: "தீர்க்கரேகை",
+    sourceLabel: "ஆதாரம்",
+    notesTitle: "இருப்பிடக் குறிப்புகள்",
+    notesBadge: "துல்லியமான ஒப்படைப்பு",
+    note1: "தேடல் OpenStreetMap இலிருந்து இந்தியா-எல்லைக்குட்பட்ட கிராம பரிந்துரைகளைப் பயன்படுத்துகிறது.",
+    note2: "வரைபட கிளிக்குகள் கிடைக்கக்கூடிய இடங்களில் அருகிலுள்ள இடப் பெயராக மாற்றப்படுகின்றன.",
+    note3: "எதிர்கால API வேலைகளுக்கு ஒருங்கிணைப்புகள் நிலையான உண்மை ஆதாரமாக வைக்கப்படுகின்றன.",
+    gpsStatus: "நேரடி இருப்பிடம் பெறப்பட்டது",
+    mapStatus: "வரைபட புள்ளி தேர்ந்தெடுக்கப்பட்டது",
+    villageStatus: "கிராமம் தேர்ந்தெடுக்கப்பட்டது",
+    checkingStatus: "வரைபட புள்ளியை சரிபார்க்கிறது...",
+    gpsFail: "இருப்பிட அனுமதி மறுக்கப்பட்டது",
+  },
+  gu: {
+    headerTitle: "ગામ અને સ્થાન",
+    headerSubtitle: "ભારત ગામ શોધ",
+    searchLabel: "ગામ શોધો",
+    searchPlaceholder: "ગામ, તાલુકા, જિલ્લો શોધો...",
+    noMatches: "હજુ સુધી કોઈ મેળ નથી. જિલ્લો, તાલુકો અથવા નજીકનું ગામ અજમાવો.",
+    selectMapBtn: "નકશા પરથી પસંદ કરો",
+    useLocationBtn: "મારા સ્થાનનો ઉપયોગ કરો",
+    locatingState: "તમારું સ્થાન શોધી રહ્યું છે...",
+    selectedLocLabel: "પસંદ કરેલ સ્થાન",
+    latitudeLabel: "અક્ષાંશ",
+    longitudeLabel: "રેખાંશ",
+    sourceLabel: "સ્ત્રોત",
+    notesTitle: "સ્થાન નોંધો",
+    notesBadge: "ચોક્કસ સોંપણી",
+    note1: "શોધ OpenStreetMap માંથી ભારત-બાઉન્ડેડ ગામના સૂચનોનો ઉપયોગ કરે છે.",
+    note2: "નકશા ક્લિક્સ ઉપલબ્ધ હોય ત્યારે નજીકના સ્થળના નામમાં ફેરફાર થાય છે.",
+    note3: "ભવિષ્યના API કાર્ય માટે કોઓર્ડિનેટ્સને સ્થિર સ્ત્રોત તરીકે રાખવામાં આવે છે.",
+    gpsStatus: "લાઇવ સ્થાન કેપ્ચર કર્યું",
+    mapStatus: "નકશા બિંદુ પસંદ કર્યું",
+    villageStatus: "ગામ પસંદ કર્યું",
+    checkingStatus: "નકશા બિંદુ તપાસી રહ્યું છે...",
+    gpsFail: "સ્થાન પરવાનગી નકારી",
+  },
+};
 
 function clampLatitude(lat: number) {
   return Math.max(-85.05112878, Math.min(85.05112878, lat));
@@ -96,6 +220,9 @@ async function reverseGeocode(lat: number, lng: number) {
 }
 
 export function VillageLocationPicker() {
+  const { language } = useLanguage();
+  const locTrans = locationTranslations[language] || locationTranslations.en;
+
   const [query, setQuery] = useState(selectedVillage.name);
   const [selected, setSelected] = useState<LocationState>({
     id: "default",
@@ -248,10 +375,10 @@ export function VillageLocationPicker() {
     setResults([]);
     setLocationStatus(
       source === "gps"
-        ? "Live location captured"
+        ? locTrans.gpsStatus
         : source === "map"
-          ? "Map point selected"
-          : "Village selected",
+          ? locTrans.mapStatus
+          : locTrans.villageStatus,
     );
   };
 
@@ -264,7 +391,7 @@ export function VillageLocationPicker() {
     const worldY = topLeftY + (event.clientY - rect.top);
     const next = unproject(worldX, worldY, zoom);
 
-    setLocationStatus("Checking map point...");
+    setLocationStatus(locTrans.checkingStatus);
 
     try {
       const reverse = await reverseGeocode(next.lat, next.lng);
@@ -299,7 +426,7 @@ export function VillageLocationPicker() {
     }
 
     setIsLocating(true);
-    setLocationStatus("Finding your location...");
+    setLocationStatus(locTrans.locatingState);
 
     navigator.geolocation.getCurrentPosition(
       async (position) => {
@@ -338,7 +465,7 @@ export function VillageLocationPicker() {
         }
       },
       () => {
-        setLocationStatus("Location permission denied");
+        setLocationStatus(locTrans.gpsFail);
         setIsLocating(false);
       },
       { enableHighAccuracy: true, timeout: 10000, maximumAge: 1000 },
@@ -357,11 +484,11 @@ export function VillageLocationPicker() {
             <MapPinned className="size-4" />
           </span>
           <h2 className="truncate text-base font-semibold text-slate-950">
-            Village & Location
+            {locTrans.headerTitle}
           </h2>
         </div>
         <span className="text-xs font-medium text-emerald-700">
-          India village search
+          {locTrans.headerSubtitle}
         </span>
       </div>
 
@@ -369,15 +496,15 @@ export function VillageLocationPicker() {
         <div className="space-y-4 min-w-0 w-full">
           <div className="space-y-2">
             <label className="text-xs font-medium uppercase tracking-[0.16em] text-slate-500">
-              Search village
+              {locTrans.searchLabel}
             </label>
             <div className="relative">
               <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
               <Input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                className="h-12 rounded-md border-slate-200 bg-slate-50 pl-10 pr-20 text-sm shadow-none focus-visible:ring-emerald-200"
-                placeholder="Search village, taluka, district..."
+                className="h-12 rounded-md border-slate-200 bg-slate-50 pl-10 pr-20 text-sm text-slate-900 dark:text-slate-900 shadow-none focus-visible:ring-emerald-200"
+                placeholder={locTrans.searchPlaceholder}
                 aria-label="Search village in India"
               />
               <div className="absolute inset-y-0 right-2 flex items-center gap-1.5">
@@ -438,7 +565,7 @@ export function VillageLocationPicker() {
                 </div>
               ) : query.trim().length >= 2 ? (
                 <div className="rounded-lg border border-slate-100 bg-slate-50 px-3 py-3 text-sm text-slate-500">
-                  No matches yet. Try a district, taluka, or nearby village.
+                  {locTrans.noMatches}
                 </div>
               ) : null}
             </div>
@@ -453,7 +580,7 @@ export function VillageLocationPicker() {
                 type="button"
               >
                 <MapPinned className="size-4" />
-                Select from map
+                {locTrans.selectMapBtn}
               </Button>
               <Button
                 className="w-full sm:w-auto h-11 rounded-md bg-emerald-700 px-4 text-white hover:bg-emerald-800"
@@ -462,7 +589,7 @@ export function VillageLocationPicker() {
                 type="button"
               >
                 <LocateFixed className="size-4" />
-                {isLocating ? "Locating..." : "Use my location"}
+                {isLocating ? locTrans.locatingState : locTrans.useLocationBtn}
               </Button>
             </div>
             <div className="flex items-center justify-end gap-2 w-full sm:w-auto">
@@ -505,7 +632,6 @@ export function VillageLocationPicker() {
               }
             }}
           >
-            {/* Map tiles are intentionally rendered as raw images from OSM. */}
             {tiles.map((tile) => (
               <div key={`${tile.x}-${tile.y}`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -551,7 +677,7 @@ export function VillageLocationPicker() {
         <aside className="min-w-0 w-full flex flex-col gap-4">
           <div className="rounded-lg border border-emerald-100 bg-emerald-50/70 p-4">
             <p className="text-xs font-medium uppercase tracking-[0.16em] text-emerald-700">
-              Selected location
+              {locTrans.selectedLocLabel}
             </p>
             <p className="mt-2 text-lg font-semibold text-emerald-950">
               {selected.name}
@@ -561,19 +687,19 @@ export function VillageLocationPicker() {
             </p>
             <div className="mt-4 space-y-2 rounded-md bg-white/80 p-3 text-sm text-slate-600">
               <div className="flex items-center justify-between gap-3">
-                <span>Latitude</span>
+                <span>{locTrans.latitudeLabel}</span>
                 <span className="font-medium text-slate-900">
                   {selected.lat.toFixed(4)}
                 </span>
               </div>
               <div className="flex items-center justify-between gap-3">
-                <span>Longitude</span>
+                <span>{locTrans.longitudeLabel}</span>
                 <span className="font-medium text-slate-900">
                   {selected.lng.toFixed(4)}
                 </span>
               </div>
               <div className="flex items-center justify-between gap-3">
-                <span>Source</span>
+                <span>{locTrans.sourceLabel}</span>
                 <span className="font-medium text-slate-900 capitalize">
                   {selected.source}
                 </span>
@@ -584,24 +710,24 @@ export function VillageLocationPicker() {
           <div className="rounded-lg border border-slate-100 bg-white p-4 shadow-sm flex-1">
             <div className="flex items-center justify-between gap-3">
               <p className="text-sm font-semibold text-slate-950">
-                Location notes
+                {locTrans.notesTitle}
               </p>
               <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600">
-                Clean handoff
+                {locTrans.notesBadge}
               </span>
             </div>
             <div className="mt-4 space-y-3 text-sm text-slate-600">
               <div className="flex gap-3">
-                <span className="mt-0.5 size-2.5 rounded-full bg-emerald-500" />
-                <span>Search uses India-bounded village suggestions from OpenStreetMap.</span>
+                <span className="mt-0.5 size-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span>{locTrans.note1}</span>
               </div>
               <div className="flex gap-3">
                 <span className="mt-0.5 size-2.5 rounded-full bg-emerald-500" />
-                <span>Map clicks reverse-geocode into the nearest place name when available.</span>
+                <span>{locTrans.note2}</span>
               </div>
               <div className="flex gap-3">
                 <span className="mt-0.5 size-2.5 rounded-full bg-emerald-500" />
-                <span>Coordinates are kept as the stable source of truth for future API work.</span>
+                <span>{locTrans.note3}</span>
               </div>
             </div>
           </div>

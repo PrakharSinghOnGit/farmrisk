@@ -183,6 +183,7 @@ export function LoginForm({
               disabled={isLoading}
               required
               autoFocus
+              className="text-slate-900 dark:text-slate-900"
             />
             <p className="text-xs text-slate-500">
               Include your country code. No email or password is needed.
@@ -241,7 +242,7 @@ export function LoginForm({
               disabled={isLoading}
               required
               autoFocus
-              className="text-center text-lg tracking-[0.45em]"
+              className="text-center text-lg tracking-[0.45em] text-slate-900 dark:text-slate-900"
             />
           </div>
 

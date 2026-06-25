@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Pickaxe, LayoutDashboard } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/providers/AuthProvider";
+import { useLanguage } from "@/hooks/use-language";
 
 interface AuthButtonsProps {
   className?: string;
@@ -13,6 +14,7 @@ interface AuthButtonsProps {
 
 export function AuthButtons({ className, isScrolled }: AuthButtonsProps) {
   const { user, loading } = useAuth();
+  const { t } = useLanguage();
 
   if (loading) {
     return <div className="bg-foreground/50 rounded-lg h-9 w-24" />;
@@ -21,13 +23,24 @@ export function AuthButtons({ className, isScrolled }: AuthButtonsProps) {
   if (user) {
     return (
       <div
-        className={cn("bg-foreground/10 rounded-xl border p-0.5", className)}
+        className={cn(
+          "bg-foreground/10 border p-0.5",
+          isScrolled ? "rounded-lg" : "rounded-xl",
+          className
+        )}
       >
-        <Button asChild size="lg" className={className}>
+        <Button
+          asChild
+          size={isScrolled ? "sm" : "lg"}
+          className={cn(
+            isScrolled ? "rounded-lg h-8 px-3 text-xs" : "rounded-xl px-5 text-base",
+            className
+          )}
+        >
           <Link href="/dashboard">
-            <span className="flex gap-2 items-center">
-              <LayoutDashboard className="size-4" />
-              Dashboard
+            <span className="flex gap-1.5 items-center">
+              <LayoutDashboard className={isScrolled ? "size-3.5" : "size-4"} />
+              {t.nav.goDashboard}
             </span>
           </Link>
         </Button>
@@ -36,12 +49,24 @@ export function AuthButtons({ className, isScrolled }: AuthButtonsProps) {
   }
 
   return (
-    <div className={cn("bg-foreground/10 rounded-xl border p-0.5", className)}>
-      <Button asChild size="lg" className="rounded-xl px-5 text-base">
+    <div
+      className={cn(
+        "bg-foreground/10 border p-0.5",
+        isScrolled ? "rounded-lg" : "rounded-xl",
+        className
+      )}
+    >
+      <Button
+        asChild
+        size={isScrolled ? "sm" : "lg"}
+        className={cn(
+          isScrolled ? "rounded-lg h-8 px-3 text-xs" : "rounded-xl px-5 text-base"
+        )}
+      >
         <Link href="/dashboard">
-          <span className="flex gap-2 items-center text-nowrap">
-            Get Started
-            <Pickaxe className="size-4" />
+          <span className="flex gap-1.5 items-center text-nowrap">
+            {t.nav.getStarted}
+            <Pickaxe className={isScrolled ? "size-3.5" : "size-4"} />
           </span>
         </Link>
       </Button>

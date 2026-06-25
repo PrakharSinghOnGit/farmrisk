@@ -26,6 +26,7 @@ export function ModeToggle() {
         ref={ref}
         variant="outline"
         size="icon"
+        className="text-black dark:text-white"
         // onClick={() => changeTheme()}
         onClick={toggleSwitchTheme}
         aria-label="Toggle theme"

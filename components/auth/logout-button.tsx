@@ -6,10 +6,12 @@ import { LoaderCircle, LogOut } from "lucide-react";
 import { SidebarMenuButton } from "@/components/ui/sidebar";
 import { AUTH_CONFIG } from "@/lib/auth/config";
 import { createClient } from "@/supabase/client";
+import { useLanguage } from "@/hooks/use-language";
 
 export function SidebarLogoutButton() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const { t, language } = useLanguage();
 
   async function logout() {
     setIsLoading(true);
@@ -22,20 +24,31 @@ export function SidebarLogoutButton() {
     router.refresh();
   }
 
+  const loggingOutText =
+    language === "hi"
+      ? "लॉग आउट हो रहा है..."
+      : language === "mr"
+        ? "लॉग आउट होत आहे..."
+        : language === "ta"
+          ? "வெளியேறுகிறது..."
+          : language === "gu"
+            ? "લૉગ આઉટ થઈ રહ્યું છે..."
+            : "Logging out...";
+
   return (
     <SidebarMenuButton
       type="button"
       variant="outline"
       onClick={logout}
       disabled={isLoading}
-      tooltip="Log out"
+      tooltip={t.sidebar.logout}
     >
       {isLoading ? (
         <LoaderCircle className="animate-spin" aria-hidden="true" />
       ) : (
         <LogOut aria-hidden="true" />
       )}
-      <span>{isLoading ? "Logging out..." : "Log out"}</span>
+      <span>{isLoading ? loggingOutText : t.sidebar.logout}</span>
     </SidebarMenuButton>
   );
 }

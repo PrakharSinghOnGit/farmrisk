@@ -9,6 +9,7 @@ import {
   initialProfileFormState,
   saveProfile,
 } from "@/app/dashboard/profile/actions";
+import { useLanguage } from "@/hooks/use-language";
 
 export function ProfileForm({
   profile,
@@ -21,16 +22,17 @@ export function ProfileForm({
     saveProfile,
     initialProfileFormState,
   );
+  const { t } = useLanguage();
 
   return (
     <form action={action} className="grid gap-5">
       <div className="grid gap-2">
         <label htmlFor="phone" className="text-sm font-medium text-slate-800">
-          Phone number
+          {t.profile.phoneLabel}
         </label>
         <Input id="phone" value={phone} disabled />
         <p className="text-xs text-slate-500">
-          Your phone number is managed by FarmRisk authentication.
+          {t.profile.phoneDesc}
         </p>
       </div>
 
@@ -39,7 +41,7 @@ export function ProfileForm({
           htmlFor="fullName"
           className="text-sm font-medium text-slate-800"
         >
-          Name
+          {t.profile.nameLabel}
         </label>
         <Input
           id="fullName"
@@ -47,14 +49,14 @@ export function ProfileForm({
           type="text"
           maxLength={120}
           defaultValue={profile?.full_name ?? ""}
-          placeholder="Your name"
+          placeholder={t.profile.namePlaceholder}
         />
       </div>
 
       <div className="grid gap-2 sm:grid-cols-2 sm:gap-4">
         <div className="grid gap-2">
           <label htmlFor="age" className="text-sm font-medium text-slate-800">
-            Age
+            {t.profile.ageLabel}
           </label>
           <Input
             id="age"
@@ -64,7 +66,7 @@ export function ProfileForm({
             min={1}
             max={120}
             defaultValue={profile?.age ?? ""}
-            placeholder="Age"
+            placeholder={t.profile.agePlaceholder}
           />
         </div>
 
@@ -73,7 +75,7 @@ export function ProfileForm({
             htmlFor="location"
             className="text-sm font-medium text-slate-800"
           >
-            Location
+            {t.profile.locationLabel}
           </label>
           <Input
             id="location"
@@ -81,7 +83,7 @@ export function ProfileForm({
             type="text"
             maxLength={200}
             defaultValue={profile?.location ?? ""}
-            placeholder="Village, district, or city"
+            placeholder={t.profile.locationPlaceholder}
           />
         </div>
       </div>
@@ -103,9 +105,8 @@ export function ProfileForm({
         ) : (
           <Save className="size-4" aria-hidden="true" />
         )}
-        {isPending ? "Saving..." : "Save profile"}
+        {isPending ? t.profile.savingBtn : t.profile.saveBtn}
       </Button>
     </form>
   );
 }
-
