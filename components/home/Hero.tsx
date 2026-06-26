@@ -5,9 +5,10 @@ import { Leaf, Menu, X } from "lucide-react";
 import { AuthButtons } from "@/components/home/AuthButtons";
 import { AnimatedGroup } from "@/components/ui/animated-group";
 import { cn } from "@/lib/utils";
-import { content } from "@/constants/content";
 import { ModeToggle } from "../ThemeChange";
 import { Button } from "../ui/button";
+import { useLanguage } from "@/hooks/use-language";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
 const transitionVariants = {
   item: {
@@ -30,6 +31,8 @@ const transitionVariants = {
 };
 
 export function Hero() {
+  const { t } = useLanguage();
+
   return (
     <>
       <HeroHeader />
@@ -39,35 +42,6 @@ export function Hero() {
           className="min-h-125 dark:bg-[url('/sat2.png')] bg-[url('/sat1.png')] bg-cover bg-center"
         >
           <div className="relative pt-24 md:pt-36">
-            <AnimatedGroup
-              variants={{
-                container: {
-                  visible: {
-                    transition: {
-                      delayChildren: 1,
-                    },
-                  },
-                },
-                item: {
-                  hidden: {
-                    opacity: 0,
-                    y: 20,
-                  },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: {
-                      type: "spring" as const,
-                      bounce: 0.3,
-                      duration: 2,
-                    },
-                  },
-                },
-              }}
-              className="absolute inset-0 -z-20"
-            >
-              <div />
-            </AnimatedGroup>
             <div
               aria-hidden
               className="absolute inset-0 -z-10 size-full [background:radial-gradient(125%_125%_at_50%_100%,transparent_0%,var(--background)_75%)]"
@@ -76,10 +50,10 @@ export function Hero() {
               <div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
                 <AnimatedGroup variants={transitionVariants}>
                   <h1 className="mt-8 text-white max-w-4xl mx-auto font-bold text-balance text-5xl md:text-7xl lg:mt-16 xl:text-[5.25rem]">
-                    {content.heroHeading}
+                    {t.heroHeading}
                   </h1>
                   <p className="mx-auto text-white mt-8 max-w-2xl text-balance text-md">
-                    {content.heroSubheading}
+                    {t.heroSubheading}
                   </p>
                 </AnimatedGroup>
                 <AnimatedGroup
@@ -124,9 +98,9 @@ export function Hero() {
                   className="mt-12 flex flex-col items-center justify-center gap-2 md:flex-row"
                 >
                   <AuthButtons className="w-40" />
-                  <Button variant="secondary" size="lg" className="w-30 h-12">
+                  <Button variant="secondary" size="lg" className="w-35 h-12">
                     <Link href="#problem" className="w-full">
-                      Learn More
+                      {t.nav.learnMore}
                     </Link>
                   </Button>
                 </AnimatedGroup>
@@ -166,14 +140,8 @@ export function Hero() {
   );
 }
 
-const menuItems = [
-  { name: "Problem", href: "#problem" },
-  { name: "Solution", href: "#solution" },
-  { name: "Feature", href: "#feature" },
-  { name: "How it Works", href: "#how-it-works" },
-];
-
 const HeroHeader = () => {
+  const { t } = useLanguage();
   const [menuState, setMenuState] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -184,6 +152,14 @@ const HeroHeader = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const menuItems = [
+    { name: t.nav.problem, href: "#problem" },
+    { name: t.nav.solution, href: "#solution" },
+    { name: t.nav.features, href: "#feature" },
+    { name: t.nav.howItWorks, href: "#how-it-works" },
+  ];
+
   return (
     <header>
       <nav
@@ -198,33 +174,43 @@ const HeroHeader = () => {
           )}
         >
           <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
-            <div className="flex w-full justify-between lg:w-auto">
+            <div className="flex w-full justify-between lg:flex-1 lg:justify-start items-center">
               <Link
                 href="/"
                 aria-label="home"
-                className="flex items-center space-x-2"
+                className={cn(
+                  "flex items-center transition-colors duration-300 text-black dark:text-white",
+                  isScrolled ? "gap-0" : "gap-2"
+                )}
               >
-                <Leaf />
-                <span className="text-2xl font-bold logoFace">Farm Risk</span>
+                <Leaf className="size-6 shrink-0 text-emerald-700 dark:text-emerald-500" />
+                <span
+                  className={cn(
+                    "text-2xl font-bold logoFace transition-all duration-300 ease-in-out whitespace-nowrap inline-block overflow-hidden",
+                    isScrolled ? "max-w-0 opacity-0" : "max-w-xs opacity-100"
+                  )}
+                >
+                  {t.title}
+                </span>
               </Link>
 
               <button
                 onClick={() => setMenuState(!menuState)}
                 aria-label={menuState == true ? "Close Menu" : "Open Menu"}
-                className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
+                className="relative z-20 -m-2.5 block cursor-pointer p-2.5 lg:hidden transition-colors duration-300 text-black dark:text-white"
               >
                 <Menu className="in-data-[state=active]:rotate-180 group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0 m-auto size-6 duration-200" />
                 <X className="group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200" />
               </button>
             </div>
 
-            <div className="absolute inset-0 m-auto hidden size-fit lg:block">
-              <ul className="flex gap-8 text-sm">
+            <div className="hidden lg:flex lg:flex-none lg:justify-center px-4">
+              <ul className="flex gap-6 xl:gap-8 text-sm">
                 {menuItems.map((item, index) => (
                   <li key={index}>
                     <Link
                       href={item.href}
-                      className="hover:text-accent-foreground block duration-150"
+                      className="block duration-150 transition-colors font-medium text-black dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 text-nowrap"
                     >
                       <span>{item.name}</span>
                     </Link>
@@ -233,14 +219,14 @@ const HeroHeader = () => {
               </ul>
             </div>
 
-            <div className="bg-background group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
+            <div className="bg-background group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:flex-1 lg:justify-end lg:gap-4 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
               <div className="lg:hidden">
                 <ul className="space-y-6 text-base">
                   {menuItems.map((item, index) => (
                     <li key={index}>
                       <Link
                         href={item.href}
-                        className="hover:text-accent-foreground block duration-150"
+                        className="text-black dark:text-white hover:text-emerald-600 dark:hover:text-emerald-400 block duration-150 font-medium"
                       >
                         <span>{item.name}</span>
                       </Link>
@@ -249,6 +235,7 @@ const HeroHeader = () => {
                 </ul>
               </div>
               <div className="flex w-full flex-col justify-center items-center space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
+                <LanguageSwitcher isScrolled={isScrolled} />
                 <ModeToggle />
                 <AuthButtons isScrolled={isScrolled} />
               </div>

@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeProvider } from "next-themes";
+import { ThemeProvider } from "@/components/theme-provider";
 import { content } from "../constants/content";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/providers/AuthProvider";
+import { LanguageProvider } from "@/providers/LanguageProvider";
 
 export const metadata: Metadata = {
-  title: content.title,
-  description: content.description,
+  title: content.en.title,
+  description: content.en.description,
 };
 
 export default function RootLayout({
@@ -27,12 +28,15 @@ export default function RootLayout({
       </head>
 
       <body className="min-h-full flex flex-col">
-        <AuthProvider>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            <TooltipProvider>{children}</TooltipProvider>
-          </ThemeProvider>
-        </AuthProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+              <TooltipProvider>{children}</TooltipProvider>
+            </ThemeProvider>
+          </AuthProvider>
+        </LanguageProvider>
       </body>
     </html>
   );
 }
+

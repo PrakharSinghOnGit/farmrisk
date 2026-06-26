@@ -9,6 +9,10 @@ import { content } from "@/constants/content";
 import { AUTH_CONFIG } from "@/lib/auth/config";
 import { hasDevSessionCookie } from "@/lib/auth/dev";
 import { createClient } from "@/supabase/server";
+import {
+  DashboardHeaderClient,
+  DashboardHeaderSubtitle,
+} from "@/components/language/DashboardHeaderClient";
 
 export default async function DashboardLayout({
   children,
@@ -34,16 +38,12 @@ export default async function DashboardLayout({
             <SidebarTrigger />
             <div>
               <p className="text-xs font-medium uppercase tracking-[0.18em] text-emerald-700">
-                {content.title}
+                FarmRisk
               </p>
-              <p className="text-sm text-slate-600">
-                Village weather and field intelligence
-              </p>
+              <DashboardHeaderSubtitle />
             </div>
           </div>
-          <div className="hidden rounded-md bg-emerald-50 px-3 py-2 text-sm font-medium text-emerald-800 sm:block">
-            Live dashboard preview
-          </div>
+          <DashboardHeaderClient />
         </header>
         {children}
       </SidebarInset>
