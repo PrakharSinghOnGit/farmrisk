@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 import { content } from "../constants/content";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/providers/AuthProvider";
@@ -39,4 +39,3 @@ export default function RootLayout({
     </html>
   );
 }
-

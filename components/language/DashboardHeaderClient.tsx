@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useLanguage } from "@/hooks/use-language";
-import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 export function DashboardHeaderClient() {
   const { t } = useLanguage();
@@ -20,9 +20,5 @@ export function DashboardHeaderClient() {
 export function DashboardHeaderSubtitle() {
   const { t } = useLanguage();
 
-  return (
-    <p className="text-sm text-slate-600">
-      {t.dashboard.subtitle}
-    </p>
-  );
+  return <p className="text-sm text-slate-600">{t.dashboard.subtitle}</p>;
 }
