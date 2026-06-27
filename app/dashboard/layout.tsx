@@ -13,6 +13,7 @@ import {
   DashboardHeaderClient,
   DashboardHeaderSubtitle,
 } from "@/components/language/DashboardHeaderClient";
+import { DashboardClientShell } from "./_components/dashboard-client-shell";
 
 export default async function DashboardLayout({
   children,
@@ -45,7 +46,7 @@ export default async function DashboardLayout({
           </div>
           <DashboardHeaderClient />
         </header>
-        {children}
+        <DashboardClientShell>{children}</DashboardClientShell>
       </SidebarInset>
     </SidebarProvider>
   );

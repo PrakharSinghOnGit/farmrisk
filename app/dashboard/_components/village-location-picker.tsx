@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { selectedVillage, villages } from "../_data/dashboard-data";
 import { useLanguage } from "@/hooks/use-language";
+import { useLocationContext } from "@/providers/location-provider";
 
 type SearchResult = {
   id: string;
@@ -222,6 +223,7 @@ async function reverseGeocode(lat: number, lng: number) {
 export function VillageLocationPicker() {
   const { language } = useLanguage();
   const locTrans = locationTranslations[language] || locationTranslations.en;
+  const { setLocation } = useLocationContext();
 
   const [query, setQuery] = useState(selectedVillage.name);
   const [selected, setSelected] = useState<LocationState>({
@@ -380,6 +382,14 @@ export function VillageLocationPicker() {
           ? locTrans.mapStatus
           : locTrans.villageStatus,
     );
+
+    // Propagate to shared context so weather blocks re-fetch
+    setLocation({
+      lat: next.lat,
+      lng: next.lng,
+      name: next.name,
+      displayName: next.displayName,
+    });
   };
 
   const handleMapClick = async (event: MouseEvent<HTMLDivElement>) => {
@@ -726,8 +736,8 @@ export function VillageLocationPicker() {
                 <span>{locTrans.note2}</span>
               </div>
               <div className="flex gap-3">
-                <span className="mt-0.5 size-2.5 rounded-full bg-emerald-500" />
-                <span>{locTrans.note3}</span>
+                <span className="mt-0.5 size-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Live weather is fetched from Open-Meteo for the selected coordinates — no API key required.</span>
               </div>
             </div>
           </div>
