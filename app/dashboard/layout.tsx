@@ -26,9 +26,7 @@ export default async function DashboardLayout({
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user && !devSession) {
-    redirect(AUTH_CONFIG.loginPath);
-  }
+
 
   return (
     <SidebarProvider defaultOpen>

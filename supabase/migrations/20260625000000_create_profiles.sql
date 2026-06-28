@@ -1,5 +1,7 @@
 create table public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
+  first_name text,
+  last_name text,
   full_name text,
   age smallint check (age is null or age between 1 and 120),
   location text,
@@ -59,8 +61,13 @@ security definer
 set search_path = ''
 as $$
 begin
-  insert into public.profiles (id, full_name)
-  values (new.id, nullif(new.raw_user_meta_data ->> 'full_name', ''))
+  insert into public.profiles (id, first_name, last_name, full_name)
+  values (
+    new.id,
+    nullif(new.raw_user_meta_data ->> 'first_name', ''),
+    nullif(new.raw_user_meta_data ->> 'last_name', ''),
+    concat_ws(' ', nullif(new.raw_user_meta_data ->> 'first_name', ''), nullif(new.raw_user_meta_data ->> 'last_name', ''))
+  )
   on conflict (id) do nothing;
   return new;
 end;

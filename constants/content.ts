@@ -175,6 +175,46 @@ export const content = {
       impactBtnLearnMore: "Learn More",
       goToSource: "Go to source",
     },
+    solution: {
+      badge: "The Solution",
+      headingPart1: "Empowering agriculture with ",
+      headingHighlight: "climate intelligence",
+      headingPart2: "",
+      description:
+        "FarmRisk bridges the gap between complex atmospheric science and daily farming decisions, translating real-time satellite telemetry and weather models into localized, high-yield actions.",
+      pillars: [
+        {
+          id: "precision",
+          title: "Hyper-Local Precision",
+          description: "GPS-targeted, village-level weather forecasts customized for your specific coordinates.",
+          icon: "Locate"
+        },
+        {
+          id: "actionable",
+          title: "Actionable Advisories",
+          description: "AI-driven farm advisories converting complex forecasts into clear agricultural actions.",
+          icon: "BrainCircuit"
+        },
+        {
+          id: "alerts",
+          title: "Real-Time Hazard Alerts",
+          description: "Instant, real-time alerts for lightning strikes, extreme storms, and frost risks.",
+          icon: "Zap"
+        },
+        {
+          id: "multilingual",
+          title: "Local Language Support",
+          description: "Entire interface and crop advisories translated natively into regional Indian languages.",
+          icon: "Languages"
+        }
+      ],
+      stats: [
+        { value: "99.2%", label: "Forecast Accuracy" },
+        { value: "10-Day", label: "Weather Outlook" },
+        { value: "4+", label: "Languages Supported" },
+        { value: "24/7", label: "Real-Time Updates" },
+      ],
+    },
   },
   hi: {
     title: "FarmRisk",
@@ -353,6 +393,46 @@ export const content = {
       impactBtnLearnMore: "अधिक जानें",
       goToSource: "स्रोत पर जाएं",
     },
+    solution: {
+      badge: "समाधान",
+      headingPart1: "कृषि को ",
+      headingHighlight: "जलवायु बुद्धिमत्ता",
+      headingPart2: " से सशक्त बनाना",
+      description:
+        "फ्रामरिस्क जटिल वायुमंडलीय विज्ञान और दैनिक कृषि निर्णयों के बीच की दूरी को पाटता है, वास्तविक समय के उपग्रह टेलीमेट्री और मौसम के पैटर्न को स्थानीयकृत, उच्च-उपज कार्यों में परिवर्तित करता है।",
+      pillars: [
+        {
+          id: "precision",
+          title: "अति-स्थानीय सटीकता",
+          description: "आपके विशिष्ट निर्देशांकों के लिए अनुकूलित जीपीएस-लक्षित, ग्रामीण स्तर के मौसम पूर्वानुमान।",
+          icon: "Locate"
+        },
+        {
+          id: "actionable",
+          title: "व्यावहारिक परामर्श",
+          description: "जटिल मौसम पूर्वानुमानों को स्पष्ट कृषि कार्यों में बदलने वाले एआई-संचालित कृषि परामर्श।",
+          icon: "BrainCircuit"
+        },
+        {
+          id: "alerts",
+          title: "वास्तविक समय जोखिम अलर्ट",
+          description: "बिजली गिरने, तीव्र तूफानों और पाले के जोखिमों के लिए त्वरित, वास्तविक समय के अलर्ट।",
+          icon: "Zap"
+        },
+        {
+          id: "multilingual",
+          title: "स्थानीय भाषा समर्थन",
+          description: "क्षेत्रीय भारतीय भाषाओं में मूल रूप से अनुवादित संपूर्ण इंटरफेस और फसल सलाह।",
+          icon: "Languages"
+        }
+      ],
+      stats: [
+        { value: "99.2%", label: "पूर्वानुमान सटीकता" },
+        { value: "10-दिन", label: "मौसम आउटलुक" },
+        { value: "4+", label: "समर्थित भाषाएं" },
+        { value: "24/7", label: "वास्तविक समय अपडेट" },
+      ],
+    },
   },
   mr: {
     title: "FarmRisk",
@@ -529,6 +609,46 @@ export const content = {
       impactBtnSolution: "उपाय शोधा",
       impactBtnLearnMore: "अधिक जाणून घ्या",
       goToSource: "स्रोताकडे जा",
+    },
+    solution: {
+      badge: "उपाय",
+      headingPart1: "शेतीला ",
+      headingHighlight: "हवामान बुद्धिमत्तेने",
+      headingPart2: " सक्षम करणे",
+      description:
+        "फार्मरिस्क हे गुंतागुंतीचे वातावरणीय विज्ञान आणि दैनंदिन शेती निर्णय यांच्यातील दरी सांधते, रिअल-टाइम सॅटेलाइट टेलिमेट्री आणि हवामान मॉडेल्सचे स्थानिक, उच्च-उत्पादन कृतींमध्ये रूपांतर करते.",
+      pillars: [
+        {
+          id: "precision",
+          title: "अति-स्थानिक अचूकता",
+          description: "तुमच्या विशिष्ट शेताच्या Coordinates साठी अचूकपणे अनुकूल केलेले गाव-पातळीवरील हवामान अंदाज.",
+          icon: "Locate"
+        },
+        {
+          id: "actionable",
+          title: "कृतीयोग्य सल्ले",
+          description: "क्लिष्ट हवामान अंदाजांचे सुस्पष्ट शेती कामात रूपांतर करणारे एआय-चालित कृषी सल्ले.",
+          icon: "BrainCircuit"
+        },
+        {
+          id: "alerts",
+          title: "रिअल-टाइम धोक्याचे इशारे",
+          description: "वीज कोसळणे, तीव्र वादळ आणि थंडीच्या धोक्यांसाठी त्वरित, रिअल-टाइम अलर्ट.",
+          icon: "Zap"
+        },
+        {
+          id: "multilingual",
+          title: "स्थानिक भाषा समर्थन",
+          description: "प्रादेशिक भारतीय भाषांमध्ये मूळ स्वरूपात अनुवादित संपूर्ण इंटरफेस आणि पीक सल्ले.",
+          icon: "Languages"
+        }
+      ],
+      stats: [
+        { value: "99.2%", label: "अंदाज अचूकता" },
+        { value: "10-दिवस", label: "हवामान दृष्टिकोन" },
+        { value: "4+", label: "समर्थित भाषा" },
+        { value: "24/7", label: "रिअल-टाइम अपडेट्स" },
+      ],
     },
   },
   ta: {
@@ -712,6 +832,46 @@ export const content = {
       impactBtnLearnMore: "மேலும் அறிய",
       goToSource: "மூலத்திற்குச் செல்லவும்",
     },
+    solution: {
+      badge: "தீர்வு",
+      headingPart1: "விவசாயத்திற்கு ",
+      headingHighlight: "காலநிலை நுண்ணறிவை",
+      headingPart2: " வழங்கி மேம்படுத்துதல்",
+      description:
+        "ஃபார்ம்ரிஸ்க் சிக்கலான வளிமண்டல அறிவியலுக்கும் தினசரி விவசாய முடிவுகளுக்கும் இடையிலான இடைவெளியைக் குறைக்கிறது, நிகழ்நேர செயற்கைக்கோள் டெலிமெட்ரி மற்றும் வானிலை மாதிரிகளை உள்ளூர்மயமாக்கப்பட்ட, அதிக மகசூல் தரும் செயல்களாக மாற்றுகிறது.",
+      pillars: [
+        {
+          id: "precision",
+          title: "அதீத-உள்ளூர் துல்லியம்",
+          description: "உங்கள் குறிப்பிட்ட ஒருங்கிணைப்புகளுக்காகத் தனிப்பயனாக்கப்பட்ட ஜிபிஎஸ்-அடிப்படையிலான கிராம அளவிலான வானிலை கணிப்புகள்.",
+          icon: "Locate"
+        },
+        {
+          id: "actionable",
+          title: "செயல்படக்கூடிய ஆலோசனைகள்",
+          description: "சிக்கலான வானிலை கணிப்புகளை தெளிவான விவசாய செயல்களாக மாற்றும் AI-இயங்கும் விவசாய ஆலோசனைகள்.",
+          icon: "BrainCircuit"
+        },
+        {
+          id: "alerts",
+          title: "நிகழ்நேர ஆபத்து எச்சரிக்கைகள்",
+          description: "மின்னல் தாக்கம், கடுமையான புயல் மற்றும் பனி ஆபத்துகளுக்கான உடனடி நிகழ்நேர எச்சரிக்கைகள்.",
+          icon: "Zap"
+        },
+        {
+          id: "multilingual",
+          title: "உள்ளூர் மொழி ஆதரவு",
+          description: "பிராந்திய இந்திய மொழிகளில் மொழிபெயர்க்கப்பட்ட முழுமையான இடைமுகம் மற்றும் பயிர் ஆலோசனைகள்.",
+          icon: "Languages"
+        }
+      ],
+      stats: [
+        { value: "99.2%", label: "கணிப்பு துல்லியம்" },
+        { value: "10-நாட்கள்", label: "வானிலை அவுட்லுக்" },
+        { value: "4+", label: "ஆதரிக்கப்படும் மொழிகள்" },
+        { value: "24/7", label: "நிகழ்நேர அறிவிப்புகள்" },
+      ],
+    },
   },
   gu: {
     title: "FarmRisk",
@@ -888,6 +1048,46 @@ export const content = {
       impactBtnSolution: "ઉકેલ શોધો",
       impactBtnLearnMore: "વધુ જાણો",
       goToSource: "સ્ત્રોત પર જાઓ",
+    },
+    solution: {
+      badge: "ઉકેલ",
+      headingPart1: "કૃષિને ",
+      headingHighlight: "હવામાન બુદ્ધિથી",
+      headingPart2: " સક્ષમ બનાવવું",
+      description:
+        "ફાર્મરિસ્ક જટિલ વાતાવરણીય વિજ્ઞાન અને દૈનિક ખેતીના નિર્ણયો વચ્ચેના અંતરને દૂર કરે છે, વાસ્તવિક સમયના સેટેલાઇટ ટેલિમેટ્રી અને હવામાન મોડલ્સને સ્થાનિક, ઉચ્ચ ઉપજ આપતી ક્રિયાઓમાં રૂપાંતરિત કરે છે.",
+      pillars: [
+        {
+          id: "precision",
+          title: "અતિ-સ્થાનિક ચોકસાઈ",
+          description: "તમારા ખેતરના કોઓર્ડિનેટ્સ માટે કસ્ટમાઇઝ કરેલી જીપીએસ-આધારિત ગામ-સ્તરની હવામાન આગાહી.",
+          icon: "Locate"
+        },
+        {
+          id: "actionable",
+          title: "યોગ્ય માર્ગદર્શન",
+          description: "જટિલ હવામાન આગાહીઓને સ્પષ્ટ કૃષિ આયોજનમાં ફેરવતા એઆઈ-સંચાલિત કૃષિ માર્ગદર્શન.",
+          icon: "BrainCircuit"
+        },
+        {
+          id: "alerts",
+          title: "રીઅલ-ટાઇમ જોખમ ચેતવણીઓ",
+          description: "વીજળી પડવા, તીવ્ર વાવાઝોડા અને પાક નુકસાનના જોખમો માટે ત્વરિત રીઅલ-ટાઇમ ચેતવણીઓ.",
+          icon: "Zap"
+        },
+        {
+          id: "multilingual",
+          title: "સ્થાનિક ભાષા સપોર્ટ",
+          description: "પ્રાદેશિક ભારતીય ભાષાઓમાં સરળતાથી ભાષાંતરિત સંપૂર્ણ વપરાશકર્તા ઇન્ટરફેસ અને પાક સલાહ.",
+          icon: "Languages"
+        }
+      ],
+      stats: [
+        { value: "99.2%", label: "આગાહીની ચોકસાઈ" },
+        { value: "10-દિવસ", label: "હવામાન આઉટલુક" },
+        { value: "4+", label: "સમર્થિત ભાષાઓ" },
+        { value: "24/7", label: "રીઅલ-ટાઇમ અપડેટ્સ" },
+      ],
     },
   },
 };

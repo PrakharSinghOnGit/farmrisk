@@ -176,7 +176,7 @@ const HeroHeader = () => {
     <header>
       <nav
         data-state={menuState && "active"}
-        className="fixed z-20 w-full px-2 group"
+        className="z-1000 fixed w-full px-2 group"
       >
         <div
           className={cn(
@@ -220,7 +220,7 @@ const HeroHeader = () => {
                   <li key={index}>
                     <Link
                       href={item.href}
-                      className="block duration-150 transition-colors font-medium text-black dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 text-nowrap"
+                      className="block duration-150 transition-colors font-medium text-black dark:text-slate-200 hover:text-emerald-900 dark:hover:text-emerald-400 text-nowrap"
                     >
                       <span>{item.name}</span>
                     </Link>

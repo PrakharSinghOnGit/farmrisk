@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useAuth } from "@/providers/AuthProvider";
+import { useAuth } from "@/hooks/use-auth";
 
 interface AuthButtonsProps {
   className?: string;
@@ -18,7 +18,7 @@ export function AuthButtons({
   text,
   icon,
 }: AuthButtonsProps) {
-  const { loading } = useAuth();
+  const { user, loading } = useAuth();
 
   if (loading) {
     return <div className="bg-foreground/50 rounded-lg h-9 w-24" />;
@@ -36,9 +36,9 @@ export function AuthButtons({
         size={isScrolled ? "sm" : "lg"}
         className="rounded-full text-nowrap w-full h-full"
       >
-        <Link href="/dashboard">
+        <Link href={user ? "/dashboard" : "/auth/choice"}>
           <span className="flex gap-1.5 items-center text-nowrap">
-            {text}
+            {user ? "Go to Dashboard" : text}
             {icon}
           </span>
         </Link>
