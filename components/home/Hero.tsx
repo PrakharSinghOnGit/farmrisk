@@ -1,21 +1,30 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { Leaf, Menu, X } from "lucide-react";
+import { LayoutDashboard, Leaf, Menu, Pickaxe, X } from "lucide-react";
 import { AuthButtons } from "@/components/home/AuthButtons";
 import { AnimatedGroup } from "@/components/ui/animated-group";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "../ThemeChange";
 import { Button } from "../ui/button";
 import { useLanguage } from "@/hooks/use-language";
-import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { UserBaseCounter } from "@/components/home/UserCount";
+import Image from "next/image";
 
 const transitionVariants = {
+  container: {
+    visible: {
+      transition: {
+        staggerChildren: 0.12,
+      },
+    },
+  },
   item: {
     hidden: {
       opacity: 0,
       filter: "blur(12px)",
-      y: 12,
+      y: 16,
     },
     visible: {
       opacity: 1,
@@ -23,8 +32,8 @@ const transitionVariants = {
       y: 0,
       transition: {
         type: "spring" as const,
-        bounce: 0.3,
-        duration: 1.5,
+        bounce: 0.1,
+        duration: 0.9,
       },
     },
   },
@@ -39,100 +48,104 @@ export function Hero() {
       <main className="overflow-hidden">
         <section
           id="hero"
-          className="min-h-125 dark:bg-[url('/sat2.png')] bg-[url('/sat1.png')] bg-cover bg-center"
+          className="relative min-h-125 lg:min-h-screen dark:bg-[url('/sat2.png')] bg-[url('/sat1.png')] bg-cover bg-center flex items-center overflow-hidden"
         >
-          <div className="relative pt-24 md:pt-36">
-            <div
-              aria-hidden
-              className="absolute inset-0 -z-10 size-full [background:radial-gradient(125%_125%_at_50%_100%,transparent_0%,var(--background)_75%)]"
-            />
-            <div className="mx-auto max-w-7xl px-6">
-              <div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
-                <AnimatedGroup variants={transitionVariants}>
-                  <h1 className="mt-8 text-white max-w-4xl mx-auto font-bold text-balance text-5xl md:text-7xl lg:mt-16 xl:text-[5.25rem]">
+          {/* Radial gradient background */}
+          <div
+            aria-hidden
+            className="absolute z-1 inset-0 size-full [background:linear-gradient(to_bottom,transparent_0%,transparent_70%,var(--background)_100%)]"
+          />
+          <div className="mx-[10%] max-w-7xl pt-28 pb-0 md:pt-36 lg:pt-24 w-full relative">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              {/* Left Side: Text and CTAs */}
+              <div className="lg:col-span-5 flex flex-col items-start text-left w-full backdrop-brightness-95 rounded-2xl z-100">
+                <AnimatedGroup
+                  variants={transitionVariants}
+                  className="w-full flex flex-col items-start"
+                >
+                  <h1 className="text-white font-bold text-5xl md:text-6xl xl:text-[5rem] tracking-tight text-left leading-tight">
                     {t.heroHeading}
                   </h1>
-                  <p className="mx-auto text-white mt-8 max-w-2xl text-balance text-md">
+                  <p className="text-left text-white mt-6 text-base md:text-lg opacity-90 max-w-lg leading-relaxed">
                     {t.heroSubheading}
                   </p>
+                  <div className="mt-8 w-full flex justify-start">
+                    <UserBaseCounter totalUsers={10000} />
+                  </div>
                 </AnimatedGroup>
+
                 <AnimatedGroup
                   variants={{
                     container: {
                       visible: {
                         transition: {
-                          delayChildren: 1,
+                          staggerChildren: 0.08,
+                          delayChildren: 0.45,
                         },
                       },
                     },
-                    item: {
-                      hidden: {
-                        opacity: 0,
-                      },
-                      visible: {
-                        opacity: 1,
-                        transition: {
-                          type: "spring" as const,
-                          bounce: 0.3,
-                          duration: 2,
-                        },
-                      },
-                    },
+                    item: transitionVariants.item,
                   }}
+                  className="mt-8 flex flex-row items-stretch sm:items-center justify-start gap-4 w-full sm:w-auto"
                 >
-                  <div className="absolute inset-0 z-0 pointer-events-none gradient dark:gradDark" />
+                  <AuthButtons
+                    className="w-40 h-13"
+                    text="Get Started"
+                    icon={<Pickaxe />}
+                  />
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    className="bg-background w-35 h-12"
+                  >
+                    <Link
+                      href="#problem"
+                      className="w-full flex items-center justify-center"
+                    >
+                      {t.nav.learnMore}
+                    </Link>
+                  </Button>
                 </AnimatedGroup>
+              </div>
 
+              {/* Right Side: Dashboard Image */}
+              <div className="relative z-0 lg:col-span-7 overflow-visible">
                 <AnimatedGroup
                   variants={{
                     container: {
                       visible: {
                         transition: {
                           staggerChildren: 0.05,
-                          delayChildren: 0.75,
+                          delayChildren: 0.2,
                         },
                       },
                     },
                     item: transitionVariants.item,
                   }}
-                  className="mt-12 flex flex-col items-center justify-center gap-2 md:flex-row"
+                  className="w-full lg:w-[155%] xl:w-[140%]"
                 >
-                  <AuthButtons className="w-40" />
-                  <Button variant="secondary" size="lg" className="w-35 h-12">
-                    <Link href="#problem" className="w-full">
-                      {t.nav.learnMore}
-                    </Link>
-                  </Button>
+                  <div className="rounded-2xl rounded-b-none lg:rounded-b-2xl border bg-background p-2 shadow-2xl ring-1">
+                    <Image
+                      src="/dashlight.png"
+                      alt="Dashboard"
+                      width={2200}
+                      height={1200}
+                      priority
+                      className="block dark:hidden w-full h-auto rounded-xl"
+                    />
+
+                    <Image
+                      src="/dashdark.png"
+                      alt="Dashboard"
+                      width={2200}
+                      height={1200}
+                      priority
+                      className="hidden dark:block w-full h-auto rounded-xl"
+                    />
+                  </div>
                 </AnimatedGroup>
               </div>
             </div>
-
-            <AnimatedGroup
-              variants={{
-                container: {
-                  visible: {
-                    transition: {
-                      staggerChildren: 0.05,
-                      delayChildren: 0.75,
-                    },
-                  },
-                },
-                item: transitionVariants.item,
-              }}
-            >
-              <div className="relative -mr-56 mt-8 overflow-hidden px-2 sm:mr-0 sm:mt-12 md:mt-20">
-                <div
-                  aria-hidden
-                  className="bg-linear-to-b to-background absolute inset-0 z-10 from-transparent from-35%"
-                />
-                <div className="inset-shadow-2xs ring-background dark:inset-shadow-white/20 bg-background relative mx-auto max-w-6xl overflow-hidden rounded-2xl border p-4 shadow-lg shadow-zinc-950/15 ring-1">
-                  <div
-                    className="bg-background aspect-15/8 relative rounded-2xl
-                  dark:bg-[url('/dashdark.png')] bg-[url('/dashlight.png')] bg-cover bg-center"
-                  ></div>
-                </div>
-              </div>
-            </AnimatedGroup>
           </div>
         </section>
       </main>
@@ -157,7 +170,6 @@ const HeroHeader = () => {
     { name: t.nav.problem, href: "#problem" },
     { name: t.nav.solution, href: "#solution" },
     { name: t.nav.features, href: "#feature" },
-    { name: t.nav.howItWorks, href: "#how-it-works" },
   ];
 
   return (
@@ -178,17 +190,15 @@ const HeroHeader = () => {
               <Link
                 href="/"
                 aria-label="home"
-                className={cn(
-                  "flex items-center transition-colors duration-300 text-black dark:text-white",
-                  isScrolled ? "gap-0" : "gap-2"
-                )}
+                className={
+                  "gap-2 flex items-center transition-colors duration-300 text-black dark:text-white"
+                }
               >
                 <Leaf className="size-6 shrink-0 text-emerald-700 dark:text-emerald-500" />
                 <span
-                  className={cn(
-                    "text-2xl font-bold logoFace transition-all duration-300 ease-in-out whitespace-nowrap inline-block overflow-hidden",
-                    isScrolled ? "max-w-0 opacity-0" : "max-w-xs opacity-100"
-                  )}
+                  className={
+                    "text-2xl font-bold logoFace transition-all duration-300 ease-in-out whitespace-nowrap inline-block overflow-hidden"
+                  }
                 >
                   {t.title}
                 </span>
@@ -234,10 +244,15 @@ const HeroHeader = () => {
                   ))}
                 </ul>
               </div>
-              <div className="flex w-full flex-col justify-center items-center space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-                <LanguageSwitcher isScrolled={isScrolled} />
+              <div className="flex w-full justify-center flex-row items-center gap-3 md:w-fit">
+                <LanguageSwitcher />
                 <ModeToggle />
-                <AuthButtons isScrolled={isScrolled} />
+                <AuthButtons
+                  isScrolled={isScrolled}
+                  text="Dashboard"
+                  icon={<LayoutDashboard />}
+                  className="h-10"
+                />
               </div>
             </div>
           </div>

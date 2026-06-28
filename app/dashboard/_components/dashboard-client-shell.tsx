@@ -1,6 +1,6 @@
 "use client";
 
-import { LocationProvider } from "@/providers/location-provider";
+import { LocationProvider } from "@/providers/LocationProvider";
 import type { ReactNode } from "react";
 
 export function DashboardClientShell({ children }: { children: ReactNode }) {

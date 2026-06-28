@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { selectedVillage, villages } from "../_data/dashboard-data";
 import { useLanguage } from "@/hooks/use-language";
-import { useLocationContext } from "@/providers/location-provider";
+import { useLocationContext } from "@/providers/LocationProvider";
 
 type SearchResult = {
   id: string;
@@ -56,8 +56,10 @@ const locationTranslations: Record<string, Record<string, string>> = {
     notesTitle: "Location notes",
     notesBadge: "Clean handoff",
     note1: "Search uses India-bounded village suggestions from OpenStreetMap.",
-    note2: "Map clicks reverse-geocode into the nearest place name when available.",
-    note3: "Coordinates are kept as the stable source of truth for future API work.",
+    note2:
+      "Map clicks reverse-geocode into the nearest place name when available.",
+    note3:
+      "Coordinates are kept as the stable source of truth for future API work.",
     gpsStatus: "Live location captured",
     mapStatus: "Map point selected",
     villageStatus: "Village selected",
@@ -69,7 +71,8 @@ const locationTranslations: Record<string, Record<string, string>> = {
     headerSubtitle: "भारत ग्राम खोज",
     searchLabel: "गाँव खोजें",
     searchPlaceholder: "गाँव, तालुका, जिला खोजें...",
-    noMatches: "अभी तक कोई मेल नहीं मिला। कोई जिला, तालुका या पास का गाँव आज़माएँ।",
+    noMatches:
+      "अभी तक कोई मेल नहीं मिला। कोई जिला, तालुका या पास का गाँव आज़माएँ।",
     selectMapBtn: "मानचित्र से चुनें",
     useLocationBtn: "मेरी वर्तमान स्थिति",
     locatingState: "आपकी स्थिति खोजी जा रही है...",
@@ -80,8 +83,10 @@ const locationTranslations: Record<string, Record<string, string>> = {
     notesTitle: "स्थान संबंधी टिप्पणियाँ",
     notesBadge: "सटीक हैंडऑफ",
     note1: "खोज ओपनस्ट्रीटमैप से भारत-बाधित गाँव के सुझावों का उपयोग करती है।",
-    note2: "मानचित्र क्लिक उपलब्ध होने पर निकटतम स्थान नाम में परिवर्तित हो जाते हैं।",
-    note3: "भविष्य के एपीआई काम के लिए निर्देशांकों को स्थिर स्रोत के रूप में रखा गया है।",
+    note2:
+      "मानचित्र क्लिक उपलब्ध होने पर निकटतम स्थान नाम में परिवर्तित हो जाते हैं।",
+    note3:
+      "भविष्य के एपीआई काम के लिए निर्देशांकों को स्थिर स्रोत के रूप में रखा गया है।",
     gpsStatus: "लाइव स्थान प्राप्त किया गया",
     mapStatus: "मानचित्र बिंदु चयनित",
     villageStatus: "गाँव चयनित",
@@ -93,7 +98,8 @@ const locationTranslations: Record<string, Record<string, string>> = {
     headerSubtitle: "भारत गाव शोध",
     searchLabel: "गाव शोधा",
     searchPlaceholder: "गाव, तालुका, जिल्हा शोधा...",
-    noMatches: "अद्याप कोणतेही सामने आढळले नाहीत. जिल्हा, तालुका किंवा जवळील गाव वापरून पहा.",
+    noMatches:
+      "अद्याप कोणतेही सामने आढळले नाहीत. जिल्हा, तालुका किंवा जवळील गाव वापरून पहा.",
     selectMapBtn: "नकाशावरून निवडा",
     useLocationBtn: "माझे वर्तमान स्थान वापरा",
     locatingState: "तुमचे स्थान शोधत आहे...",
@@ -117,7 +123,8 @@ const locationTranslations: Record<string, Record<string, string>> = {
     headerSubtitle: "இந்திய கிராம தேடல்",
     searchLabel: "கிராமத்தைத் தேடுங்கள்",
     searchPlaceholder: "கிராமம், தாலுகா, மாவட்டத்தைத் தேடுங்கள்...",
-    noMatches: "இன்னும் பொருத்தங்கள் இல்லை. மாவட்டம், தாலுகா அல்லது அருகிலுள்ள கிராமத்தை முயற்சிக்கவும்.",
+    noMatches:
+      "இன்னும் பொருத்தங்கள் இல்லை. மாவட்டம், தாலுகா அல்லது அருகிலுள்ள கிராமத்தை முயற்சிக்கவும்.",
     selectMapBtn: "வரைபடத்தில் இருந்து தேர்ந்தெடுக்கவும்",
     useLocationBtn: "எனது இருப்பிடத்தைப் பயன்படுத்தவும்",
     locatingState: "உங்கள் இருப்பிடத்தைக் கண்டறிகிறது...",
@@ -127,9 +134,12 @@ const locationTranslations: Record<string, Record<string, string>> = {
     sourceLabel: "ஆதாரம்",
     notesTitle: "இருப்பிடக் குறிப்புகள்",
     notesBadge: "துல்லியமான ஒப்படைப்பு",
-    note1: "தேடல் OpenStreetMap இலிருந்து இந்தியா-எல்லைக்குட்பட்ட கிராம பரிந்துரைகளைப் பயன்படுத்துகிறது.",
-    note2: "வரைபட கிளிக்குகள் கிடைக்கக்கூடிய இடங்களில் அருகிலுள்ள இடப் பெயராக மாற்றப்படுகின்றன.",
-    note3: "எதிர்கால API வேலைகளுக்கு ஒருங்கிணைப்புகள் நிலையான உண்மை ஆதாரமாக வைக்கப்படுகின்றன.",
+    note1:
+      "தேடல் OpenStreetMap இலிருந்து இந்தியா-எல்லைக்குட்பட்ட கிராம பரிந்துரைகளைப் பயன்படுத்துகிறது.",
+    note2:
+      "வரைபட கிளிக்குகள் கிடைக்கக்கூடிய இடங்களில் அருகிலுள்ள இடப் பெயராக மாற்றப்படுகின்றன.",
+    note3:
+      "எதிர்கால API வேலைகளுக்கு ஒருங்கிணைப்புகள் நிலையான உண்மை ஆதாரமாக வைக்கப்படுகின்றன.",
     gpsStatus: "நேரடி இருப்பிடம் பெறப்பட்டது",
     mapStatus: "வரைபட புள்ளி தேர்ந்தெடுக்கப்பட்டது",
     villageStatus: "கிராமம் தேர்ந்தெடுக்கப்பட்டது",
@@ -153,7 +163,8 @@ const locationTranslations: Record<string, Record<string, string>> = {
     notesBadge: "ચોક્કસ સોંપણી",
     note1: "શોધ OpenStreetMap માંથી ભારત-બાઉન્ડેડ ગામના સૂચનોનો ઉપયોગ કરે છે.",
     note2: "નકશા ક્લિક્સ ઉપલબ્ધ હોય ત્યારે નજીકના સ્થળના નામમાં ફેરફાર થાય છે.",
-    note3: "ભવિષ્યના API કાર્ય માટે કોઓર્ડિનેટ્સને સ્થિર સ્ત્રોત તરીકે રાખવામાં આવે છે.",
+    note3:
+      "ભવિષ્યના API કાર્ય માટે કોઓર્ડિનેટ્સને સ્થિર સ્ત્રોત તરીકે રાખવામાં આવે છે.",
     gpsStatus: "લાઇવ સ્થાન કેપ્ચર કર્યું",
     mapStatus: "નકશા બિંદુ પસંદ કર્યું",
     villageStatus: "ગામ પસંદ કર્યું",
@@ -167,7 +178,7 @@ function clampLatitude(lat: number) {
 }
 
 function normalizeLongitude(lng: number) {
-  const wrapped = ((lng + 180) % 360 + 360) % 360 - 180;
+  const wrapped = ((((lng + 180) % 360) + 360) % 360) - 180;
   return wrapped === -180 ? 180 : wrapped;
 }
 
@@ -177,10 +188,7 @@ function project(lat: number, lng: number, zoom: number) {
   return {
     x: ((normalizeLongitude(lng) + 180) / 360) * scale,
     y:
-      ((1 -
-        Math.log((1 + sinLat) / (1 - sinLat)) / (2 * Math.PI)) /
-        2) *
-      scale,
+      ((1 - Math.log((1 + sinLat) / (1 - sinLat)) / (2 * Math.PI)) / 2) * scale,
   };
 }
 
@@ -312,7 +320,13 @@ export function VillageLocationPicker() {
 
   const tiles = useMemo(() => {
     if (!viewport.width || !viewport.height) {
-      return [] as Array<{ x: number; y: number; url: string; left: number; top: number }>;
+      return [] as Array<{
+        x: number;
+        y: number;
+        url: string;
+        left: number;
+        top: number;
+      }>;
     }
 
     const centerPoint = project(center.lat, center.lng, zoom);
@@ -323,7 +337,13 @@ export function VillageLocationPicker() {
     const startY = Math.floor(topLeftY / TILE_SIZE);
     const endY = Math.floor((topLeftY + viewport.height) / TILE_SIZE);
     const maxTile = 2 ** zoom;
-    const mapTiles: Array<{ x: number; y: number; url: string; left: number; top: number }> = [];
+    const mapTiles: Array<{
+      x: number;
+      y: number;
+      url: string;
+      left: number;
+      top: number;
+    }> = [];
 
     for (let x = startX; x <= endX; x += 1) {
       for (let y = startY; y <= endY; y += 1) {
@@ -360,7 +380,15 @@ export function VillageLocationPicker() {
       left: viewport.width / 2 + (selectedPoint.x - centerPoint.x),
       top: viewport.height / 2 + (selectedPoint.y - centerPoint.y),
     };
-  }, [center.lat, center.lng, selected.lat, selected.lng, viewport.height, viewport.width, zoom]);
+  }, [
+    center.lat,
+    center.lng,
+    selected.lat,
+    selected.lng,
+    viewport.height,
+    viewport.width,
+    zoom,
+  ]);
 
   const updateSelection = async (
     next: SearchResult,
@@ -586,7 +614,12 @@ export function VillageLocationPicker() {
               <Button
                 variant="outline"
                 className="w-full sm:w-auto h-11 rounded-md border-emerald-200 bg-white px-4 text-emerald-800 hover:bg-emerald-50"
-                onClick={() => mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })}
+                onClick={() =>
+                  mapRef.current?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                  })
+                }
                 type="button"
               >
                 <MapPinned className="size-4" />
@@ -625,13 +658,14 @@ export function VillageLocationPicker() {
           </div>
 
           <div className="rounded-lg border border-slate-100 bg-slate-50/60 p-3 text-sm text-slate-600">
-            {locationStatus}: <span className="font-medium text-slate-900">{selected.name}</span>
+            {locationStatus}:{" "}
+            <span className="font-medium text-slate-900">{selected.name}</span>
           </div>
 
           <div
             ref={mapRef}
             onClick={handleMapClick}
-            className="relative h-[360px] overflow-hidden rounded-lg border border-slate-200 bg-[#d9e7d0] shadow-inner shadow-emerald-950/5"
+            className="relative h-90 overflow-hidden rounded-lg border border-slate-200 bg-[#d9e7d0] shadow-inner shadow-emerald-950/5"
             role="button"
             tabIndex={0}
             aria-label="Select location from map"
@@ -648,7 +682,7 @@ export function VillageLocationPicker() {
                 <img
                   src={tile.url}
                   alt=""
-                  className="absolute size-[256px] max-w-none select-none"
+                  className="absolute size-64 max-w-none select-none"
                   style={{
                     left: `${tile.left}px`,
                     top: `${tile.top}px`,
@@ -737,7 +771,10 @@ export function VillageLocationPicker() {
               </div>
               <div className="flex gap-3">
                 <span className="mt-0.5 size-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Live weather is fetched from Open-Meteo for the selected coordinates — no API key required.</span>
+                <span>
+                  Live weather is fetched from Open-Meteo for the selected
+                  coordinates — no API key required.
+                </span>
               </div>
             </div>
           </div>

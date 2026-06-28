@@ -23,7 +23,7 @@ import { aiOverview, FARM_TASKS } from "../_data/dashboard-data";
 import { VillageLocationPicker } from "./village-location-picker";
 import { useLanguage } from "@/hooks/use-language";
 import { useWeather, type WeatherIcon } from "@/hooks/use-weather";
-import { useLocationContext } from "@/providers/location-provider";
+import { useLocationContext } from "@/providers/LocationProvider";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const ICON_MAP: Record<WeatherIcon, LucideIcon> = {
@@ -119,7 +119,7 @@ function HourlyWeatherBlock() {
         {isError ? (
           <WeatherErrorBanner message={errorMessage} />
         ) : isLoading || !hourly ? (
-          <div className="grid min-w-[720px] grid-cols-6 gap-3">
+          <div className="grid min-w-180 grid-cols-6 gap-3">
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
@@ -140,7 +140,7 @@ function HourlyWeatherBlock() {
             ))}
           </div>
         ) : (
-          <div className="grid min-w-[720px] grid-cols-6 gap-3">
+          <div className="grid min-w-180d-cols-6 gap-3">
             {hourly.map((hour) => {
               const conditionStr =
                 hour.condition[language as keyof typeof hour.condition] ||
@@ -207,7 +207,7 @@ function AiOverviewBlock() {
         action={t.dashboard.intelligence}
       />
       <div className="space-y-5 p-5">
-        <div className="relative overflow-hidden rounded-xl border border-emerald-100 bg-gradient-to-br from-emerald-50/90 to-teal-50/40 p-5 shadow-xs">
+        <div className="relative overflow-hidden rounded-xl border border-emerald-100 bg-linear-to-br from-emerald-50/90 to-teal-50/40 p-5 shadow-xs">
           <div className="absolute right-0 top-0 translate-x-4 -translate-y-4 size-24 rounded-full bg-emerald-500/5 blur-xl pointer-events-none" />
           <div className="flex items-center justify-between gap-4">
             <div>
@@ -257,7 +257,7 @@ function ForecastBlock() {
         title={t.dashboard.forecast16Day}
         action={t.dashboard.planningWindow}
       />
-      <div className="max-h-[460px] overflow-y-auto p-5">
+      <div className="max-h-115 overflow-y-auto p-5">
         {isError ? (
           <WeatherErrorBanner message={errorMessage} />
         ) : isLoading || !forecast ? (
@@ -322,7 +322,7 @@ function ForecastBlock() {
                   </p>
                   <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-slate-100">
                     <div
-                      className="h-full rounded-full bg-gradient-to-r from-sky-400 to-blue-500"
+                      className="h-full rounded-full bg-linear-to-r from-sky-400 to-blue-500"
                       style={{ width: `${day.rainChance}%` }}
                     />
                   </div>
@@ -359,8 +359,7 @@ function FarmTasksBlock() {
           const descStr =
             task.desc[language as keyof typeof task.desc] || task.desc.en;
           const statusStr =
-            task.status[language as keyof typeof task.status] ||
-            task.status.en;
+            task.status[language as keyof typeof task.status] || task.status.en;
 
           return (
             <div
@@ -426,7 +425,7 @@ export function DashboardOverview() {
         </div>
         <div className="rounded-lg bg-emerald-50 px-4 py-3 text-right">
           <p className="text-sm font-bold text-emerald-950">{dateStr}</p>
-          <p className="text-xs text-emerald-700 mt-0.5 truncate max-w-[200px]">
+          <p className="text-xs text-emerald-700 mt-0.5 truncate max-w-50">
             📍 {location.name}
           </p>
         </div>

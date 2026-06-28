@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLocationContext } from "@/providers/location-provider";
+import { useLocationContext } from "@/providers/LocationProvider";
 // Types that mirror the /api/weather JSON response
 export type WeatherCondition = {
   en: string;
