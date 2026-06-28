@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import type { ComponentProps, ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { Leaf } from "lucide-react";
@@ -20,28 +20,28 @@ const footerLinks: FooterSection[] = [
   {
     label: "Product",
     links: [
-      { title: "Features", href: "#feature" },
-      { title: "Pricing", href: "#pricing" },
-      { title: "Testimonials", href: "#testimonials" },
-      { title: "Integration", href: "/" },
+      { title: "Features", href: "#" },
+      { title: "Pricing", href: "#" },
+      { title: "Testimonials", href: "#" },
+      { title: "Integration", href: "#" },
     ],
   },
   {
     label: "Company",
     links: [
-      { title: "FAQs", href: "/faqs" },
-      { title: "About Us", href: "/about" },
-      { title: "Privacy Policy", href: "/privacy" },
-      { title: "Terms of Services", href: "/terms" },
+      { title: "FAQs", href: "#" },
+      { title: "About Us", href: "#" },
+      { title: "Privacy Policy", href: "#" },
+      { title: "Terms of Services", href: "#" },
     ],
   },
   {
     label: "Resources",
     links: [
-      { title: "Blog", href: "/blog" },
-      { title: "Changelog", href: "/changelog" },
-      { title: "Brand", href: "/brand" },
-      { title: "Help", href: "/help" },
+      { title: "Blog", href: "#" },
+      { title: "Changelog", href: "#" },
+      { title: "Brand", href: "#" },
+      { title: "Help", href: "#" },
     ],
   },
   {
@@ -150,6 +150,20 @@ export function Footer() {
   const translate = (text: string) => {
     return translations[text] || text;
   };
+
+  const [mounted, setMounted] = useState(false);
+
+  // This lifecycle tracker triggers ONLY after the client browser handles hydration safely
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
+  // 🚀 THE MAGIC: If not mounted yet, render a plain placeholder block
+  // that matches exactly what the server sends down!
+  if (!mounted) {
+    return <div className="w-32 h-6 bg-transparent" />; // Invisible spacer box
+  }
 
   return (
     <footer className="relative w-full max-w-6xl mx-auto flex flex-col items-center justify-center bg-[radial-gradient(35%_128px_at_50%_0%,theme(backgroundColor.white/8%),transparent)] px-6 py-12 lg:py-16">

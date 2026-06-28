@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/hooks/use-language";
 import { CloudRain, AlertTriangle, TrendingDown } from "lucide-react";
+import Link from "next/link";
+import { LeafAnim } from "../ui/leafAnim";
 
 // Animations
 const fadeUp: Variants = {
@@ -59,9 +61,10 @@ export function Problem() {
       className="relative overflow-hidden bg-linear-to-b from-background via-muted/20 to-background px-6 py-32 lg:py-20"
     >
       {/* Background Elements */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute left-1/4 top-0 h-125 w-125 rounded-full bg-primary/5 blur-[120px]" />
-        <div className="absolute right-1/4 bottom-0 h-100 w-100 rounded-full bg-destructive/5 blur-[100px]" />
+      <div className="absolute inset-0 -z-10 overflow-visible">
+        <div className="absolute inset-0 w-full h-full pointer-events-none overflow-visible mix-blend-screen">
+          <LeafAnim scrollProgress={scrollYProgress} />
+        </div>
       </div>
 
       <motion.div
@@ -78,7 +81,7 @@ export function Problem() {
         >
           <Badge
             variant="outline"
-            className="inline-flex items-center gap-2 rounded-full border-border/60 bg-background/80 px-4 py-2 text-xs font-medium uppercase tracking-wider text-muted-foreground backdrop-blur-sm"
+            className="inline-flex items-center gap-2 rounded-full border-red-900/50 bg-background/80 px-4 py-4 text-xs font-medium uppercase tracking-wider text-red-400 backdrop-blur-sm"
           >
             <AlertTriangle className="h-3.5 w-3.5" />
             {t.problem.badge}
@@ -185,15 +188,19 @@ export function Problem() {
             </p>
 
             <div className="flex flex-wrap gap-3 pt-4">
-              <Button
-                size="lg"
-                className="rounded-full shadow-lg shadow-primary/20"
-              >
-                {t.problem.impactBtnSolution}
-              </Button>
-              <Button size="lg" variant="outline" className="rounded-full">
-                {t.problem.impactBtnLearnMore}
-              </Button>
+              <Link href="#solution" className="w-full md:w-auto">
+                <Button
+                  size="lg"
+                  className="rounded-full shadow-lg shadow-primary/20"
+                >
+                  {t.problem.impactBtnSolution}
+                </Button>
+              </Link>
+              <Link href="#learn-more" className="w-full md:w-auto">
+                <Button size="lg" variant="outline" className="rounded-full">
+                  {t.problem.impactBtnLearnMore}
+                </Button>
+              </Link>
             </div>
           </div>
         </motion.div>

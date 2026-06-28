@@ -35,9 +35,11 @@ export async function updateSession(request: NextRequest) {
     isDevAuthEnabled() && request.cookies.get(DEV_SESSION_COOKIE)?.value === "1";
 
   const isDashboardRoute = request.nextUrl.pathname.startsWith("/dashboard");
+  const isChoiceRoute = request.nextUrl.pathname === "/dashboard/choice";
+  const isRootDashboard = request.nextUrl.pathname === "/dashboard";
   const isLoginRoute = request.nextUrl.pathname === AUTH_CONFIG.loginPath;
 
-  if (!user && !isDevSession && isDashboardRoute) {
+  if (!user && !isDevSession && isDashboardRoute && !isRootDashboard && !isChoiceRoute) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = AUTH_CONFIG.loginPath;
     loginUrl.searchParams.set(
