@@ -19,7 +19,7 @@ export function ModeToggle({ isScrolled = true }: ModeToggleProps) {
         ref={ref}
         variant="outline"
         size={isScrolled ? "icon-sm" : "icon-lg"}
-        className="text-black dark:text-white rounded-full"
+        className="text-black dark:text-white rounded-full cursor-pointer"
         // onClick={() => changeTheme()}
         onClick={toggleSwitchTheme}
         aria-label="Toggle theme"
