@@ -1,12 +1,6 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
-import {
-  DEV_PROFILE_COOKIE,
-  hasDevSessionCookie,
-  isDevAuthEnabled,
-} from "@/lib/auth/dev";
 import { createClient } from "@/supabase/server";
 
 export type ProfileFormState = {
@@ -36,26 +30,6 @@ export async function saveProfile(
 
   if (age !== null && (!Number.isInteger(age) || age < 1 || age > 120)) {
     return { status: "error", message: "Age must be between 1 and 120." };
-  }
-
-  if (isDevAuthEnabled() && (await hasDevSessionCookie())) {
-    const cookieStore = await cookies();
-    cookieStore.set(
-      DEV_PROFILE_COOKIE,
-      JSON.stringify({
-        fullName: fullName || "FarmRisk Demo User",
-        age,
-        location: location || "Demo Village, India",
-      }),
-      {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-      },
-    );
-
-    revalidatePath("/dashboard/profile");
-    return { status: "success", message: "Profile saved." };
   }
 
   const supabase = await createClient();

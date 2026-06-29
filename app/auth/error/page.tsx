@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AuthShell } from "@/components/auth/auth-shell";
+import { AuthShell } from "@/components/auth/AuthShell";
 import { Button } from "@/components/ui/button";
 
 export default async function Page({

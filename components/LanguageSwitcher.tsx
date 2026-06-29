@@ -7,7 +7,6 @@ import { LanguageCode } from "@/constants/content";
 import { Button } from "@/components/ui/button";
 
 interface LanguageSwitcherProps {
-  theme?: "light" | "dark";
   isScrolled?: boolean;
 }
 
@@ -48,7 +47,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
         onClick={() => setIsOpen(!isOpen)}
         variant="outline"
         size={isScrolled ? "sm" : "lg"}
-        className="cursor-pointer rounded-full gap-1.5 font-semibold text-xs border-slate-200/60 dark:border-white/10 text-black dark:text-white"
+        className="cursor-pointer border-black/50 rounded-full gap-1.5 font-semibold text-xs dark:border-slate-200/60 text-black dark:text-white"
         aria-expanded={isOpen}
         aria-haspopup="true"
       >

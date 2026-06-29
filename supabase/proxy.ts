@@ -1,8 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import type { Database } from "@/types/database";
-import { AUTH_CONFIG } from "@/lib/auth/config";
-import { DEV_SESSION_COOKIE, isDevAuthEnabled } from "@/lib/auth/dev";
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -31,17 +29,15 @@ export async function updateSession(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  const isDevSession =
-    isDevAuthEnabled() && request.cookies.get(DEV_SESSION_COOKIE)?.value === "1";
 
   const isDashboardRoute = request.nextUrl.pathname.startsWith("/dashboard");
   const isChoiceRoute = request.nextUrl.pathname === "/dashboard/choice";
   const isRootDashboard = request.nextUrl.pathname === "/dashboard";
-  const isLoginRoute = request.nextUrl.pathname === AUTH_CONFIG.loginPath;
+  const isLoginRoute = request.nextUrl.pathname === "/auth/login";
 
-  if (!user && !isDevSession && isDashboardRoute && !isRootDashboard && !isChoiceRoute) {
+  if (!user && isDashboardRoute && !isRootDashboard && !isChoiceRoute) {
     const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = AUTH_CONFIG.loginPath;
+    loginUrl.pathname = "/auth/login";
     loginUrl.searchParams.set(
       "next",
       `${request.nextUrl.pathname}${request.nextUrl.search}`,
@@ -49,10 +45,8 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  if ((user || isDevSession) && isLoginRoute) {
-    return NextResponse.redirect(
-      new URL(AUTH_CONFIG.authenticatedPath, request.url),
-    );
+  if (user && isLoginRoute) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   return response;

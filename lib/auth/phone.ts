@@ -1,10 +1,10 @@
 export function normalizePhoneNumber(value: string) {
-  const normalized = value.trim().replace(/[\s()-]/g, "");
+  const normalized = value.trim().replace(/\s+/g, "");
 
-  if (!/^\+[1-9]\d{7,14}$/.test(normalized)) {
+  // Must be a 10-digit Indian mobile number
+  if (!/^[6-9]\d{9}$/.test(normalized)) {
     return null;
   }
 
   return normalized;
 }
-

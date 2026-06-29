@@ -13,10 +13,7 @@ import {
   LucideIcon,
   Lock,
 } from "lucide-react";
-import {
-  SIDEBAR_NAV_ITEMS,
-  SIDEBAR_FOOTER_ITEMS,
-} from "@/constants/content";
+import { SIDEBAR_NAV_ITEMS, SIDEBAR_FOOTER_ITEMS } from "@/constants/content";
 import {
   Sidebar,
   SidebarContent,
@@ -27,7 +24,7 @@ import {
   SidebarMenuItem,
   SidebarGroup,
 } from "@/components/ui/sidebar";
-import { SidebarLogoutButton } from "@/components/auth/logout-button";
+import { SidebarLogoutButton } from "@/components/auth/LogoutButton";
 import { useLanguage } from "@/hooks/use-language";
 import { cn } from "@/lib/utils";
 
@@ -40,11 +37,11 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 const titleKeys: Record<string, string> = {
-  "Overview": "overview",
+  Overview: "overview",
   "Farm Map": "farmMap",
   "Weather Stats": "weatherStats",
-  "Profile": "profile",
-  "Settings": "settings",
+  Profile: "profile",
+  Settings: "settings",
 };
 
 export function AppSidebar() {
@@ -58,8 +55,8 @@ export function AppSidebar() {
     setMounted(true);
     setIsLoggedIn(
       !!user ||
-      (typeof document !== "undefined" &&
-        document.cookie.includes("farmrisk_dev_session=1"))
+        (typeof document !== "undefined" &&
+          document.cookie.includes("farmrisk_dev_session=1")),
     );
   }, [user]);
 
@@ -84,7 +81,8 @@ export function AppSidebar() {
           <SidebarMenu>
             {SIDEBAR_NAV_ITEMS.map((item) => {
               const IconComponent = iconMap[item.iconName] || HelpCircle;
-              const isLocked = mounted && !isLoggedIn && item.link !== "/dashboard";
+              const isLocked =
+                mounted && !isLoggedIn && item.link !== "/dashboard";
 
               return (
                 <SidebarMenuItem key={item.link}>
@@ -95,10 +93,13 @@ export function AppSidebar() {
                         if (isLocked) {
                           e.preventDefault();
                           const confirmLogin = window.confirm(
-                            "You need a personalized account to access this feature. Would you like to sign in/register now?"
+                            "You need a personalized account to access this feature. Would you like to sign in/register now?",
                           );
                           if (confirmLogin) {
-                            router.push("/auth/login?next=" + encodeURIComponent(item.link));
+                            router.push(
+                              "/auth/login?next=" +
+                                encodeURIComponent(item.link),
+                            );
                           }
                         }
                       }}
@@ -107,7 +108,9 @@ export function AppSidebar() {
                       <IconComponent />
                       <span className="flex items-center gap-1.5 justify-between w-full">
                         <span>{getTranslatedTitle(item.title)}</span>
-                        {isLocked && <Lock className="size-3.5 text-slate-400 shrink-0" />}
+                        {isLocked && (
+                          <Lock className="size-3.5 text-slate-400 shrink-0" />
+                        )}
                       </span>
                     </Link>
                   </SidebarMenuButton>
@@ -133,10 +136,12 @@ export function AppSidebar() {
                       if (isLocked) {
                         e.preventDefault();
                         const confirmLogin = window.confirm(
-                          "You need a personalized account to access this feature. Would you like to sign in/register now?"
+                          "You need a personalized account to access this feature. Would you like to sign in/register now?",
                         );
                         if (confirmLogin) {
-                          router.push("/auth/login?next=" + encodeURIComponent(item.link));
+                          router.push(
+                            "/auth/login?next=" + encodeURIComponent(item.link),
+                          );
                         }
                       }
                     }}
@@ -144,8 +149,12 @@ export function AppSidebar() {
                   >
                     <IconComponent />
                     <span className="flex items-center gap-1.5 justify-between w-full truncate">
-                      <span className="truncate">{getTranslatedTitle(item.title)}</span>
-                      {isLocked && <Lock className="size-3.5 text-slate-400 shrink-0" />}
+                      <span className="truncate">
+                        {getTranslatedTitle(item.title)}
+                      </span>
+                      {isLocked && (
+                        <Lock className="size-3.5 text-slate-400 shrink-0" />
+                      )}
                     </span>
                   </Link>
                 </SidebarMenuButton>

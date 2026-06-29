@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Pickaxe } from "lucide-react";
+import { Menu } from "lucide-react";
 import { AuthButtons } from "@/components/auth/AuthButtons";
 import { AnimatedGroup } from "@/components/ui/animated-group";
 import { Button } from "../ui/button";
@@ -88,7 +88,7 @@ export function Hero() {
                   <AuthButtons
                     className="w-40 h-13"
                     text="Get Started"
-                    icon={<Pickaxe />}
+                    icon={<Menu />}
                   />
                   <Button
                     variant="secondary"

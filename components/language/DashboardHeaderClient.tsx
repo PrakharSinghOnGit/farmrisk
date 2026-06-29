@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useLanguage } from "@/hooks/use-language";
-import { LanguageSwitcher } from "@/components/language-switcher";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export function DashboardHeaderClient() {
   const { t } = useLanguage();

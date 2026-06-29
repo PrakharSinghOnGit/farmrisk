@@ -1,13 +1,9 @@
-import { redirect } from "next/navigation";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
-import { content } from "@/constants/content";
-import { AUTH_CONFIG } from "@/lib/auth/config";
-import { hasDevSessionCookie } from "@/lib/auth/dev";
+import { AppSidebar } from "@/components/AppSidebar";
 import { createClient } from "@/supabase/server";
 import {
   DashboardHeaderClient,
@@ -21,12 +17,9 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   const supabase = await createClient();
-  const devSession = await hasDevSessionCookie();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-
 
   return (
     <SidebarProvider defaultOpen>

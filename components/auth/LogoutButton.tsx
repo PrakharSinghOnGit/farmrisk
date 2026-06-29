@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { LoaderCircle, LogOut } from "lucide-react";
 import { SidebarMenuButton } from "@/components/ui/sidebar";
-import { AUTH_CONFIG } from "@/lib/auth/config";
 import { createClient } from "@/supabase/client";
 import { useLanguage } from "@/hooks/use-language";
 
@@ -20,7 +19,7 @@ export function SidebarLogoutButton() {
     if (process.env.NODE_ENV === "development") {
       await fetch("/auth/dev-logout", { method: "POST" });
     }
-    router.replace(AUTH_CONFIG.loginPath);
+    router.replace("/auth/login");
     router.refresh();
   }
 
