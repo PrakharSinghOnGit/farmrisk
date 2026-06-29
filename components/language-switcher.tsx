@@ -48,7 +48,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
         onClick={() => setIsOpen(!isOpen)}
         variant="outline"
         size={isScrolled ? "sm" : "lg"}
-        className="rounded-full gap-1.5 font-semibold text-xs border-slate-200/60 dark:border-white/10 text-black dark:text-white"
+        className="cursor-pointer rounded-full gap-1.5 font-semibold text-xs border-slate-200/60 dark:border-white/10 text-black dark:text-white"
         aria-expanded={isOpen}
         aria-haspopup="true"
       >

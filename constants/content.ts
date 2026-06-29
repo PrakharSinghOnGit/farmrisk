@@ -186,27 +186,31 @@ export const content = {
         {
           id: "precision",
           title: "Hyper-Local Precision",
-          description: "GPS-targeted, village-level weather forecasts customized for your specific coordinates.",
-          icon: "Locate"
+          description:
+            "GPS-targeted, village-level weather forecasts customized for your specific coordinates.",
+          icon: "Locate",
         },
         {
           id: "actionable",
           title: "Actionable Advisories",
-          description: "AI-driven farm advisories converting complex forecasts into clear agricultural actions.",
-          icon: "BrainCircuit"
+          description:
+            "AI-driven farm advisories converting complex forecasts into clear agricultural actions.",
+          icon: "BrainCircuit",
         },
         {
           id: "alerts",
           title: "Real-Time Hazard Alerts",
-          description: "Instant, real-time alerts for lightning strikes, extreme storms, and frost risks.",
-          icon: "Zap"
+          description:
+            "Instant, real-time alerts for lightning strikes, extreme storms, and frost risks.",
+          icon: "Zap",
         },
         {
           id: "multilingual",
           title: "Local Language Support",
-          description: "Entire interface and crop advisories translated natively into regional Indian languages.",
-          icon: "Languages"
-        }
+          description:
+            "Entire interface and crop advisories translated natively into regional Indian languages.",
+          icon: "Languages",
+        },
       ],
       stats: [
         { value: "99.2%", label: "Forecast Accuracy" },
@@ -214,6 +218,33 @@ export const content = {
         { value: "4+", label: "Languages Supported" },
         { value: "24/7", label: "Real-Time Updates" },
       ],
+    },
+    choice: {
+      free: {
+        badge: "Free Access",
+        title: "Standard Dashboard",
+        description:
+          "Access hyper-local weather snapshots and regional forecasts directly.",
+        points: [
+          "Real-time weather telemetry data",
+          "16-day general weather outlook",
+        ],
+        buttonText: "Go to Free Dashboard",
+      },
+      personalized: {
+        badge: "Personalized Access",
+        title: "Personalized Dashboard",
+        description:
+          "Unlock full GPS-mapped field advisories and custom AI crop recommendations.",
+        points: [
+          "Hyper-local GPS field boundary mapping",
+          "AI crop-specific recommendations and calendar alerts",
+          "Root-zone soil moisture monitoring overlays",
+          "Real-time lightning and extreme weather SMS alerts",
+          "100% personalized advisory and secure profile history",
+        ],
+        buttonText: "Access Personalized Dashboard",
+      },
     },
   },
   hi: {
@@ -404,27 +435,31 @@ export const content = {
         {
           id: "precision",
           title: "अति-स्थानीय सटीकता",
-          description: "आपके विशिष्ट निर्देशांकों के लिए अनुकूलित जीपीएस-लक्षित, ग्रामीण स्तर के मौसम पूर्वानुमान।",
-          icon: "Locate"
+          description:
+            "आपके विशिष्ट निर्देशांकों के लिए अनुकूलित जीपीएस-लक्षित, ग्रामीण स्तर के मौसम पूर्वानुमान।",
+          icon: "Locate",
         },
         {
           id: "actionable",
           title: "व्यावहारिक परामर्श",
-          description: "जटिल मौसम पूर्वानुमानों को स्पष्ट कृषि कार्यों में बदलने वाले एआई-संचालित कृषि परामर्श।",
-          icon: "BrainCircuit"
+          description:
+            "जटिल मौसम पूर्वानुमानों को स्पष्ट कृषि कार्यों में बदलने वाले एआई-संचालित कृषि परामर्श।",
+          icon: "BrainCircuit",
         },
         {
           id: "alerts",
           title: "वास्तविक समय जोखिम अलर्ट",
-          description: "बिजली गिरने, तीव्र तूफानों और पाले के जोखिमों के लिए त्वरित, वास्तविक समय के अलर्ट।",
-          icon: "Zap"
+          description:
+            "बिजली गिरने, तीव्र तूफानों और पाले के जोखिमों के लिए त्वरित, वास्तविक समय के अलर्ट।",
+          icon: "Zap",
         },
         {
           id: "multilingual",
           title: "स्थानीय भाषा समर्थन",
-          description: "क्षेत्रीय भारतीय भाषाओं में मूल रूप से अनुवादित संपूर्ण इंटरफेस और फसल सलाह।",
-          icon: "Languages"
-        }
+          description:
+            "क्षेत्रीय भारतीय भाषाओं में मूल रूप से अनुवादित संपूर्ण इंटरफेस और फसल सलाह।",
+          icon: "Languages",
+        },
       ],
       stats: [
         { value: "99.2%", label: "पूर्वानुमान सटीकता" },
@@ -432,6 +467,33 @@ export const content = {
         { value: "4+", label: "समर्थित भाषाएं" },
         { value: "24/7", label: "वास्तविक समय अपडेट" },
       ],
+    },
+    choice: {
+      free: {
+        badge: "निःशुल्क पहुंच",
+        title: "सामान्य मौसम डैशबोर्ड",
+        description:
+          "सीधे अति-स्थानीय मौसम स्नैपशॉट और क्षेत्रीय पूर्वानुमान प्राप्त करें।",
+        points: [
+          "वास्तविक समय मौसम टेलीमेट्री डेटा",
+          "10-दिवसीय सामान्य मौसम दृष्टिकोण",
+        ],
+        buttonText: "निःशुल्क डैशबोर्ड पर जाएं",
+      },
+      personalized: {
+        badge: "व्यक्तिगत पहुंच",
+        title: "कृषि-बुद्धिमत्ता परामर्श",
+        description:
+          "पूर्ण जीपीएस-मैप किए गए क्षेत्र परामर्श और कस्टम एआई फसल सिफारिशों को अनलॉक करें।",
+        points: [
+          "अति-स्थानीय जीपीएस क्षेत्र सीमा मानचित्रण",
+          "एआई फसल-विशिष्ट सिफारिशें और कैलेंडर अलर्ट",
+          "जड़-क्षेत्र मिट्टी की नमी की निगरानी ओवरले",
+          "वास्तविक समय बिजली और चरम मौसम एसएमएस अलर्ट",
+          "100% व्यक्तिगत सलाह और सुरक्षित प्रोफ़ाइल इतिहास",
+        ],
+        buttonText: "व्यक्तिगत डैशबोर्ड लॉगिन करें",
+      },
     },
   },
   mr: {
@@ -621,27 +683,31 @@ export const content = {
         {
           id: "precision",
           title: "अति-स्थानिक अचूकता",
-          description: "तुमच्या विशिष्ट शेताच्या Coordinates साठी अचूकपणे अनुकूल केलेले गाव-पातळीवरील हवामान अंदाज.",
-          icon: "Locate"
+          description:
+            "तुमच्या विशिष्ट शेताच्या Coordinates साठी अचूकपणे अनुकूल केलेले गाव-पातळीवरील हवामान अंदाज.",
+          icon: "Locate",
         },
         {
           id: "actionable",
           title: "कृतीयोग्य सल्ले",
-          description: "क्लिष्ट हवामान अंदाजांचे सुस्पष्ट शेती कामात रूपांतर करणारे एआय-चालित कृषी सल्ले.",
-          icon: "BrainCircuit"
+          description:
+            "क्लिष्ट हवामान अंदाजांचे सुस्पष्ट शेती कामात रूपांतर करणारे एआय-चालित कृषी सल्ले.",
+          icon: "BrainCircuit",
         },
         {
           id: "alerts",
           title: "रिअल-टाइम धोक्याचे इशारे",
-          description: "वीज कोसळणे, तीव्र वादळ आणि थंडीच्या धोक्यांसाठी त्वरित, रिअल-टाइम अलर्ट.",
-          icon: "Zap"
+          description:
+            "वीज कोसळणे, तीव्र वादळ आणि थंडीच्या धोक्यांसाठी त्वरित, रिअल-टाइम अलर्ट.",
+          icon: "Zap",
         },
         {
           id: "multilingual",
           title: "स्थानिक भाषा समर्थन",
-          description: "प्रादेशिक भारतीय भाषांमध्ये मूळ स्वरूपात अनुवादित संपूर्ण इंटरफेस आणि पीक सल्ले.",
-          icon: "Languages"
-        }
+          description:
+            "प्रादेशिक भारतीय भाषांमध्ये मूळ स्वरूपात अनुवादित संपूर्ण इंटरफेस आणि पीक सल्ले.",
+          icon: "Languages",
+        },
       ],
       stats: [
         { value: "99.2%", label: "अंदाज अचूकता" },
@@ -649,6 +715,33 @@ export const content = {
         { value: "4+", label: "समर्थित भाषा" },
         { value: "24/7", label: "रिअल-टाइम अपडेट्स" },
       ],
+    },
+    choice: {
+      free: {
+        badge: "मोफत प्रवेश",
+        title: "सामान्य हवामान डॅशबोर्ड",
+        description:
+          "थेट अति-स्थानिक हवामान स्नॅपशॉट आणि प्रादेशिक अंदाज मिळवा.",
+        points: [
+          "रिअल-टाइम हवामान टेलिमेट्री डेटा",
+          "१०-दिवसीय सामान्य हवामान दृष्टिकोन",
+        ],
+        buttonText: "मोफत डॅशबोर्डवर जा",
+      },
+      personalized: {
+        badge: "वैयक्तिकृत प्रवेश",
+        title: "कृषी-बुद्धिमत्ता सल्ला",
+        description:
+          "पूर्ण जीपीएस-मॅप केलेले शेत सल्ले आणि सानुकूल एआय पीक शिफारसी अनलॉक करा.",
+        points: [
+          "अति-स्थानिक जीपीएस शेत सीमा मॅपिंग",
+          "एआय पीक-विशिष्ट शिफारसी आणि कॅलेंडर अलर्ट",
+          "मूळ-क्षेत्रातील मातीच्या ओलाव्याचे निरीक्षण ओव्हरले",
+          "रिअल-टाइम विजा आणि कमालीच्या हवामानाचे एसएमएस अलर्ट",
+          "१००% वैयक्तिकृत सल्ला आणि सुरक्षित प्रोफाइल इतिहास",
+        ],
+        buttonText: "वैयक्तिकृत डॅशबोर्डसाठी लॉगिन करा",
+      },
     },
   },
   ta: {
@@ -843,27 +936,31 @@ export const content = {
         {
           id: "precision",
           title: "அதீத-உள்ளூர் துல்லியம்",
-          description: "உங்கள் குறிப்பிட்ட ஒருங்கிணைப்புகளுக்காகத் தனிப்பயனாக்கப்பட்ட ஜிபிஎஸ்-அடிப்படையிலான கிராம அளவிலான வானிலை கணிப்புகள்.",
-          icon: "Locate"
+          description:
+            "உங்கள் குறிப்பிட்ட ஒருங்கிணைப்புகளுக்காகத் தனிப்பயனாக்கப்பட்ட ஜிபிஎஸ்-அடிப்படையிலான கிராம அளவிலான வானிலை கணிப்புகள்.",
+          icon: "Locate",
         },
         {
           id: "actionable",
           title: "செயல்படக்கூடிய ஆலோசனைகள்",
-          description: "சிக்கலான வானிலை கணிப்புகளை தெளிவான விவசாய செயல்களாக மாற்றும் AI-இயங்கும் விவசாய ஆலோசனைகள்.",
-          icon: "BrainCircuit"
+          description:
+            "சிக்கலான வானிலை கணிப்புகளை தெளிவான விவசாய செயல்களாக மாற்றும் AI-இயங்கும் விவசாய ஆலோசனைகள்.",
+          icon: "BrainCircuit",
         },
         {
           id: "alerts",
           title: "நிகழ்நேர ஆபத்து எச்சரிக்கைகள்",
-          description: "மின்னல் தாக்கம், கடுமையான புயல் மற்றும் பனி ஆபத்துகளுக்கான உடனடி நிகழ்நேர எச்சரிக்கைகள்.",
-          icon: "Zap"
+          description:
+            "மின்னல் தாக்கம், கடுமையான புயல் மற்றும் பனி ஆபத்துகளுக்கான உடனடி நிகழ்நேர எச்சரிக்கைகள்.",
+          icon: "Zap",
         },
         {
           id: "multilingual",
           title: "உள்ளூர் மொழி ஆதரவு",
-          description: "பிராந்திய இந்திய மொழிகளில் மொழிபெயர்க்கப்பட்ட முழுமையான இடைமுகம் மற்றும் பயிர் ஆலோசனைகள்.",
-          icon: "Languages"
-        }
+          description:
+            "பிராந்திய இந்திய மொழிகளில் மொழிபெயர்க்கப்பட்ட முழுமையான இடைமுகம் மற்றும் பயிர் ஆலோசனைகள்.",
+          icon: "Languages",
+        },
       ],
       stats: [
         { value: "99.2%", label: "கணிப்பு துல்லியம்" },
@@ -871,6 +968,33 @@ export const content = {
         { value: "4+", label: "ஆதரிக்கப்படும் மொழிகள்" },
         { value: "24/7", label: "நிகழ்நேர அறிவிப்புகள்" },
       ],
+    },
+    choice: {
+      free: {
+        badge: "இலவச அணுகல்",
+        title: "வானிலை டாஷ்போர்டு",
+        description:
+          "உள்ளூர் வானிலை அவுட்லைன்கள் மற்றும் பிராந்திய முன்னறிவிப்புகளை நேரடியாக அணுகவும்.",
+        points: [
+          "நிகழ்நேர வானிலை டெலிமெட்ரி தரவு",
+          "10-நாள் பொது வானிலை கணிப்பு",
+        ],
+        buttonText: "இலவச டாஷ்போர்டுக்குச் செல்லவும்",
+      },
+      personalized: {
+        badge: "தனிப்பயனாக்கப்பட்ட அணுகல்",
+        title: "வேளாண்-நுண்ணறிவு ஆலோசனை",
+        description:
+          "ஜிபிஎஸ்-வரைபடமாக்கப்பட்ட ஆலோசனை மற்றும் தனிப்பயன் AI பயிர் பரிந்துரைகளைத் திறக்கவும்.",
+        points: [
+          "உள்ளூர் ஜிபிஎஸ் வயல் எல்லை வரைபடம்",
+          "AI பயிர்-குறிப்பிட்ட பரிந்துரைகள் மற்றும் விழிப்பூட்டல்கள்",
+          "வேர்-மண்டல மண் ஈரப்பதம் கண்காணிப்பு மேலடுக்குகள்",
+          "நிகழ்நேர மின்னல் மற்றும் தீவிர வானிலை பற்றிய எஸ்எம்எஸ் எச்சரிக்கைகள்",
+          "100% தனிப்பயனாக்கப்பட்ட ஆலோசனை மற்றும் பாதுகாப்பான சுயவிவர வரலாறு",
+        ],
+        buttonText: "உள்நுழைந்து தனிப்பயனாக்கப்பட்ட டாஷ்போர்டை அணுகவும்",
+      },
     },
   },
   gu: {
@@ -1060,27 +1184,31 @@ export const content = {
         {
           id: "precision",
           title: "અતિ-સ્થાનિક ચોકસાઈ",
-          description: "તમારા ખેતરના કોઓર્ડિનેટ્સ માટે કસ્ટમાઇઝ કરેલી જીપીએસ-આધારિત ગામ-સ્તરની હવામાન આગાહી.",
-          icon: "Locate"
+          description:
+            "તમારા ખેતરના કોઓર્ડિનેટ્સ માટે કસ્ટમાઇઝ કરેલી જીપીએસ-આધારિત ગામ-સ્તરની હવામાન આગાહી.",
+          icon: "Locate",
         },
         {
           id: "actionable",
           title: "યોગ્ય માર્ગદર્શન",
-          description: "જટિલ હવામાન આગાહીઓને સ્પષ્ટ કૃષિ આયોજનમાં ફેરવતા એઆઈ-સંચાલિત કૃષિ માર્ગદર્શન.",
-          icon: "BrainCircuit"
+          description:
+            "જટિલ હવામાન આગાહીઓને સ્પષ્ટ કૃષિ આયોજનમાં ફેરવતા એઆઈ-સંચાલિત કૃષિ માર્ગદર્શન.",
+          icon: "BrainCircuit",
         },
         {
           id: "alerts",
           title: "રીઅલ-ટાઇમ જોખમ ચેતવણીઓ",
-          description: "વીજળી પડવા, તીવ્ર વાવાઝોડા અને પાક નુકસાનના જોખમો માટે ત્વરિત રીઅલ-ટાઇમ ચેતવણીઓ.",
-          icon: "Zap"
+          description:
+            "વીજળી પડવા, તીવ્ર વાવાઝોડા અને પાક નુકસાનના જોખમો માટે ત્વરિત રીઅલ-ટાઇમ ચેતવણીઓ.",
+          icon: "Zap",
         },
         {
           id: "multilingual",
           title: "સ્થાનિક ભાષા સપોર્ટ",
-          description: "પ્રાદેશિક ભારતીય ભાષાઓમાં સરળતાથી ભાષાંતરિત સંપૂર્ણ વપરાશકર્તા ઇન્ટરફેસ અને પાક સલાહ.",
-          icon: "Languages"
-        }
+          description:
+            "પ્રાદેશિક ભારતીય ભાષાઓમાં સરળતાથી ભાષાંતરિત સંપૂર્ણ વપરાશકર્તા ઇન્ટરફેસ અને પાક સલાહ.",
+          icon: "Languages",
+        },
       ],
       stats: [
         { value: "99.2%", label: "આગાહીની ચોકસાઈ" },
@@ -1088,6 +1216,33 @@ export const content = {
         { value: "4+", label: "સમર્થિત ભાષાઓ" },
         { value: "24/7", label: "રીઅલ-ટાઇમ અપડેટ્સ" },
       ],
+    },
+    choice: {
+      free: {
+        badge: "મફત પ્રવેશ",
+        title: "સામાન્ય હવામાન ડેશબોર્ડ",
+        description:
+          "અતિ-સ્થાનિક હવામાન સ્નેપશોટ અને પ્રાદેશિક આગાહીઓ સીધી મેળવો.",
+        points: [
+          "રીઅલ-ટાઇમ હવામાન ટેલિમેટ્રી ડેટા",
+          "૧૦-દિવસીય સામાન્ય હવામાન દ્રષ્ટિકોણ",
+        ],
+        buttonText: "મફત ડેશબોર્ડ પર જાઓ",
+      },
+      personalized: {
+        badge: "વ્યક્તિગત પ્રવેશ",
+        title: "કૃષિ-બુદ્ધિ માર્ગદર્શન",
+        description:
+          "પૂર્ણ જીપીએસ-મેપ કરેલી ક્ષેત્ર સલાહ અને કસ્ટમ એઆઈ પાક ભલામણો અનલૉક કરો.",
+        points: [
+          "અતિ-સ્થાનિક જીપીએસ ખેતર સીમા મેપિંગ",
+          "એઆઈ પાક-વિશિષ્ટ ભલામણો અને કેલેન્ડર ચેતવણીઓ",
+          "મૂળ-ક્ષેત્રની જમીનની ભેજ મોનિટરિંગ ઓવરલે",
+          "રીઅલ-ટાઇમ વીજળી અને ભારે હવામાનની એસએમએસ ચેતવણીઓ",
+          "૧૦૦% વ્યક્તિગત સલાહ અને સુરક્ષિત પ્રોફાઇલ ઇતિહાસ",
+        ],
+        buttonText: "વ્યક્તિગત ડેશબોર્ડ માટે લોગિન કરો",
+      },
     },
   },
 };

@@ -40,11 +40,11 @@ const AnimatedCounter: React.FC<CounterProps> = ({
 };
 
 const avatarData = [
-  { name: "Sarah", image: "https://i.pravatar.cc/150?img=1" },
-  { name: "Mike", image: "https://i.pravatar.cc/150?img=3" },
-  { name: "Emma", image: "https://i.pravatar.cc/150?img=5" },
-  { name: "John", image: "https://i.pravatar.cc/150?img=7" },
-  { name: "Lisa", image: "https://i.pravatar.cc/150?img=9" },
+  { name: "a", image: "/pic1.png" },
+  { name: "b", image: "/pic2.png" },
+  { name: "c", image: "/pic3.png" },
+  { name: "d", image: "/pic4.png" },
+  { name: "e", image: "/pic5.png" },
 ];
 
 interface UserBaseCounterProps {
