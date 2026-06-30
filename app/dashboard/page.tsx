@@ -1,5 +1,4 @@
-import { DashboardOverview } from "./_components/dashboard-overview";
-
-export default function Dashboard() {
-  return <DashboardOverview />;
+import DashboardContent from "@/components/dashboard/DashboardContent";
+export default async function Dashboard() {
+  return <DashboardContent />;
 }

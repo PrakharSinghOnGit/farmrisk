@@ -1,51 +1,52 @@
-import { redirect } from "next/navigation";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
-import { content } from "@/constants/content";
-import { AUTH_CONFIG } from "@/lib/auth/config";
-import { hasDevSessionCookie } from "@/lib/auth/dev";
-import { createClient } from "@/supabase/server";
-import {
-  DashboardHeaderClient,
-  DashboardHeaderSubtitle,
-} from "@/components/language/DashboardHeaderClient";
-import { DashboardClientShell } from "./_components/dashboard-client-shell";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/sidebar/AppSidebar";
+import { LocationProvider } from "@/providers/LocationProvider";
+import { NavigationProvider } from "@/providers/NavigationProvider";
+import { Toaster } from "@/components/ui/sonner";
+import { Badge } from "@/components/ui/badge";
+import { ModeToggle } from "@/components/ThemeChange";
+import { PageHeading } from "@/components/ui/PageHeading";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = await createClient();
-  const devSession = await hasDevSessionCookie();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-
-
   return (
-    <SidebarProvider defaultOpen>
-      <AppSidebar />
-      <SidebarInset className="min-h-svh bg-[linear-gradient(180deg,#f7f9f4_0%,#eef4ea_100%)]">
-        <header className="flex items-center justify-between gap-4 border-b border-slate-200 bg-white/80 px-4 py-3 backdrop-blur sm:px-6">
-          <div className="flex items-center gap-3">
-            <SidebarTrigger />
-            <div>
-              <p className="text-xs font-medium uppercase tracking-[0.18em] text-emerald-700">
-                FarmRisk
-              </p>
-              <DashboardHeaderSubtitle />
+    <NavigationProvider>
+      <LocationProvider>
+        <SidebarProvider defaultOpen>
+          <AppSidebar />
+          <div className="pt-(--standalone) flex flex-col gap-3 w-[calc(100vw-24px)] justify-center m-3 lg:ml-0 md:ml-0 h-[calc(100vh-24px)]">
+            <div className="flex justify-between items-center">
+              <div className="flex gap-3">
+                <div className="flex items-center justify-center rounded-md gap-3 w-10">
+                  <SidebarTrigger className="rounded-md" />
+                </div>
+                <div className="flex items-center justify-center rounded-md gap-3">
+                  <PageHeading classname="text-lg font-bold" />
+                </div>
+              </div>
+              <div className="flex gap-3 self-end ml-auto">
+                <Badge
+                  variant={"outline"}
+                  color="blue"
+                  className="md:flex hidden"
+                >
+                  {new Date().toDateString()}
+                </Badge>
+                <LanguageSwitcher isScrolled={false} rounded={false} />
+                <ModeToggle rounded={false} />
+              </div>
             </div>
+            <main className="rounded-xl grow border w-full p-3 lg:p-6 overflow-scroll">
+              {children}
+              <Toaster position="bottom-center" richColors />
+            </main>
           </div>
-          <DashboardHeaderClient />
-        </header>
-        <DashboardClientShell>{children}</DashboardClientShell>
-      </SidebarInset>
-    </SidebarProvider>
+        </SidebarProvider>
+      </LocationProvider>
+    </NavigationProvider>
   );
 }

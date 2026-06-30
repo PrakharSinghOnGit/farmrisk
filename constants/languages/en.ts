@@ -1,0 +1,273 @@
+export const en = {
+  title: "FarmRisk",
+  description:
+    "An advanced agricultural intelligence platform integrating high-resolution remote sensing, satellite field mapping, and real-time climate data. Empowering farmers with localized risk mitigation analytics and predictive AI insights to optimize crop yield and operational sustainability.",
+  heroEyebrow: "Satellite intelligence",
+  heroHeading: "See the field before the risk arrives.",
+  heroSubheading:
+    "Track crop conditions, weather pressure, and field changes from one live view built for faster decisions.",
+  heroCta: "Open Dashboard",
+  version: "1.0.0",
+
+  nav: {
+    problem: "Problem",
+    solution: "Solution",
+    features: "Features",
+    howItWorks: "How It Works",
+    learnMore: "Learn More",
+    advisoryEngine: "Advisory Engine",
+    riskMonitor: "Risk Monitor",
+    signIn: "Sign In",
+    goDashboard: "Go to Dashboard",
+    signOut: "Sign Out",
+  },
+
+  sidebar: {
+    overview: "Overview",
+    farmMap: "Farm Map",
+    weatherStats: "Weather Stats",
+    profile: "Profile",
+    settings: "Settings",
+    logout: "Log Out",
+  },
+
+  landing: {
+    needCustom: "Need custom crop advisory models?",
+    customDesc:
+      "We provide agri-tech integrations and custom API portals for NGOs and FPOs.",
+    contactTeam: "Contact Integration Team",
+    freeTierNote:
+      "Free tier supports village search. Farmland satellite mapping requires SaaS credentials.",
+
+    processEyebrow: "Pipeline Architecture",
+    processTitle: "From raw satellites to the field in three steps.",
+    processDesc:
+      "Our backend aggregates petabytes of environmental information, running automated QA checks and LLM engines to create targeted agricultural guidance.",
+    step1Title: "Multi-Source Ingestion",
+    step1Desc:
+      "We ingest weather predictions from IMD, satellite vegetation records from NASA & ESA, and geography datasets from ISRO.",
+    step2Title: "AI Advisory Generation",
+    step2Desc:
+      "Our RAG-LLM mapping engine checks weather trends against crop stages, farming guidelines, and current humidity to formulate targeted recommendations.",
+    step3Title: "Multilingual Distribution",
+    step3Desc:
+      "Advisories are translated through our localization pipeline into English, Hindi, Marathi, and Tamil. Dispatched via web, app, and future SMS/WhatsApp integrations.",
+
+    ctaEyebrow: "Platform Access",
+    ctaHeading: "Start monitoring your farmland risk today.",
+    ctaSubheading:
+      "Verify if advisory forecasts are active for your village. Type your town or village below to run a micro-location compatibility check.",
+    ctaPlaceholder: "Enter village name (e.g. Kalyan, Karur, Kota)...",
+    coverageTitle: "Active advisory coverage confirmed.",
+    coverageDesc:
+      "High-resolution forecasts and lightning monitoring are active for {village} ({state}). Advisories are available in {language}.",
+    searchAnother: "Search another village",
+    ctaExplore: "Explore {village} Dashboard",
+    ctaLaunch: "Launch Free Dashboard",
+    ctaTechSpecs: "Technical Specifications",
+
+    footerDesc:
+      "Agro-meteorological decision support platform. Translating complex weather intelligence and remote sensing data into actionable recommendations for farmers and agri-tech companies.",
+    footerRights: "© 2026 FarmRisk Platform. All rights reserved.",
+  },
+
+  dashboard: {
+    title: "Good morning, Rakesh.",
+    subtitle: "Village-level weather and field risk signals for today.",
+    snapshot: "local snapshot",
+    livePreview: "Live dashboard preview",
+    weatherToday: "Weather Today",
+    hourlyWeather: "Hourly Weather",
+    forecast16Day: "16 Day Forecast",
+    farmTasks: "Farm Tasks",
+    aiOverview: "AI Overview",
+    riskAssessment: "Risk assessment",
+    intelligence: "Intelligence",
+    comingNext: "Coming next",
+    planningWindow: "Planning window",
+    rainChance: "rain chance",
+    today: "Today",
+    taskIrrigation: "Irrigation schedule",
+    taskFieldHealth: "Field health table",
+    taskSensor: "Sensor alerts",
+    statusPending: "Pending",
+    statusCompleted: "Completed",
+    statusActionNeeded: "Action Needed",
+
+    clear: "Clear",
+    sunny: "Sunny",
+    partlycloudy: "Partly Cloudy",
+    dryheat: "Dry Heat",
+    cloudsbuilding: "Clouds Building",
+    lightbreeze: "Light Breeze",
+    hot: "Hot",
+    cloudy: "Cloudy",
+    showers: "Showers",
+    humid: "Humid",
+    rain: "Rain",
+    warm: "Warm",
+
+    wed: "Wed",
+    thu: "Thu",
+    fri: "Fri",
+    sat: "Sat",
+    sun: "Sun",
+    mon: "Mon",
+    tue: "Tue",
+  },
+
+  profile: {
+    title: "Profile details",
+    eyebrow: "Your account",
+    desc: "Keep the basic details FarmRisk uses to personalize your dashboard.",
+    phoneLabel: "Phone number",
+    phoneDesc: "Your phone number is managed by FarmRisk authentication.",
+    nameLabel: "Name",
+    namePlaceholder: "Your name",
+    ageLabel: "Age",
+    agePlaceholder: "Age",
+    locationLabel: "Location",
+    locationPlaceholder: "Village, district, or city",
+    saveBtn: "Save profile",
+    savingBtn: "Saving...",
+  },
+  problem: {
+    badge: "The Challenge",
+    headingPart1: "Farmers face ",
+    headingHighlight: "climate uncertainty",
+    headingPart2: " every day",
+    description:
+      "Without reliable, localized weather information and actionable insights, farmers struggle to make critical decisions that directly impact their livelihood.",
+    metrics: [
+      {
+        label: "Weather Uncertainty",
+        value: "40%",
+        impact: "crop loss risk",
+        description:
+          "Unpredictable rainfall and extreme weather events threaten agricultural productivity",
+        link: "https://www.fao.org/climate-change/en/",
+      },
+      {
+        label: "Information Gap",
+        value: "78%",
+        impact: "farmers lack access",
+        description:
+          "Critical weather data not available in regional languages or localized formats",
+        link: "https://www.isro.gov.in/",
+      },
+      {
+        label: "Poor Timing",
+        value: "₹2.5L",
+        impact: "avg. annual loss",
+        description:
+          "Incorrect timing of irrigation, sowing, and harvesting due to lack of actionable insights",
+        link: "https://www.imd.gov.in/",
+      },
+    ],
+    impactEyebrow: "The Cost of Uncertainty",
+    impactTitle: "Billions in annual losses",
+    impactDesc:
+      "Without reliable information, farmers often incur significant losses due to poor timing of agricultural operations. Unpredictable weather patterns, lack of localized forecasts, and limited access to actionable advisories create a perfect storm of risk.",
+    impactBtnSolution: "Discover the Solution",
+    impactBtnLearnMore: "Learn More",
+    goToSource: "Go to source",
+  },
+  solution: {
+    badge: "The Solution",
+    headingPart1: "Empowering agriculture with ",
+    headingHighlight: "climate intelligence",
+    headingPart2: "",
+    description:
+      "FarmRisk bridges the gap between complex atmospheric science and daily farming decisions, translating real-time satellite telemetry and weather models into localized, high-yield actions.",
+    pillars: [
+      {
+        id: "precision",
+        title: "Hyper-Local Precision",
+        description:
+          "GPS-targeted, village-level weather forecasts customized for your specific coordinates.",
+        icon: "Locate",
+      },
+      {
+        id: "actionable",
+        title: "Actionable Advisories",
+        description:
+          "AI-driven farm advisories converting complex forecasts into clear agricultural actions.",
+        icon: "BrainCircuit",
+      },
+      {
+        id: "alerts",
+        title: "Real-Time Hazard Alerts",
+        description:
+          "Instant, real-time alerts for lightning strikes, extreme storms, and frost risks.",
+        icon: "Zap",
+      },
+      {
+        id: "multilingual",
+        title: "Local Language Support",
+        description:
+          "Entire interface and crop advisories translated natively into regional Indian languages.",
+        icon: "Languages",
+      },
+    ],
+    stats: [
+      { value: "99.2%", label: "Forecast Accuracy" },
+      { value: "10-Day", label: "Weather Outlook" },
+      { value: "4+", label: "Languages Supported" },
+      { value: "24/7", label: "Real-Time Updates" },
+    ],
+  },
+  choice: {
+    free: {
+      badge: "Free Access",
+      title: "Standard Dashboard",
+      description:
+        "Access hyper-local weather snapshots and regional forecasts directly.",
+      points: [
+        "Real-time weather telemetry data",
+        "16-day general weather outlook",
+      ],
+      buttonText: "Go to Free Dashboard",
+    },
+    personalized: {
+      badge: "Personalized Access",
+      title: "Personalized Dashboard",
+      description:
+        "Unlock full GPS-mapped field advisories and custom AI crop recommendations.",
+      points: [
+        "Hyper-local GPS field boundary mapping",
+        "AI crop-specific recommendations and calendar alerts",
+        "Root-zone soil moisture monitoring overlays",
+        "Real-time lightning and extreme weather SMS alerts",
+        "100% personalized advisory and secure profile history",
+      ],
+      buttonText: "Access Personalized Dashboard",
+    },
+  },
+  locationSearchBar: {
+    headerTitle: "Village & Location",
+    headerSubtitle: "India village search",
+    searchLabel: "Search village",
+    searchPlaceholder: "Search village, taluka, district...",
+    noMatches: "No matches yet. Try a district, taluka, or nearby village.",
+    selectMapBtn: "Select from map",
+    useLocationBtn: "Use my location",
+    locatingState: "Finding your location...",
+    selectedLocLabel: "Selected location",
+    latitudeLabel: "Latitude",
+    longitudeLabel: "Longitude",
+    sourceLabel: "Source",
+    notesTitle: "Location notes",
+    notesBadge: "Clean handoff",
+    note1: "Search uses India-bounded village suggestions from OpenStreetMap.",
+    note2:
+      "Map clicks reverse-geocode into the nearest place name when available.",
+    note3:
+      "Coordinates are kept as the stable source of truth for future API work.",
+    gpsStatus: "Live location captured",
+    mapStatus: "Map point selected",
+    villageStatus: "Village selected",
+    checkingStatus: "Checking map point...",
+    gpsFail: "Location permission denied",
+    selectLocation: "Select Location",
+  },
+};

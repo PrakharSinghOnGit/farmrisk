@@ -100,7 +100,7 @@ export const UserBaseCounter: React.FC<UserBaseCounterProps> = ({
               <Users className="w-7 h-7" />
               <div>
                 <div className="text-3xl font-bold text-foreground flex items-center justify-center gap-1">
-                  <AnimatedCounter value={totalUsers} duration={4} />
+                  <AnimatedCounter value={totalUsers} duration={2} />
                   <span className="text-green-600">+</span>
                 </div>
                 <p className="text-xs text-muted-foreground">Active Users</p>

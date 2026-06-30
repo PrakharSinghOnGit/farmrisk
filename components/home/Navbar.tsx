@@ -2,7 +2,7 @@ import React from "react";
 import { LayoutDashboard, Leaf, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "../ThemeChange";
-import { LanguageSwitcher } from "@/components/language-switcher";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/hooks/use-language";
 import Link from "next/link";
 import { AuthButtons } from "../auth/AuthButtons";
@@ -38,7 +38,7 @@ export const NavBar = ({ type }: { type: "small" | "large" }) => {
           className={cn(
             "bg-background/40 mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 lg:pl-12 lg:pr-6 backdrop-blur-sm rounded-2xl border",
             isSmall &&
-              "bg-background/50 max-w-4xl rounded-2xl border backdrop-blur-lg lg:pl-5",
+              "max-w-4xl rounded-2xl backdrop-blur-lg lg:pl-5 border-2 border-black/40 dark:border-white/20",
           )}
         >
           <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
@@ -50,7 +50,7 @@ export const NavBar = ({ type }: { type: "small" | "large" }) => {
                   "gap-2 flex items-center transition-colors duration-300 text-black dark:text-white"
                 }
               >
-                <Leaf className="size-6 shrink-0 text-emerald-700 dark:text-emerald-500" />
+                <Leaf className="size-6 shrink-0 text-emerald-900 dark:text-emerald-500" />
                 <span
                   className={
                     "text-2xl font-bold logoFace transition-all duration-300 ease-in-out whitespace-nowrap inline-block overflow-hidden"
@@ -104,7 +104,7 @@ export const NavBar = ({ type }: { type: "small" | "large" }) => {
               )}
               <div className="flex w-full justify-center flex-row items-center gap-3 md:w-fit">
                 <LanguageSwitcher isScrolled={type == "large"} />
-                <ModeToggle />
+                <ModeToggle isScrolled={type == "small"} />
 
                 {type == "large" && (
                   <AuthButtons

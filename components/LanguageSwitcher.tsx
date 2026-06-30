@@ -5,14 +5,16 @@ import { ChevronDown, Globe } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { LanguageCode } from "@/constants/content";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface LanguageSwitcherProps {
-  theme?: "light" | "dark";
   isScrolled?: boolean;
+  rounded?: boolean;
 }
 
 export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   isScrolled = true,
+  rounded = true,
 }) => {
   const { language, setLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
@@ -48,7 +50,10 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
         onClick={() => setIsOpen(!isOpen)}
         variant="outline"
         size={isScrolled ? "sm" : "lg"}
-        className="cursor-pointer rounded-full gap-1.5 font-semibold text-xs border-slate-200/60 dark:border-white/10 text-black dark:text-white"
+        className={cn(
+          "cursor-pointer border-border gap-1.5 font-semibold text-xs text-black dark:text-white",
+          rounded ? "rounded-full" : "rounded-md",
+        )}
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
@@ -74,7 +79,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
       </Button>
 
       {isOpen && (
-        <div className="bg-background absolute left-0 mt-1.5 z-1000 w-48 rounded-xl border p-1 shadow-xl animate-in fade-in slide-in-from-top-2 duration-150 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-white shadow-slate-200 dark:shadow-black/40">
+        <div className="bg-background absolute -left-1/2 mt-1.5 z-1000 w-48 rounded-xl border p-3 shadow-xl animate-in fade-in slide-in-from-top-2 duration-150 border-border text-slate-800 dark:text-white">
           {languages.map((l) => (
             <button
               key={l.code}

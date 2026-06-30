@@ -1,13 +1,8 @@
 "use client";
 
-import {
-  createContext,
-  useContext,
-  useState,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 
-import { selectedVillage } from "@/app/dashboard/_data/dashboard-data";
+import { selectedVillage } from "@/components/dashboard/overview/dashboard-data";
 
 export type SelectedLocation = {
   lat: number;
@@ -43,7 +38,9 @@ export function LocationProvider({ children }: { children: ReactNode }) {
 export function useLocationContext(): LocationContextValue {
   const ctx = useContext(LocationContext);
   if (!ctx) {
-    throw new Error("useLocationContext must be used inside <LocationProvider>");
+    throw new Error(
+      "useLocationContext must be used inside <LocationProvider>",
+    );
   }
   return ctx;
 }
