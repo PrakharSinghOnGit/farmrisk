@@ -43,15 +43,55 @@ import {
 } from "@/lib/utils";
 import { toast } from "sonner";
 import Image from "next/image";
+import Download from "./Download";
 
 const TILE_SIZE = 256;
 const INITIAL_ZOOM = 11;
 
 type SearchResult = SelectedLocation & { id: string };
 
+const BUTTON_TRANSLATIONS: Record<string, {
+  locationShort: string;
+  locationMedium: string;
+  mapShort: string;
+  mapMedium: string;
+}> = {
+  en: {
+    locationShort: "Location",
+    locationMedium: "Use Location",
+    mapShort: "Map",
+    mapMedium: "Select Map",
+  },
+  hi: {
+    locationShort: "स्थान",
+    locationMedium: "स्थान का उपयोग",
+    mapShort: "नक्शा",
+    mapMedium: "नक्शा चुनें",
+  },
+  mr: {
+    locationShort: "स्थान",
+    locationMedium: "स्थान वापरा",
+    mapShort: "नकाशा",
+    mapMedium: "नकाशा निवडा",
+  },
+  ta: {
+    locationShort: "இடம்",
+    locationMedium: "இடத்தைப் பயன்படுத்து",
+    mapShort: "வரைபடம்",
+    mapMedium: "வரைபடம் தேர்வு",
+  },
+  gu: {
+    locationShort: "સ્થાન",
+    locationMedium: "સ્થાન વાપરો",
+    mapShort: "નકશો",
+    mapMedium: "નકશો પસંદ કરો",
+  },
+};
+
 export function LocationSearchBar() {
   const { t, language } = useLanguage();
   const locTrans = t.locationSearchBar;
+  const btnTrans = BUTTON_TRANSLATIONS[language] || BUTTON_TRANSLATIONS.en;
 
   // Hook directly into the global location provider
   const { location, setLocation } = useLocationContext();
@@ -403,9 +443,9 @@ export function LocationSearchBar() {
     isFocused && query.trim().length >= 2 && query !== location.name;
 
   return (
-    <div className="w-full flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-card p-2 rounded-xl border border-border shadow-sm">
-      {/* 1. SEARCH BAR CONTAINER */}
-      <div className="relative w-full flex-1 min-w-0">
+    <div className="w-full flex flex-col lg:flex-row items-stretch lg:items-center gap-3 bg-card p-3 rounded-xl border border-border shadow-sm">
+      {/* 1. SEARCH BAR CONTAINER: Full width on md, fluid expansion on lg */}
+      <div className="relative w-full lg:flex-grow lg:flex-1 min-w-full md:min-w-full lg:min-w-[380px]">
         <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground flex items-center justify-center size-4">
           {loadingResults ? (
             <Loader2 className="size-4 animate-spin text-emerald-500" />
@@ -469,29 +509,47 @@ export function LocationSearchBar() {
         )}
       </div>
 
-      {/* 2. ACTION BUTTONS */}
-      <div className="flex w-full sm:w-auto items-center gap-2 shrink-0">
-        {/* GPS BUTTON */}
+      {/* 2. ACTION BUTTONS WRAPPER: Flex layout on all screen sizes, two stretchable buttons + one square on mobile */}
+      <div className="flex items-center gap-2 w-full lg:w-auto shrink-0">
+        {/* USE MY LOCATION BUTTON */}
         <Button
           variant="outline"
           onClick={handleUseLocation}
           disabled={isLocating}
-          className="flex-1 rounded-md sm:flex-none h-11 bg-background hover:bg-accent text-foreground border-border"
+          className="flex-grow flex-1 lg:flex-none lg:w-auto h-11 rounded-lg bg-background hover:bg-accent text-foreground border-border px-3 lg:px-4"
         >
           {isLocating ? (
-            <Loader2 className="size-4 animate-spin mr-2" />
+            <Loader2 className="size-4 animate-spin shrink-0 sm:mr-2" />
           ) : (
-            <LocateFixed className="size-4 mr-2" />
+            <LocateFixed className="size-4 shrink-0 sm:mr-2" />
           )}
-          {isLocating ? locTrans.locatingState : locTrans.useLocationBtn}
+          <span className="text-xs sm:text-sm font-medium truncate">
+            {/* Responsive Label Gating */}
+            <span className="sm:hidden">
+              {isLocating ? "..." : btnTrans.locationShort}
+            </span>
+            <span className="hidden sm:inline md:hidden">
+              {isLocating ? locTrans.locatingState : btnTrans.locationMedium}
+            </span>
+            <span className="hidden md:inline">
+              {isLocating ? locTrans.locatingState : locTrans.useLocationBtn}
+            </span>
+          </span>
         </Button>
 
         {/* MAP DIALOG TRIGGER */}
         <Dialog open={isMapOpen} onOpenChange={setIsMapOpen}>
           <DialogTrigger asChild>
-            <Button className="flex-1 rounded-md sm:flex-none h-11 bg-primary text-primary-foreground hover:bg-primary/90">
-              <MapPinned className="size-4 mr-2" />
-              {locTrans.selectMapBtn}
+            <Button className="grow flex-1 lg:flex-none lg:w-auto h-11 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 px-3 lg:px-4">
+              <MapPinned className="size-4 shrink-0 sm:mr-2" />
+              <span className="text-xs sm:text-sm font-medium truncate">
+                {/* Responsive Label Gating */}
+                <span className="sm:hidden">{btnTrans.mapShort}</span>
+                <span className="hidden sm:inline md:hidden">{btnTrans.mapMedium}</span>
+                <span className="hidden md:inline">
+                  {locTrans.selectMapBtn}
+                </span>
+              </span>
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-175 bg-background border-border p-0 overflow-hidden">

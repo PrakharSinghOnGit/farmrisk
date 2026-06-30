@@ -1,8 +1,13 @@
 "use client";
 
-import { createContext, useContext, useState, type ReactNode } from "react";
-
-import { selectedVillage } from "@/components/dashboard/overview/dashboard-data";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  type ReactNode,
+} from "react";
+import { reverseGeocode } from "@/lib/utils";
 
 export type SelectedLocation = {
   lat: number;
@@ -14,22 +19,59 @@ export type SelectedLocation = {
 type LocationContextValue = {
   location: SelectedLocation;
   setLocation: (location: SelectedLocation) => void;
+  isResolving: boolean;
 };
 
 const LocationContext = createContext<LocationContextValue | null>(null);
 
+// Static fallback default location (Dholka, Ahmedabad, Gujarat, India)
 const DEFAULT_LOCATION: SelectedLocation = {
-  lat: selectedVillage.latitude,
-  lng: selectedVillage.longitude,
-  name: selectedVillage.name,
+  lat: 22.7214,
+  lng: 72.2741,
+  name: "Dholka",
   displayName: "Dholka, Ahmedabad, Gujarat, India",
 };
 
 export function LocationProvider({ children }: { children: ReactNode }) {
   const [location, setLocation] = useState<SelectedLocation>(DEFAULT_LOCATION);
+  const [isResolving, setIsResolving] = useState(true);
+
+  useEffect(() => {
+    // Attempt to request GPS location on mount to override development default location
+    if (typeof window !== "undefined" && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          try {
+            const { latitude, longitude } = position.coords;
+            const geoResult = await reverseGeocode(latitude, longitude);
+            setLocation({
+              lat: geoResult.lat,
+              lng: geoResult.lng,
+              name: geoResult.name,
+              displayName: geoResult.displayName,
+            });
+          } catch (error) {
+            console.error(
+              "Failed to reverse-geocode default location on load:",
+              error,
+            );
+          } finally {
+            setIsResolving(false);
+          }
+        },
+        (error) => {
+          console.warn("User geolocation denied or failed on load:", error);
+          setIsResolving(false);
+        },
+        { enableHighAccuracy: false, timeout: 5000, maximumAge: 86400000 },
+      );
+    } else {
+      setIsResolving(false);
+    }
+  }, []);
 
   return (
-    <LocationContext.Provider value={{ location, setLocation }}>
+    <LocationContext.Provider value={{ location, setLocation, isResolving }}>
       {children}
     </LocationContext.Provider>
   );

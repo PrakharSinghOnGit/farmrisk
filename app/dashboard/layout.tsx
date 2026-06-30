@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { ModeToggle } from "@/components/ThemeChange";
 import { PageHeading } from "@/components/ui/PageHeading";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import Download from "@/components/dashboard/overview/Download";
 
 export default async function DashboardLayout({
   children,
@@ -18,7 +19,7 @@ export default async function DashboardLayout({
       <LocationProvider>
         <SidebarProvider defaultOpen>
           <AppSidebar />
-          <div className="pt-(--standalone) flex flex-col gap-3 w-[calc(100vw-24px)] justify-center m-3 lg:ml-0 md:ml-0 h-[calc(100vh-24px)]">
+          <div className="pt-(--standalone) flex flex-col gap-3 flex-1 min-w-0 m-3 h-[calc(100vh-24px)] lg:ml-0 md:ml-0">
             <div className="flex justify-between items-center">
               <div className="flex gap-3">
                 <div className="flex items-center justify-center rounded-md gap-3 w-10">
@@ -32,11 +33,12 @@ export default async function DashboardLayout({
                 <Badge
                   variant={"outline"}
                   color="blue"
-                  className="md:flex hidden"
+                  className="lg:flex hidden"
                 >
                   {new Date().toDateString()}
                 </Badge>
-                <LanguageSwitcher isScrolled={false} rounded={false} />
+                <Download />
+                <LanguageSwitcher isScrolled={true} rounded={false} />
                 <ModeToggle rounded={false} />
               </div>
             </div>

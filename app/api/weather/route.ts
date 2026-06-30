@@ -9,48 +9,116 @@ type WmoEntry = {
     ta: string;
     gu: string;
   };
-  icon: "Sun" | "CloudSun" | "Cloud" | "CloudDrizzle" | "CloudRain" | "CloudLightning" | "Snowflake" | "Wind";
+  icon:
+    | "Sun"
+    | "CloudSun"
+    | "Cloud"
+    | "CloudDrizzle"
+    | "CloudRain"
+    | "CloudLightning"
+    | "Snowflake"
+    | "Wind";
 };
 
 const WMO_MAP: Record<number, WmoEntry> = {
   0: {
-    condition: { en: "Clear sky", hi: "साफ़ आसमान", mr: "स्वच्छ आकाश", ta: "தெளிவான வானம்", gu: "સ્વચ્છ આકાશ" },
+    condition: {
+      en: "Clear sky",
+      hi: "साफ़ आसमान",
+      mr: "स्वच्छ आकाश",
+      ta: "தெளிவான வானம்",
+      gu: "સ્વચ્છ આકાશ",
+    },
     icon: "Sun",
   },
   1: {
-    condition: { en: "Mainly clear", hi: "मुख्यतः साफ़", mr: "प्रामुख्याने स्वच्छ", ta: "பெரும்பாலும் தெளிவு", gu: "મુખ્યત્વે સ્વચ્છ" },
+    condition: {
+      en: "Mainly clear",
+      hi: "मुख्यतः साफ़",
+      mr: "प्रामुख्याने स्वच्छ",
+      ta: "பெரும்பாலும் தெளிவு",
+      gu: "મુખ્યત્વે સ્વચ્છ",
+    },
     icon: "Sun",
   },
   2: {
-    condition: { en: "Partly cloudy", hi: "आंशिक बादल", mr: "अंशतः ढगाळ", ta: "பகுதி மேகமூட்டம்", gu: "આંશિક વાદળ" },
+    condition: {
+      en: "Partly cloudy",
+      hi: "आंशिक बादल",
+      mr: "अंशतः ढगाळ",
+      ta: "பகுதி மேகமூட்டம்",
+      gu: "આંશિક વાદળ",
+    },
     icon: "CloudSun",
   },
   3: {
-    condition: { en: "Overcast", hi: "बादल छाए हुए", mr: "आच्छादित", ta: "மேகமூட்டம்", gu: "વાદળછાયું" },
+    condition: {
+      en: "Overcast",
+      hi: "बादल छाए हुए",
+      mr: "आच्छादित",
+      ta: "மேகமூட்டம்",
+      gu: "વાદળછાયું",
+    },
     icon: "Cloud",
   },
   45: {
-    condition: { en: "Foggy", hi: "धुंध", mr: "धुक्याचे", ta: "மூடுபனி", gu: "靄" },
+    condition: {
+      en: "Foggy",
+      hi: "धुंध",
+      mr: "धुक्याचे",
+      ta: "மூடுபனி",
+      gu: "靄",
+    },
     icon: "Cloud",
   },
   48: {
-    condition: { en: "Icy fog", hi: "जमी हुई धुंध", mr: "गोठलेली धुकी", ta: "பனி மூட்டம்", gu: "ઠંડી靄" },
+    condition: {
+      en: "Icy fog",
+      hi: "जमी हुई धुंध",
+      mr: "गोठलेली धुकी",
+      ta: "பனி மூட்டம்",
+      gu: "ઠંડી靄",
+    },
     icon: "Cloud",
   },
   51: {
-    condition: { en: "Light drizzle", hi: "हल्की बूंदाबांदी", mr: "हलकी रिमझिम", ta: "இலகுவான தூறல்", gu: "હળવી ઝરમર" },
+    condition: {
+      en: "Light drizzle",
+      hi: "हल्की बूंदाबांदी",
+      mr: "हलकी रिमझिम",
+      ta: "இலகுவான தூறல்",
+      gu: "હળવી ઝરમર",
+    },
     icon: "CloudDrizzle",
   },
   53: {
-    condition: { en: "Drizzle", hi: "बूंदाबांदी", mr: "रिमझिम", ta: "தூறல்", gu: "ઝરમર" },
+    condition: {
+      en: "Drizzle",
+      hi: "बूंदाबांदी",
+      mr: "रिमझिम",
+      ta: "தூறல்",
+      gu: "ઝરમર",
+    },
     icon: "CloudDrizzle",
   },
   55: {
-    condition: { en: "Heavy drizzle", hi: "भारी बूंदाबांदी", mr: "जड रिमझिम", ta: "கனமான தூறல்", gu: "ભારી ઝરમર" },
+    condition: {
+      en: "Heavy drizzle",
+      hi: "भारी बूंदाबांदी",
+      mr: "जड रिमझिम",
+      ta: "கனமான தூறல்",
+      gu: "ભારી ઝરમર",
+    },
     icon: "CloudDrizzle",
   },
   61: {
-    condition: { en: "Light rain", hi: "हल्की बारिश", mr: "हलका पाऊस", ta: "இலகுவான மழை", gu: "હળવો વરસાદ" },
+    condition: {
+      en: "Light rain",
+      hi: "हल्की बारिश",
+      mr: "हलका पाऊस",
+      ta: "இலகுவான மழை",
+      gu: "હળવો વરસાદ",
+    },
     icon: "CloudRain",
   },
   63: {
@@ -58,55 +126,133 @@ const WMO_MAP: Record<number, WmoEntry> = {
     icon: "CloudRain",
   },
   65: {
-    condition: { en: "Heavy rain", hi: "भारी बारिश", mr: "जड पाऊस", ta: "கனமழை", gu: "ભારી વરસાદ" },
+    condition: {
+      en: "Heavy rain",
+      hi: "भारी बारिश",
+      mr: "जड पाऊस",
+      ta: "கனமழை",
+      gu: "ભારી વરસાદ",
+    },
     icon: "CloudRain",
   },
   71: {
-    condition: { en: "Light snow", hi: "हल्की बर्फ", mr: "हलका हिमवर्षाव", ta: "இலகுவான பனி", gu: "હળવો હિમ" },
+    condition: {
+      en: "Light snow",
+      hi: "हल्की बर्फ",
+      mr: "हलका हिमवर्षाव",
+      ta: "இலகுவான பனி",
+      gu: "હળવો હિમ",
+    },
     icon: "Snowflake",
   },
   73: {
-    condition: { en: "Snow", hi: "बर्फबारी", mr: "हिमवर्षाव", ta: "பனிப்பொழிவு", gu: "હિમ" },
+    condition: {
+      en: "Snow",
+      hi: "बर्फबारी",
+      mr: "हिमवर्षाव",
+      ta: "பனிப்பொழிவு",
+      gu: "હિમ",
+    },
     icon: "Snowflake",
   },
   75: {
-    condition: { en: "Heavy snow", hi: "भारी बर्फबारी", mr: "जड हिमवर्षाव", ta: "கனமான பனி", gu: "ભારી હિમ" },
+    condition: {
+      en: "Heavy snow",
+      hi: "भारी बर्फबारी",
+      mr: "जड हिमवर्षाव",
+      ta: "கனமான பனி",
+      gu: "ભારી હિમ",
+    },
     icon: "Snowflake",
   },
   77: {
-    condition: { en: "Snow grains", hi: "बर्फ के दाने", mr: "हिम दाणे", ta: "பனி துகள்கள்", gu: "હિમ કણ" },
+    condition: {
+      en: "Snow grains",
+      hi: "बर्फ के दाने",
+      mr: "हिम दाणे",
+      ta: "பனி துகள்கள்",
+      gu: "હિમ કણ",
+    },
     icon: "Snowflake",
   },
   80: {
-    condition: { en: "Rain showers", hi: "बारिश की बौछारें", mr: "पावसाच्या सरी", ta: "மழை சாரல்", gu: "ઝાપટાં" },
+    condition: {
+      en: "Rain showers",
+      hi: "बारिश की बौछारें",
+      mr: "पावसाच्या सरी",
+      ta: "மழை சாரல்",
+      gu: "ઝાપટાં",
+    },
     icon: "CloudRain",
   },
   81: {
-    condition: { en: "Showers", hi: "बौछारें", mr: "सरी", ta: "சாரல்", gu: "ઝાપટ" },
+    condition: {
+      en: "Showers",
+      hi: "बौछारें",
+      mr: "सरी",
+      ta: "சாரல்",
+      gu: "ઝાપટ",
+    },
     icon: "CloudRain",
   },
   82: {
-    condition: { en: "Heavy showers", hi: "भारी बौछारें", mr: "जड सरी", ta: "கனமான சாரல்", gu: "ભારી ઝાપટ" },
+    condition: {
+      en: "Heavy showers",
+      hi: "भारी बौछारें",
+      mr: "जड सरी",
+      ta: "கனமான சாரல்",
+      gu: "ભારી ઝાપટ",
+    },
     icon: "CloudRain",
   },
   85: {
-    condition: { en: "Snow showers", hi: "बर्फ की बौछारें", mr: "हिम सरी", ta: "பனி சாரல்", gu: "હિમ ઝાપટ" },
+    condition: {
+      en: "Snow showers",
+      hi: "बर्फ की बौछारें",
+      mr: "हिम सरी",
+      ta: "பனி சாரல்",
+      gu: "હિમ ઝાપટ",
+    },
     icon: "Snowflake",
   },
   86: {
-    condition: { en: "Heavy snow showers", hi: "भारी बर्फ की बौछारें", mr: "जड हिम सरी", ta: "கனமான பனி சாரல்", gu: "ભારી હિમ ઝાપટ" },
+    condition: {
+      en: "Heavy snow showers",
+      hi: "भारी बर्फ की बौछारें",
+      mr: "जड हिम सरी",
+      ta: "கனமான பனி சாரல்",
+      gu: "ભારી હિમ ઝાપટ",
+    },
     icon: "Snowflake",
   },
   95: {
-    condition: { en: "Thunderstorm", hi: "आंधी-तूफान", mr: "वादळ", ta: "இடியுடன் கூடிய மழை", gu: "વીજળી-તોફાન" },
+    condition: {
+      en: "Thunderstorm",
+      hi: "आंधी-तूफान",
+      mr: "वादळ",
+      ta: "இடியுடன் கூடிய மழை",
+      gu: "વીજળી-તોફાન",
+    },
     icon: "CloudLightning",
   },
   96: {
-    condition: { en: "Thunderstorm with hail", hi: "ओलावृष्टि के साथ तूफान", mr: "गारपिटीसह वादळ", ta: "கல் மழையுடன் இடி", gu: "કરા સાથે વાવાઝોડું" },
+    condition: {
+      en: "Thunderstorm with hail",
+      hi: "ओलावृष्टि के साथ तूफान",
+      mr: "गारपिटीसह वादळ",
+      ta: "கல் மழையுடன் இடி",
+      gu: "કરા સાથે વાવાઝોડું",
+    },
     icon: "CloudLightning",
   },
   99: {
-    condition: { en: "Heavy thunderstorm", hi: "भारी आंधी-तूफान", mr: "जड वादळ", ta: "கடுமையான இடி", gu: "ભારી વીજળી-તોફાન" },
+    condition: {
+      en: "Heavy thunderstorm",
+      hi: "भारी आंधी-तूफान",
+      mr: "जड वादळ",
+      ta: "கடுமையான இடி",
+      gu: "ભારી વીજળી-તોફાન",
+    },
     icon: "CloudLightning",
   },
 };
@@ -114,7 +260,13 @@ const WMO_MAP: Record<number, WmoEntry> = {
 function resolveWmo(code: number): WmoEntry {
   return (
     WMO_MAP[code] ?? {
-      condition: { en: "Unknown", hi: "अज्ञात", mr: "अज्ञात", ta: "தெரியவில்லை", gu: "અજ્ઞાત" },
+      condition: {
+        en: "Unknown",
+        hi: "अज्ञात",
+        mr: "अज्ञात",
+        ta: "தெரியவில்லை",
+        gu: "અજ્ઞાત",
+      },
       icon: "Sun",
     }
   );
@@ -123,6 +275,16 @@ function resolveWmo(code: number): WmoEntry {
 // Open-Meteo response shape (partial)
 
 type OpenMeteoResponse = {
+  current: {
+    time: string;
+    temperature_2m: number;
+    relative_humidity_2m: number;
+    apparent_temperature: number;
+    weather_code: number;
+    pressure_msl: number;
+    wind_speed_10m: number;
+    wind_gusts_10m: number;
+  };
   hourly: {
     time: string[];
     temperature_2m: number[];
@@ -153,11 +315,27 @@ function formatHour(isoTime: string): string {
 function formatDate(isoDate: string): string {
   // isoDate is like "2024-06-26"
   const date = new Date(`${isoDate}T00:00:00`);
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   return `${months[date.getMonth()]} ${date.getDate()}`;
 }
 
-function getDayName(isoDate: string, index: number): { en: string; hi: string; mr: string; ta: string; gu: string } {
+function getDayName(
+  isoDate: string,
+  index: number,
+): { en: string; hi: string; mr: string; ta: string; gu: string } {
   if (index === 0) {
     return { en: "Today", hi: "आज", mr: "आज", ta: "இன்று", gu: "આજ" };
   }
@@ -207,6 +385,10 @@ export async function GET(request: NextRequest) {
   url.searchParams.set("latitude", String(latNum));
   url.searchParams.set("longitude", String(lngNum));
   url.searchParams.set(
+    "current",
+    "temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,pressure_msl,wind_speed_10m,wind_gusts_10m",
+  );
+  url.searchParams.set(
     "hourly",
     "temperature_2m,precipitation_probability,windspeed_10m,weathercode",
   );
@@ -233,16 +415,21 @@ export async function GET(request: NextRequest) {
 
   // ---- Hourly: pick 6 slots from today starting at 6 AM local ----
   const now = new Date();
-  const todayPrefix = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+  const nowMs = now.getTime();
+  let closestIndex = 0;
+  let minDiff = Infinity;
+  for (let i = 0; i < raw.hourly.time.length; i++) {
+    const timeMs = new Date(raw.hourly.time[i]).getTime();
+    const diff = Math.abs(timeMs - nowMs);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closestIndex = i;
+    }
+  }
 
-  const todayIndices = raw.hourly.time
-    .map((t, i) => ({ t, i }))
-    .filter(({ t }) => t.startsWith(todayPrefix) && parseInt(t.slice(11, 13)) >= 6)
-    .map(({ i }) => i);
-
-  // Pick at most 6 evenly spaced hours
-  const step = Math.max(1, Math.floor(todayIndices.length / 6));
-  const hourlySlots = todayIndices.filter((_, idx) => idx % step === 0).slice(0, 6);
+  // Pick the next 24 hours starting from the closest index
+  const hourlySlots = Array.from({ length: 24 }, (_, i) => closestIndex + i)
+    .filter((idx) => idx < raw.hourly.time.length);
 
   const hourly = hourlySlots.map((i) => {
     const wmo = resolveWmo(raw.hourly.weathercode[i]);
@@ -265,10 +452,21 @@ export async function GET(request: NextRequest) {
       high: Math.round(raw.daily.temperature_2m_max[idx]),
       low: Math.round(raw.daily.temperature_2m_min[idx]),
       condition: wmo.condition,
-      rainChance: raw.daily.precipitation_probability_max[idx] ?? 0,
-      icon: wmo.icon,
     };
   });
 
-  return Response.json({ hourly, forecast });
+  // ---- Current Weather ----
+  const wmoCurrent = resolveWmo(raw.current.weather_code);
+  const current = {
+    temp: Math.round(raw.current.temperature_2m),
+    condition: wmoCurrent.condition,
+    icon: wmoCurrent.icon,
+    humidity: raw.current.relative_humidity_2m,
+    apparentTemp: Math.round(raw.current.apparent_temperature),
+    windKph: Math.round(raw.current.wind_speed_10m),
+    windGustsKph: Math.round(raw.current.wind_gusts_10m),
+    pressureMb: Math.round(raw.current.pressure_msl),
+  };
+
+  return Response.json({ current, hourly, forecast });
 }

@@ -45,7 +45,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   }, []);
 
   return (
-    <div className="relative inline-block text-left" ref={dropdownRef}>
+    <div className="relative mt-1 inline-block text-left" ref={dropdownRef}>
       <Button
         onClick={() => setIsOpen(!isOpen)}
         variant="outline"
