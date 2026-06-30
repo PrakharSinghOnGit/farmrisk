@@ -27,7 +27,7 @@ const Overview = () => {
         </div>
       </div>
 
-      <Forcast hourly={hourly} isLoading={isLoading} />
+      <Forcast />
       <HourlyWeather hourly={hourly} isLoading={isLoading} />
 
       <SoilMoisture />

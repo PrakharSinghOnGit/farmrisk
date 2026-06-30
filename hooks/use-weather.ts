@@ -101,11 +101,22 @@ export function useWeather() {
   }, [location.lat, location.lng, isResolving]);
 
   return {
-    isLoading: isResolving || state.status === "loading" || state.status === "idle",
+    isLoading:
+      isResolving || state.status === "loading" || state.status === "idle",
     isError: !isResolving && state.status === "error",
-    errorMessage: !isResolving && state.status === "error" ? state.message : undefined,
-    current: !isResolving && state.status === "success" ? state.data.current : undefined,
-    hourly: !isResolving && state.status === "success" ? state.data.hourly : undefined,
-    forecast: !isResolving && state.status === "success" ? state.data.forecast : undefined,
+    errorMessage:
+      !isResolving && state.status === "error" ? state.message : undefined,
+    current:
+      !isResolving && state.status === "success"
+        ? state.data.current
+        : undefined,
+    hourly:
+      !isResolving && state.status === "success"
+        ? state.data.hourly
+        : undefined,
+    forecast:
+      !isResolving && state.status === "success"
+        ? state.data.forecast
+        : undefined,
   };
 }

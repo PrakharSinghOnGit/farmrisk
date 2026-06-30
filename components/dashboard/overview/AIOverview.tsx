@@ -47,7 +47,7 @@ const AIOverview = () => {
         current: current
           ? {
               temp: current.temp,
-              condition: current.condition[lang] || current.condition.en,
+              condition: current.condition.en,
               humidity: current.humidity,
               apparentTemp: current.apparentTemp,
               windKph: current.windKph,
@@ -59,17 +59,17 @@ const AIOverview = () => {
           hourly?.map((h) => ({
             time: h.time,
             temp: h.temp,
-            condition: h.condition[lang] || h.condition.en,
+            condition: h.condition.en,
             rainChance: h.rainChance,
             windKph: h.windKph,
           })) || [],
         forecast:
           forecast?.map((f) => ({
             date: f.date,
-            day: f.day[lang] || f.day.en,
+            day: f.day.en,
             high: f.high,
             low: f.low,
-            condition: f.condition[lang] || f.condition.en,
+            condition: f.condition.en,
             rainChance: f.rainChance,
           })) || [],
       };
@@ -106,31 +106,31 @@ const AIOverview = () => {
   // Fetch new advisory whenever coordinate, crop, or language parameters change
   useEffect(() => {
     if (!isLoading && current) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       getAIAdvisory(selectedCrop.id, location, language);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.lat, location.lng, selectedCrop.id, language, isLoading]);
 
   const ActiveIcon = selectedCrop.icon;
 
   return (
-    <div className="w-full h-full bg-linear-to-br from-emerald-500/10 via-background to-muted/30 border border-emerald-500/20 dark:border-emerald-500/30 rounded-xl shadow-[0_4px_20px_-4px_rgba(16,185,129,0.1)] p-5 select-none relative overflow-hidden backdrop-blur-md flex flex-col justify-between">
+    <div className="w-full h-full bg-linear-to-br from-emerald-500/10 via-background to-muted/30 border border-emerald-500/20 dark:border-emerald-500/30 rounded-xl shadow-[0_4px_20px_-4px_rgba(16,185,129,0.1)] p-3 select-none relative overflow-hidden backdrop-blur-md flex flex-col justify-between">
       {/* BACKGROUND BRAND GLOW */}
       <div className="absolute -right-16 -top-16 size-48 bg-emerald-500/10 blur-3xl rounded-full pointer-events-none" />
 
       {/* HEADER SECTION: Title block paired with dropdown controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-emerald-500/10 dark:border-border/60 pb-3.5 mb-2.5 shrink-0">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-emerald-500/10 dark:border-border/60 pb-2 mb-2 shrink-0">
         <div className="flex items-center gap-2">
           <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0 shadow-xs">
             <Sparkles className="size-4 animate-pulse" />
           </div>
           <div>
             <h2 className="text-sm font-bold text-foreground leading-none">
-              {language === "hi" ? "एआई कृषक अवलोकन" : "AI Agronomist Advisor"}
+              AI Overview
             </h2>
             <p className="text-[9px] font-semibold text-emerald-600 dark:text-emerald-400 tracking-wider uppercase mt-1">
-              {language === "hi"
-                ? "पूर्वानुमानित विश्लेषण"
-                : "Predictive Crop Intelligence"}
+              Choose a crop
             </p>
           </div>
         </div>
@@ -179,7 +179,7 @@ const AIOverview = () => {
       </div>
 
       {/* CORE CONTENT SLOT: Scrollable container with simulated generation skeleton loaders */}
-      <div className="flex-1 min-h-0 flex flex-col justify-start">
+      <div className="overflow-y-auto flex-1 min-h-0 max-h-full flex flex-col justify-start">
         {isGenerating || isLoading ? (
           <div className="space-y-2 mt-1">
             <Skeleton className="h-4 w-full rounded-sm" />
@@ -189,8 +189,8 @@ const AIOverview = () => {
             <Skeleton className="h-4 w-[50%] rounded-sm" />
           </div>
         ) : (
-          <div className="overflow-y-auto pr-1 h-full scrollbar-thin scrollbar-thumb-emerald-500/20 scrollbar-track-transparent">
-            <p className="text-xs sm:text-sm text-foreground/90 font-medium leading-relaxed tracking-normal whitespace-pre-wrap animate-in fade-in duration-300">
+          <div className=" pr-1 scrollbar-thin scrollbar-thumb-emerald-500/20 scrollbar-track-transparent">
+            <p className="text-xs max-h-30 sm:text-sm text-foreground/90 font-medium leading-relaxed tracking-normal whitespace-pre-wrap animate-in fade-in duration-300">
               {advisoryText}
             </p>
           </div>
