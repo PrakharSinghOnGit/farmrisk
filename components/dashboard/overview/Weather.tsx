@@ -64,7 +64,7 @@ interface WeatherProps {
 }
 
 const Weather = ({ weatherData }: WeatherProps) => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const { location } = useLocationContext();
   const { current, isLoading, isError, errorMessage } = weatherData;
 
@@ -97,15 +97,10 @@ const Weather = ({ weatherData }: WeatherProps) => {
       <div className="w-full h-full min-h-55 bg-card border border-border text-foreground rounded-xl shadow-sm p-5 flex flex-col items-center justify-center select-none text-center">
         <CloudSun className="size-12 text-muted-foreground/60 mb-2 animate-bounce" />
         <h3 className="font-semibold text-sm">
-          {language === "hi"
-            ? "मौसम डेटा लोड करने में विफल"
-            : "Failed to load weather data"}
+          {t.dashboard.weatherLoadError}
         </h3>
         <p className="text-xs text-muted-foreground mt-1 max-w-55">
-          {errorMessage ||
-            (language === "hi"
-              ? "कृपया कनेक्शन जांचें या पुनः प्रयास करें।"
-              : "Please check your connection and try again.")}
+          {errorMessage || t.dashboard.weatherLoadErrorDesc}
         </p>
       </div>
     );
@@ -118,7 +113,7 @@ const Weather = ({ weatherData }: WeatherProps) => {
       {/* 1. MODULE SUBTITLE HEADER */}
       <div className="flex items-center gap-1.5 text-muted-foreground text-xs font-semibold uppercase tracking-wider mb-2">
         <ActiveIcon className="size-4 text-primary animate-pulse" />
-        <span>{language === "hi" ? "वर्तमान मौसम" : "Current Climate"}</span>
+        <span>{t.dashboard.currentClimate}</span>
       </div>
 
       {/* 2. GEOLOCATION RUNTIME HEADER BANNER */}
@@ -160,7 +155,7 @@ const Weather = ({ weatherData }: WeatherProps) => {
           <div className="flex items-center justify-between gap-2 text-xs">
             <div className="flex items-center gap-1.5 text-muted-foreground min-w-0">
               <CloudRain className="size-3.5 shrink-0 text-blue-400" />
-              <span className="truncate">Rainfall</span>
+              <span className="truncate">{t.dashboard.rainfall}</span>
             </div>
             <span className="font-semibold text-right shrink-0">
               {current.precipitation} mm
@@ -171,7 +166,7 @@ const Weather = ({ weatherData }: WeatherProps) => {
           <div className="flex items-center justify-between gap-2 text-xs">
             <div className="flex items-center gap-1.5 text-muted-foreground min-w-0">
               <Wind className="size-3.5 shrink-0 text-sky-500" />
-              <span className="truncate">Wind</span>
+              <span className="truncate">{t.dashboard.wind}</span>
             </div>
             <span className="font-semibold text-right shrink-0 truncate max-w-20">
               {current.windKph} km/h
@@ -182,7 +177,7 @@ const Weather = ({ weatherData }: WeatherProps) => {
           <div className="flex items-center justify-between gap-2 text-xs">
             <div className="flex items-center gap-1.5 text-muted-foreground min-w-0">
               <Cloud className="size-3.5 shrink-0 text-slate-400" />
-              <span className="truncate">Clouds</span>
+              <span className="truncate">{t.dashboard.clouds}</span>
             </div>
             <span className="font-semibold text-right shrink-0">
               {current.cloudCover}%
@@ -193,7 +188,7 @@ const Weather = ({ weatherData }: WeatherProps) => {
           <div className="flex items-center justify-between gap-2 text-xs">
             <div className="flex items-center gap-1.5 text-muted-foreground min-w-0">
               <Droplets className="size-3.5 shrink-0 text-blue-500" />
-              <span className="truncate">Humidity</span>
+              <span className="truncate">{t.dashboard.humidity}</span>
             </div>
             <span className="font-semibold text-right shrink-0">
               {current.humidity}%
@@ -204,7 +199,7 @@ const Weather = ({ weatherData }: WeatherProps) => {
           <div className="flex items-center justify-between gap-2 text-xs">
             <div className="flex items-center gap-1.5 text-muted-foreground min-w-0">
               <Wind className="size-3.5 shrink-0 opacity-40 text-sky-400" />
-              <span className="truncate">Gusts</span>
+              <span className="truncate">{t.dashboard.gusts}</span>
             </div>
             <span className="font-medium text-right shrink-0 truncate max-w-20">
               {current.windGustsKph} km/h
@@ -215,7 +210,7 @@ const Weather = ({ weatherData }: WeatherProps) => {
           <div className="flex items-center justify-between gap-2 text-xs">
             <div className="flex items-center gap-1.5 text-muted-foreground min-w-0">
               <Compass className="size-3.5 shrink-0 text-amber-500" />
-              <span className="truncate">Direction</span>
+              <span className="truncate">{t.dashboard.direction}</span>
             </div>
             <span className="font-semibold text-right shrink-0 font-mono">
               {current.windDirection}° {getWindDirection(current.windDirection)}
@@ -226,7 +221,7 @@ const Weather = ({ weatherData }: WeatherProps) => {
           <div className="flex items-center justify-between gap-2 text-xs">
             <div className="flex items-center gap-1.5 text-muted-foreground min-w-0">
               <Gauge className="size-3.5 shrink-0 text-purple-500" />
-              <span className="truncate">Pressure (MSL)</span>
+              <span className="truncate">{t.dashboard.pressureMsl}</span>
             </div>
             <span className="font-semibold text-right shrink-0 font-mono">
               {current.pressureMb} hPa
@@ -237,7 +232,7 @@ const Weather = ({ weatherData }: WeatherProps) => {
           <div className="flex items-center justify-between gap-2 text-xs">
             <div className="flex items-center gap-1.5 text-muted-foreground min-w-0">
               <Gauge className="size-3.5 shrink-0 opacity-40 text-purple-400" />
-              <span className="truncate">Press (Surf)</span>
+              <span className="truncate">{t.dashboard.pressureSurf}</span>
             </div>
             <span className="font-semibold text-right shrink-0 font-mono">
               {current.surfacePressureMb} hPa

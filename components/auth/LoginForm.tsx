@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { normalizePhoneNumber } from "@/lib/auth/phone";
 import { createClient } from "@/supabase/client";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/hooks/use-language";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 type Mode = "login" | "register";
 
@@ -24,6 +26,7 @@ export function LoginForm({
   const router = useRouter();
   const searchParams = useSearchParams();
   const [mode, setMode] = useState<Mode>("login");
+  const { t } = useLanguage();
 
   // Form fields
   const [name, setName] = useState("");
@@ -42,30 +45,30 @@ export function LoginForm({
     const normalizedPhone = normalizePhoneNumber(phone);
     const loginId = `${normalizedPhone}@farmrisk.app`;
     if (!normalizedPhone) {
-      setError("Invalid Phone number. Please enter a valid 10-digit.");
+      setError(t.auth.errorPhone);
       return;
     }
 
     if (mode === "register") {
       if (!name.trim()) {
-        setError("Name is required.");
+        setError(t.auth.errorName);
         return;
       }
       if (!surname.trim()) {
-        setError("Surname is required.");
+        setError(t.auth.errorSurname);
         return;
       }
       if (password.length < 6) {
-        setError("Password must be at least 6 characters.");
+        setError(t.auth.errorPasswordLength);
         return;
       }
       if (password !== confirmPassword) {
-        setError("Passwords do not match.");
+        setError(t.auth.errorPasswordMatch);
         return;
       }
     } else {
       if (!password) {
-        setError("Password is required.");
+        setError(t.auth.errorPasswordRequired);
         return;
       }
     }
@@ -109,7 +112,7 @@ export function LoginForm({
       router.refresh();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      setError(err?.message || "An unexpected error occurred.");
+      setError(err?.message || t.auth.errorUnexpected);
       setIsLoading(false);
     }
   }
@@ -122,9 +125,10 @@ export function LoginForm({
       )}
       {...props}
     >
-      <div className="mb-6 text-center">
-        <h1 className="text-2xl text-foreground font-semibold">
-          {mode === "login" ? "Sign in to FarmRisk" : "Create your account"}
+      <div className="mb-6 flex flex-col items-center gap-3">
+        <LanguageSwitcher isScrolled={false} rounded={true} />
+        <h1 className="text-2xl text-foreground font-semibold text-center mt-2">
+          {mode === "login" ? t.auth.signInTitle : t.auth.registerTitle}
         </h1>
       </div>
 
@@ -136,12 +140,12 @@ export function LoginForm({
                 htmlFor="name"
                 className="text-sm font-medium text-foreground"
               >
-                Name
+                {t.auth.nameLabel}
               </label>
               <Input
                 id="name"
                 type="text"
-                placeholder="Name"
+                placeholder={t.auth.namePlaceholder}
                 value={name}
                 className="text-foreground"
                 onChange={(e) => setName(e.target.value)}
@@ -154,12 +158,12 @@ export function LoginForm({
                 htmlFor="surname"
                 className="text-sm font-medium text-foreground"
               >
-                Surname
+                {t.auth.surnameLabel}
               </label>
               <Input
                 id="surname"
                 type="text"
-                placeholder="Surname"
+                placeholder={t.auth.surnamePlaceholder}
                 value={surname}
                 className="text-foreground"
                 onChange={(e) => setSurname(e.target.value)}
@@ -175,12 +179,12 @@ export function LoginForm({
             htmlFor="phone"
             className="text-sm font-medium text-muted-foreground"
           >
-            Phone number
+            {t.auth.phoneLabel}
           </label>
           <Input
             id="phone"
             type="tel"
-            placeholder={"1234567890"}
+            placeholder={t.auth.phonePlaceholder}
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             disabled={isLoading}
@@ -195,12 +199,12 @@ export function LoginForm({
             htmlFor="password"
             className="text-sm font-medium text-muted-foreground"
           >
-            Password
+            {t.auth.passwordLabel}
           </label>
           <Input
             id="password"
             type="password"
-            placeholder="••••••••"
+            placeholder={t.auth.passwordPlaceholder}
             value={password}
             className="text-foreground"
             onChange={(e) => setPassword(e.target.value)}
@@ -215,12 +219,12 @@ export function LoginForm({
               htmlFor="confirmPassword"
               className="text-sm font-medium text-foreground"
             >
-              Confirm Password
+              {t.auth.confirmPasswordLabel}
             </label>
             <Input
               id="confirmPassword"
               type="password"
-              placeholder="••••••••"
+              placeholder={t.auth.confirmPasswordPlaceholder}
               className="text-foreground"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -242,11 +246,11 @@ export function LoginForm({
           )}
           {isLoading
             ? mode === "login"
-              ? "Signing in..."
-              : "Registering..."
+              ? t.auth.signingIn
+              : t.auth.registering
             : mode === "login"
-              ? "Sign In"
-              : "Register"}
+              ? t.auth.signInBtn
+              : t.auth.registerBtn}
         </Button>
 
         <div className="text-center mt-2">
@@ -260,8 +264,8 @@ export function LoginForm({
             disabled={isLoading}
           >
             {mode === "login"
-              ? "Don't have an account? Register"
-              : "Already have an account? Sign In"}
+              ? t.auth.noAccount
+              : t.auth.haveAccount}
           </button>
         </div>
       </form>

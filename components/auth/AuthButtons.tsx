@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/use-auth";
+import { useLanguage } from "@/hooks/use-language";
 
 interface AuthButtonsProps {
   className?: string;
@@ -19,6 +20,7 @@ export function AuthButtons({
   icon,
 }: AuthButtonsProps) {
   const { user, loading } = useAuth();
+  const { t } = useLanguage();
 
   if (loading) {
     return <div className="bg-foreground/50 rounded-lg h-9 w-24" />;
@@ -38,7 +40,7 @@ export function AuthButtons({
       >
         <Link href={user ? "/dashboard" : "/auth/choice"}>
           <span className="flex gap-1.5 items-center text-nowrap">
-            {user ? "Go to Dashboard" : text}
+            {user ? t.nav.goDashboard : text}
             {icon}
           </span>
         </Link>

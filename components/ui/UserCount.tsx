@@ -5,6 +5,7 @@ import { motion, useMotionValue, animate } from "framer-motion";
 import { Users } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/hooks/use-language";
 
 interface CounterProps {
   value: number;
@@ -56,6 +57,7 @@ export const UserBaseCounter: React.FC<UserBaseCounterProps> = ({
   totalUsers = 50000,
   className,
 }) => {
+  const { t } = useLanguage();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -103,14 +105,14 @@ export const UserBaseCounter: React.FC<UserBaseCounterProps> = ({
                   <AnimatedCounter value={totalUsers} duration={2} />
                   <span className="text-green-600">+</span>
                 </div>
-                <p className="text-xs text-muted-foreground">Active Users</p>
+                <p className="text-xs text-muted-foreground">{t.landing.activeUsers}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <p className="text-sm text-white">Join thousands of satisfied users</p>
+      <p className="text-sm text-white">{t.landing.joinThousands}</p>
     </motion.div>
   );
 };
