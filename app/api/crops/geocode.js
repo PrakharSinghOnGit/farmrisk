@@ -1,7 +1,7 @@
-const fs = require("fs");
-const csv = require("csv-parser");
-const format = require("fast-csv").format;
-const axios = require("axios");
+import { createReadStream, createWriteStream } from "fs";
+import csv from "csv-parser";
+import { format } from "fast-csv";
+import { get } from "axios";
 
 const INPUT_FILE = "District_Avg_Crop_Area.csv";
 const OUTPUT_FILE = "clean_districts_with_coords.csv";
@@ -23,13 +23,13 @@ async function startGeocoding() {
 
   // 1. Read raw CSV into memory
   console.log("Reading raw agricultural CSV file...");
-  fs.createReadStream(INPUT_FILE)
+  createReadStream(INPUT_FILE)
     .pipe(csv())
     .on("data", (data) => rows.push(data))
     .on("end", async () => {
       console.log(`Loaded ${rows.length} rows. Initializing geocoder...`);
 
-      const writeStream = fs.createWriteStream(OUTPUT_FILE);
+      const writeStream = createWriteStream(OUTPUT_FILE);
       const csvStream = format({ headers: true });
       csvStream.pipe(writeStream);
 
@@ -47,7 +47,7 @@ async function startGeocoding() {
         );
 
         try {
-          const response = await axios.get(
+          const response = await get(
             "https://nominatim.openstreetmap.org/search",
             {
               params: {
@@ -88,7 +88,7 @@ async function startGeocoding() {
               `    ⚠️ Direct match failed. Attempting state fallback for: ${rawState}`,
             );
 
-            const fallbackResponse = await axios.get(
+            const fallbackResponse = await get(
               "https://nominatim.openstreetmap.org/search",
               {
                 params: {

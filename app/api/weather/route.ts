@@ -275,6 +275,7 @@ function resolveWmo(code: number): WmoEntry {
 // Open-Meteo response shape (partial)
 
 type OpenMeteoResponse = {
+  utc_offset_seconds: number;
   current: {
     time: string;
     temperature_2m: number;
@@ -417,22 +418,22 @@ export async function GET(request: NextRequest) {
 
   const raw = (await response.json()) as OpenMeteoResponse;
 
-  // ---- Hourly: pick 6 slots from today starting at 6 AM local ----
-  const now = new Date();
-  const nowMs = now.getTime();
-  let closestIndex = 0;
-  let minDiff = Infinity;
+  // ---- Hourly: pick 24 slots starting from the next hour local ----
+  const utcOffset = raw.utc_offset_seconds ?? 0;
+  const nowMs = Date.now();
+  const currentLocalTimeMs = nowMs + utcOffset * 1000;
+  let nextHourIndex = 0;
   for (let i = 0; i < raw.hourly.time.length; i++) {
-    const timeMs = new Date(raw.hourly.time[i]).getTime();
-    const diff = Math.abs(timeMs - nowMs);
-    if (diff < minDiff) {
-      minDiff = diff;
-      closestIndex = i;
+    // Append 'Z' to parse as a UTC date, giving us the exact local epoch
+    const timeMs = new Date(raw.hourly.time[i] + "Z").getTime();
+    if (timeMs > currentLocalTimeMs) {
+      nextHourIndex = i;
+      break;
     }
   }
 
-  // Pick the next 24 hours starting from the closest index
-  const hourlySlots = Array.from({ length: 24 }, (_, i) => closestIndex + i)
+  // Pick the next 24 hours starting from the next hour index
+  const hourlySlots = Array.from({ length: 24 }, (_, i) => nextHourIndex + i)
     .filter((idx) => idx < raw.hourly.time.length);
 
   const hourly = hourlySlots.map((i) => {
