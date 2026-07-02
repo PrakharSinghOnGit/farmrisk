@@ -31,7 +31,25 @@ const GENERAL_CROP: CropOption = {
 };
 
 const AIOverview = () => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
+
+  const translateCropName = (crop: CropOption) => {
+    const id = crop.id.toLowerCase();
+    switch (id) {
+      case "general": return t.dashboard.cropGeneral;
+      case "cotton": return t.dashboard.cropCotton;
+      case "wheat": return t.dashboard.cropWheat;
+      case "rice": return t.dashboard.cropRice;
+      case "fodder": return t.dashboard.cropFodder;
+      case "pearlmillet": return t.dashboard.cropPearlmillet;
+      case "oilseeds": return t.dashboard.cropOilseeds;
+      case "castor": return t.dashboard.cropCastor;
+      case "sorghum": return t.dashboard.cropSorghum;
+      case "kharifsorghum": return t.dashboard.cropKharifsorghum;
+      case "chickpea": return t.dashboard.cropChickpea;
+      default: return crop.name;
+    }
+  };
   const { location } = useLocationContext();
   const weatherData = useWeather();
   const [isGenerating, setIsGenerating] = useState(false);
@@ -74,9 +92,7 @@ const AIOverview = () => {
       }
     } catch (err) {
       console.error("AI advisory fetch failed:", err);
-      setAdvisoryText(
-        "Failed to retrieve advisory. Please check your network connection.",
-      );
+      setAdvisoryText(t.dashboard.advisoryError);
     } finally {
       setIsGenerating(false);
     }
@@ -152,10 +168,10 @@ const AIOverview = () => {
           </div>
           <div>
             <h2 className="text-sm font-bold text-foreground leading-none">
-              AI Overview
+              {t.dashboard.aiOverview}
             </h2>
             <p className="text-[9px] font-semibold text-emerald-600 dark:text-emerald-400 tracking-wider uppercase mt-1">
-              Choose a crop
+              {t.dashboard.chooseCrop}
             </p>
           </div>
         </div>
@@ -168,7 +184,7 @@ const AIOverview = () => {
               className="w-full sm:w-auto h-8 bg-background/60 border-emerald-500/20 hover:border-emerald-500/40 text-foreground text-xs font-medium px-2.5 rounded-lg shadow-xs flex items-center justify-between gap-1.5 cursor-pointer"
             >
               <div className="flex items-center gap-1.5 min-w-0">
-                <span className="truncate">{selectedCrop.name}</span>
+                <span className="truncate">{translateCropName(selectedCrop)}</span>
               </div>
               <ChevronDown className="size-3.5 opacity-60 shrink-0" />
             </Button>
@@ -188,7 +204,7 @@ const AIOverview = () => {
                   className="flex items-center justify-between px-2.5 py-1.5 text-xs rounded-md hover:bg-accent hover:text-accent-foreground cursor-pointer transition-colors"
                 >
                   <div className="flex items-center gap-2 min-w-0">
-                    <span className="truncate font-medium">{option.name}</span>
+                    <span className="truncate font-medium">{translateCropName(option)}</span>
                   </div>
                   {isSelected && (
                     <Check className="size-3.5 text-primary shrink-0" />

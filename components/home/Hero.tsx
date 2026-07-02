@@ -87,7 +87,7 @@ export function Hero() {
                 >
                   <AuthButtons
                     className="w-40 h-13"
-                    text="Get Started"
+                    text={t.nav.getStarted}
                     icon={<Menu />}
                   />
                   <Button

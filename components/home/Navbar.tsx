@@ -109,7 +109,7 @@ export const NavBar = ({ type }: { type: "small" | "large" }) => {
                 {type == "large" && (
                   <AuthButtons
                     isScrolled={isSmall}
-                    text="Dashboard"
+                    text={t.nav.dashboard}
                     icon={<LayoutDashboard />}
                     className="h-10"
                   />
