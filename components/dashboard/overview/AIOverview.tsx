@@ -16,21 +16,14 @@ import {
 import { useLanguage } from "@/hooks/use-language";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useWeather } from "@/hooks/use-weather";
+import { type CropOption, GENERAL_CROP } from "./Overview";
 
-interface CropOption {
-  id: string;
-  name: string;
-  area: number;
+interface AIOverviewProps {
+  selectedCrop: CropOption;
+  setSelectedCrop: (crop: CropOption) => void;
 }
 
-// Global default option to ensure dropdown is never completely empty
-const GENERAL_CROP: CropOption = {
-  id: "general", // Unified to match lowercase convention
-  name: "General (All Crops)",
-  area: 0,
-};
-
-const AIOverview = () => {
+const AIOverview = ({ selectedCrop, setSelectedCrop }: AIOverviewProps) => {
   const { language, t } = useLanguage();
 
   const translateCropName = (crop: CropOption) => {
@@ -67,7 +60,6 @@ const AIOverview = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [advisoryText, setAdvisoryText] = useState("");
   const [crops, setCrops] = useState<CropOption[]>([]);
-  const [selectedCrop, setSelectedCrop] = useState<CropOption>(GENERAL_CROP);
 
   const { isLoading, current } = weatherData;
 
@@ -76,8 +68,11 @@ const AIOverview = () => {
     cropId: string,
     loc: SelectedLocation,
     lang: string,
+    signal?: AbortSignal,
   ) => {
     setIsGenerating(true);
+    localStorage.removeItem("farmrisk-ai-advisory");
+    window.dispatchEvent(new CustomEvent("farmrisk-ai-loading"));
     try {
       const response = await fetch("/api/ai", {
         method: "POST",
@@ -89,6 +84,7 @@ const AIOverview = () => {
           language: lang,
           weather: current,
         }),
+        signal,
       });
 
       if (!response.ok) {
@@ -98,21 +94,33 @@ const AIOverview = () => {
       const resData = await response.json();
       const text =
         resData.advisory_summary || "No advisory text could be generated.";
-      setAdvisoryText(text);
-      try {
-        localStorage.setItem("farmrisk-ai-advisory", text);
-      } catch (e) {
-        console.error("Failed to save AI advisory to localStorage", e);
+
+      if (!signal?.aborted) {
+        setAdvisoryText(text);
+        try {
+          localStorage.setItem("farmrisk-ai-advisory", text);
+          window.dispatchEvent(
+            new CustomEvent("farmrisk-ai-loaded", { detail: text }),
+          );
+        } catch (e) {
+          console.error("Failed to save AI advisory to localStorage", e);
+        }
       }
-    } catch (err) {
-      console.error("AI advisory fetch failed:", err);
-      setAdvisoryText(t.dashboard.advisoryError);
+    } catch (err: any) {
+      if (err.name !== "AbortError") {
+        console.error("AI advisory fetch failed:", err);
+        setAdvisoryText(t.dashboard.advisoryError);
+      }
     } finally {
-      setIsGenerating(false);
+      if (!signal?.aborted) {
+        setIsGenerating(false);
+      }
     }
   };
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function fetchCropsForCoordinates() {
       if (!location.lat || !location.lng) return;
 
@@ -120,9 +128,11 @@ const AIOverview = () => {
         // Queries the CSV-direct API endpoint we built previously
         const response = await fetch(
           `/api/crops?lat=${location.lat}&lng=${location.lng}`,
+          { signal: controller.signal },
         );
         const data = await response.json();
         if (
+          !controller.signal.aborted &&
           response.ok &&
           data.success &&
           data.crops &&
@@ -131,18 +141,24 @@ const AIOverview = () => {
           // General option sits at the top of the selectable dropdown list
           setCrops([GENERAL_CROP, ...data.crops]);
           setSelectedCrop(GENERAL_CROP);
-        } else {
+        } else if (!controller.signal.aborted) {
           setCrops([GENERAL_CROP]);
           setSelectedCrop(GENERAL_CROP);
         }
-      } catch (err) {
-        console.error("Error fetching regional crops:", err);
-        setCrops([GENERAL_CROP]);
-        setSelectedCrop(GENERAL_CROP);
+      } catch (err: any) {
+        if (err.name !== "AbortError" && !controller.signal.aborted) {
+          console.error("Error fetching regional crops:", err);
+          setCrops([GENERAL_CROP]);
+          setSelectedCrop(GENERAL_CROP);
+        }
       }
     }
 
     fetchCropsForCoordinates();
+
+    return () => {
+      controller.abort();
+    };
   }, [location.lat, location.lng]);
 
   const formattedText = advisoryText
@@ -163,10 +179,15 @@ const AIOverview = () => {
 
   // Fetch new advisory whenever coordinate, crop, or language parameters change
   useEffect(() => {
+    const controller = new AbortController();
+
     if (!isLoading && current) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      getAIAdvisory(selectedCrop.id, location, language);
+      getAIAdvisory(selectedCrop.id, location, language, controller.signal);
     }
+
+    return () => {
+      controller.abort();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.lat, location.lng, selectedCrop.id, language, isLoading]);
   return (

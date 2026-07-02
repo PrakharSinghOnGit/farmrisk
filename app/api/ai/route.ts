@@ -4,7 +4,7 @@ import { getCropAdvisory } from "@/lib/advisory-service";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    
+
     // Extract parameters from request body
     const latitude = Number(body.latitude);
     const longitude = Number(body.longitude);
@@ -15,8 +15,11 @@ export async function POST(request: NextRequest) {
     // Validate coordinates
     if (isNaN(latitude) || isNaN(longitude)) {
       return NextResponse.json(
-        { error: "Invalid coordinates provided. latitude and longitude must be numbers." },
-        { status: 400 }
+        {
+          error:
+            "Invalid coordinates provided. latitude and longitude must be numbers.",
+        },
+        { status: 400 },
       );
     }
 
@@ -30,11 +33,12 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(advisory);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error("Error in POST /api/ai:", error);
     return NextResponse.json(
       { error: error.message || "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

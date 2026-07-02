@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas-pro";
 import jsPDF from "jspdf";
 import {
@@ -75,6 +75,114 @@ const Download = ({ className }: { className?: string }) => {
   const { location } = useLocationContext();
   const weatherData = useWeather();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [predictions, setPredictions] = useState<any[]>(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("farmrisk-forecast-predictions");
+      if (stored) {
+        try {
+          return JSON.parse(stored);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+    return [];
+  });
+  const [aiSummary, setAiSummary] = useState<string>(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("farmrisk-ai-advisory") || "";
+    }
+    return "";
+  });
+  const [calendar, setCalendar] = useState<any[]>(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("farmrisk-crop-calendar");
+      if (stored) {
+        try {
+          return JSON.parse(stored);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+    return [];
+  });
+
+  const [isForecastLoading, setIsForecastLoading] = useState(() => {
+    if (typeof window !== "undefined") {
+      return !localStorage.getItem("farmrisk-forecast-predictions");
+    }
+    return true;
+  });
+  const [isAiLoading, setIsAiLoading] = useState(() => {
+    if (typeof window !== "undefined") {
+      return !localStorage.getItem("farmrisk-ai-advisory");
+    }
+    return true;
+  });
+  const [isCalendarLoading, setIsCalendarLoading] = useState(() => {
+    if (typeof window !== "undefined") {
+      return !localStorage.getItem("farmrisk-crop-calendar");
+    }
+    return true;
+  });
+
+  useEffect(() => {
+    const handleForecastLoading = () => {
+      setIsForecastLoading(true);
+      setPredictions([]);
+    };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleForecastLoaded = (e: any) => {
+      setPredictions(e.detail);
+      setIsForecastLoading(false);
+    };
+    const handleAiLoading = () => {
+      setIsAiLoading(true);
+      setAiSummary("");
+    };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleAiLoaded = (e: any) => {
+      setAiSummary(e.detail);
+      setIsAiLoading(false);
+    };
+    const handleCalendarLoading = () => {
+      setIsCalendarLoading(true);
+      setCalendar([]);
+    };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleCalendarLoaded = (e: any) => {
+      setCalendar(e.detail);
+      setIsCalendarLoading(false);
+    };
+
+    window.addEventListener("farmrisk-forecast-loading", handleForecastLoading);
+    window.addEventListener("farmrisk-forecast-loaded", handleForecastLoaded);
+    window.addEventListener("farmrisk-ai-loading", handleAiLoading);
+    window.addEventListener("farmrisk-ai-loaded", handleAiLoaded);
+    window.addEventListener("farmrisk-calendar-loading", handleCalendarLoading);
+    window.addEventListener("farmrisk-calendar-loaded", handleCalendarLoaded);
+
+    return () => {
+      window.removeEventListener("farmrisk-forecast-loading", handleForecastLoading);
+      window.removeEventListener("farmrisk-forecast-loaded", handleForecastLoaded);
+      window.removeEventListener("farmrisk-ai-loading", handleAiLoading);
+      window.removeEventListener("farmrisk-ai-loaded", handleAiLoaded);
+      window.removeEventListener("farmrisk-calendar-loading", handleCalendarLoading);
+      window.removeEventListener("farmrisk-calendar-loaded", handleCalendarLoaded);
+    };
+  }, []);
+
+  const isDataLoading =
+    weatherData.isLoading ||
+    isForecastLoading ||
+    isAiLoading ||
+    isCalendarLoading ||
+    !weatherData.current ||
+    predictions.length === 0 ||
+    !aiSummary;
+
   // 1. Core Snapshot Function
   const getCanvas = async () => {
     if (!printRef.current) return null;
@@ -134,7 +242,7 @@ const Download = ({ className }: { className?: string }) => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            disabled={isGenerating}
+            disabled={isGenerating || isDataLoading}
             className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-4 rounded-lg shadow-sm flex items-center justify-center"
           >
             {isGenerating ? (
@@ -182,6 +290,9 @@ const Download = ({ className }: { className?: string }) => {
             location={location}
             language={language}
             weather={weatherData}
+            predictions={predictions}
+            aiSummary={aiSummary}
+            calendar={calendar}
           />
         </div>
       </div>
