@@ -9,7 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@google/genai": "^2.10.0",
     "@gsap/react": "^2.1.2",
+    "@pinecone-database/pinecone": "^8.0.0",
     "@remixicon/react": "^4.9.0",
     "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.108.2",

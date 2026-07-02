@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ShieldAlert, Calendar, MapPin, Sparkles } from "lucide-react";
+import { ShieldAlert, Calendar, MapPin, Sparkles, Leaf } from "lucide-react";
 import { type SelectedLocation } from "@/providers/LocationProvider";
 import {
   CurrentWeather,
@@ -77,13 +77,15 @@ export default function DownloadTemplate({
 
   return (
     <div className="w-full h-full bg-white text-slate-800 p-8 flex flex-col justify-between font-sans border-t-12 border-emerald-600 box-border">
-      {/* 1. REPORT HEADER BRANDING */}
       <div>
         <div className="flex justify-between items-start border-b-2 border-emerald-600/20 pb-4">
           <div>
-            <h1 className="text-2xl font-black tracking-tight text-emerald-800">
-              🌾 FARMRISK ANALYTICS
-            </h1>
+            <div className="flex items-center gap-2">
+              <Leaf size={20} className="text-emerald-600" />
+              <h1 className="text-2xl font-black tracking-tight text-emerald-800">
+                FARMRISK ANALYTICS
+              </h1>
+            </div>
             <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mt-1">
               Operational Agronomist & Climate Risk Report
             </p>
